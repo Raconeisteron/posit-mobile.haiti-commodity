@@ -188,6 +188,15 @@
 	<item>5</item>
 	<item>6</item>
 	</integer-array>	
+	
+	
+		<!-- Commodity Arrays -->
+	<string-array name="commodities"> 
+	<item>Corn</item>
+	<item>Rice</item>
+	<item>Wheat</item>
+	<item>Chicken</item>
+	</string-array>
 
 	
 </resources>
