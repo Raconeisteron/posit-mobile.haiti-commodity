@@ -23,6 +23,16 @@ public class CommodityFind extends Find {
 	protected int syringesOut;
 	@DatabaseField(columnName = IS_NEW)
 	protected boolean isNew;
+	
+	//This code adds the database fields
+	public static final String cCommodity = "commodity";
+	public static final String cPrice = "price";
+	
+	@DatabaseField(columnName = cCommodity)
+	protected String commodity;
+	@DatabaseField(columnName = cPrice)
+	protected float price;
+	
 
 	public CommodityFind() {
 		// Necessary by ormlite
@@ -64,6 +74,24 @@ public class CommodityFind extends Find {
 
 	public void setNew(boolean isNew) {
 		this.isNew = isNew;
+	}
+	
+	//Commodity Tracker database setters and getters
+	
+	public String getCommodity() {
+		return commodity;
+	}
+
+	public void setSyringesOut(String commodity) {
+		this.commodity = commodity;
+	}
+
+	public float getPrice() {
+		return price;
+	}
+
+	public void setNew(float price) {
+		this.price = price;
 	}
 	
 	@Override

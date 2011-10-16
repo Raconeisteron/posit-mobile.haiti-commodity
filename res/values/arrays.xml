@@ -198,5 +198,12 @@
 	<item>Chicken</item>
 	</string-array>
 
+<!-- Commodity unit array -->
+	<string-array name="commodity_units"> 
+	<item>Marmite</item>
+	<item>Kilos</item>
+	<item>Pounds</item>
+	<item>Gallons</item>
+	</string-array>
 	
 </resources>
