@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent" android:layout_height="match_parent"
+	android:orientation="vertical" android:weightSum="1">
+		<ScrollView android:layout_width="fill_parent"
+		android:layout_height="wrap_content">
+		<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent" android:layout_height="match_parent"
+	android:orientation="vertical" android:weightSum="1">
+<!--     <TextView android:layout_width="wrap_content" android:id="@+id/communeSectionSpinner" android:layout_height="wrap_content" android:text="@string/cCommuneSection"></TextView> -->
+<!--     <Spinner android:layout_width="wrap_content" android:entries="@+array/commune_section_names" android:id="@+id/spinnerCommuneSection" android:layout_marginLeft="20px"  -->
+<!--     android:layout_marginRight="20px" android:layout_height="wrap_content"></Spinner> -->
+<!--     <TextView android:id="@+id/textView1" android:text="@string/cVendorNumber" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView> -->
+    <TableLayout android:id="@+id/tableLayout2"
+		android:layout_height="wrap_content" android:layout_width="match_parent"
+		android:stretchColumns="1">
+		 <TableRow android:id="@+id/tableRow10" android:layout_width="match_parent" android:layout_weight="1" android:layout_height="0dp">
+	<TextView android:layout_marginRight="20px" android:layout_width="wrap_content" android:id="@+id/communeSectionSpinner" android:layout_height="wrap_content" android:text="@string/cCommuneSection"></TextView>
+	<TextView android:text="@string/csCommuneSection" android:id="@+id/textView10" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+	    </TableRow>
+	    <TableRow android:id="@+id/tableRow9" android:layout_width="match_parent" android:layout_weight="1" android:layout_height="0dp">
+<!-- 	        <Spinner android:layout_marginRight="20px" android:id="@+id/spinnerCommuneSection" android:entries="@+array/commune_section_names" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="20px"></Spinner> -->
+    	    </TableRow>
+    <TableRow android:id="@+id/tableRow11" android:layout_width="match_parent" android:layout_weight="1" android:layout_height="0dp">
+    <TextView android:id="@+id/textView1" android:text="@string/cVendorNumber" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+    <TextView android:id="@+id/textView9" android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="@string/csVend"></TextView>
+    	    </TableRow>
+    	     <TableRow android:id="@+id/tableRow8" android:layout_width="match_parent" android:layout_weight="1" android:layout_height="0dp">
+        <TextView android:id="@+id/textView2" android:text="@string/cCommodity" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+     	    </TableRow>
+    <TableRow android:id="@+id/tableRow7" android:layout_width="match_parent" android:layout_weight="1" android:layout_height="wrap_content">
+        <Spinner android:layout_marginRight="20px" android:layout_weight="1" android:id="@+id/commoditySpinner" android:entries="@+array/commodities" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="20px"></Spinner>
+    </TableRow>
+<!-- 	<TableLayout android:id="@+id/tableLayout2" -->
+<!-- 		android:layout_height="wrap_content" android:layout_width="wrap_content" -->
+<!-- 		android:stretchColumns="1"> -->
+		<TableRow android:id="@+id/tableRow2" android:layout_width="wrap_content"
+			android:layout_weight="1" android:layout_height="0dp">
+			<TextView android:layout_height="wrap_content"
+				android:layout_width="wrap_content" android:text="@string/cPrice1"
+				android:id="@+id/commodityPrice1"></TextView>
+			<TextView android:text="@string/cUnits" android:id="@+id/textView12" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+		</TableRow>
+		<TableRow android:id="@+id/tableRow3" android:layout_weight="1" android:layout_height="0dp" android:layout_width="wrap_content">
+			<EditText android:inputType="numberDecimal" android:id="@+id/editText1" android:layout_height="wrap_content" android:layout_width="wrap_content">
+				<requestFocus></requestFocus>
+			</EditText>
+			<Spinner android:id="@+id/spinner1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:entries="@+array/commodity_units"></Spinner>
+		</TableRow>
+
+<TableRow android:id="@+id/tableRow4" android:layout_width="match_parent" android:layout_weight="1" android:layout_height="0dp">
+    <TextView android:text="@string/cPrice2" android:id="@+id/textView13" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+</TableRow>
+
+
+	<TableRow android:id="@+id/tableRow4" android:layout_width="match_parent" android:layout_weight="1" android:layout_height="0dp">
+		<EditText android:inputType="numberDecimal" android:id="@+id/editText3" android:layout_height="wrap_content" android:layout_width="wrap_content"></EditText>
+	</TableRow>
+	<TextView android:text="@string/cPrice3" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/textView14"></TextView>
+	<TableRow android:id="@+id/tableRow14" android:layout_width="match_parent" android:layout_weight="1" android:layout_height="0dp">
+	<EditText android:inputType="numberDecimal" android:layout_height="wrap_content" android:id="@+id/editText4" android:layout_width="wrap_content"></EditText>
+	</TableRow>
+	<TextView android:text="@string/cAverage" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/textView14"></TextView>
+	<TableRow android:id="@+id/tableRow15" android:layout_width="match_parent" android:layout_weight="1" android:layout_height="0dp">
+	<EditText android:inputType="numberDecimal" android:layout_height="wrap_content" android:id="@+id/editText4" android:layout_width="wrap_content"></EditText>
+	</TableRow>
+	<TableRow android:id="@+id/tableRow5" android:layout_width="match_parent" android:layout_weight="1" android:layout_height="0dp">
+		<Button android:text="@string/cNextItem" android:id="@+id/button1" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+		<Button android:layout_height="wrap_content"
+			android:layout_width="wrap_content" android:text="@string/cVendorComplete"
+			android:id="@+id/finish"></Button>
+	</TableRow>
+<!-- 	<TableRow android:id="@+id/tableRow6" android:layout_width="wrap_content" -->
+<!-- 			android:layout_height="wrap_content"> -->
+<!-- 		<CheckBox android:text="@string/is_new" android:layout_width="wrap_content" android:id="@+id/isNewCheckBox" android:layout_height="wrap_content"></CheckBox> -->
+<!-- 	</TableRow> -->
+<TableRow android:id="@+id/tableRow12" android:layout_width="match_parent" android:layout_weight="1" android:layout_height="0dp">
+    <TextView android:text="@string/cLat" android:id="@+id/textView3" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+    <TextView android:text="@string/csLat" android:id="@+id/textView6" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+</TableRow>
+<TableRow android:id="@+id/tableRow13" android:layout_width="match_parent" android:layout_weight="1" android:layout_height="0dp">
+    <TextView android:text="@string/cLon" android:id="@+id/textView4" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+    <TextView android:text="@string/csLon" android:id="@+id/textView7" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+</TableRow>
+<TableRow android:id="@+id/tableRow14" android:layout_width="match_parent" android:layout_weight="1" android:layout_height="0dp"> 
+    <TextView android:text="@string/cDate" android:id="@+id/textView5" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+    <TextView android:text="@string/csDate" android:id="@+id/textView8" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+</TableRow>
+	        <DatePicker android:id="@+id/datePicker1" android:layout_width="wrap_content" android:layout_height="wrap_content"></DatePicker>
+</TableLayout>
+<!--     <TextView android:text="@string/cLat" android:id="@+id/textView3" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView> -->
+<!--     <TextView android:text="@string/cLon" android:id="@+id/textView4" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView> -->
+<!--     <TextView android:text="@string/cDate" android:id="@+id/textView5" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView> -->
+    <TextView android:text="@string/cNotes" android:id="@+id/textView11" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+    <EditText android:id="@+id/editText2" android:layout_height="wrap_content" android:layout_width="match_parent" android:layout_weight="0.48"></EditText>
+</LinearLayout>
+	</ScrollView>
+	</LinearLayout>

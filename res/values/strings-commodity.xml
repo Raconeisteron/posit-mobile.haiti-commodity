@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="commodityPrefs">Commodity Preferences</string>
+    
+    <string name="cSmsPhoneKey">smsPhone</string>
+    <string name="cSMS_phone">SMS Phone Target</string>
+    <string name="cDefault_phone">8605022947</string>
+    <string name="cAlert_dialog_ok">Ok</string>
+	<string name="cAlert_dialog_cancel">Cancel</string>
+    
+<!--     <string name="cLanguage">Language</string> -->
+    <string name="cLocaleKey">locale</string>
+    <string name="cLocale">Locale</string>
+    <!-- Do not translate key values-->
+    <string name="cCommune_section_key">commune_section_key</string>
+    <string name="cCommune">Commune</string>
+    <string name="cCommune_section">Communal section</string>
+    <string name="cDefault_preference_string">default_null_value</string>
+    <string name="cCancelLabel">Cancel</string>
+    <string name="cAboutItem">About</string>
+    <string name="cMRice">Miami Rice /(Lucky/)</string>
+    <string name="cLRice">Local Rice</string>
+    <string name="cLCorn">Local Corn</string>
+    
+    <string name="cNextItem">Next Item</string>
+    <string name="cVendorComplete">Finish</string>
+    
+    <string name="cLat">Latitude: </string>
+    <string name="cLon">Longitude: </string>
+    <string name="cDate">Date: </string>
+    <string name="cNotes">Notes: </string>
+    
+<!--     Form info -->    
+    <string name="cUnits">Units </string>
+    <string name="cCommodity">Commodity</string>
+    <string name="cCommuneSection">Commune Section:</string>
+    <string name="cVendorNumber">Vendor Number: </string>
+    <string name="cPrice1">Price 1</string>    
+    <string name="cPrice2">Price 2</string> 
+    <string name="cPrice3">Price 3</string> 
+    <string name="cLocation">Location</string>
+    <string name="cNewVendor">New Vendor</string>
+    <string name="cListData">Saved Data</string>
+	<string name="cAverage">Average</string>
+    
+<!--     Sample info -->
+	<string name="csCommuneSection">Mapou</string>
+	<string name="csVend">6</string>
+	<string name="csLat">20.34</string>
+    <string name="csLon">-36.54</string>
+    <string name="csDate">7 October 2011</string>
+	
+    
+    <string name="commodityAboutDescription">We provide sustainable solutions to the 
+    most pressing and intractable development problems. Our activities span 
+    the development continuum, from meeting basic needs to community stabilization, 
+    food security and nutrition, poverty alleviation, access to financial services 
+    and market integration.
+
+    </string>
+    
+</resources>
