@@ -2,14 +2,6 @@
 <resources>
     <string name="commodityPrefs">Commodity Preferences</string>
     
-    <string name="cCommodity">Commodity</string>
-    <string name="cCommuneSection">Commune Section:</string>
-    <string name="cVendorNumber">Vendor Number: </string>
-    <string name="cPrice">Price</string>    
-    <string name="cLocation">Location</string>
-    <string name="cNewVendor">New Vendor</string>
-    <string name="cListData">Saved Data</string>
-    
     <string name="cSmsPhoneKey">smsPhone</string>
     <string name="cSMS_phone">SMS Phone Target</string>
     <string name="cDefault_phone">8605022947</string>
@@ -38,6 +30,18 @@
     <string name="cDate">Date: </string>
     <string name="cNotes">Notes: </string>
     
+<!--     Form info -->    
+    <string name="cUnits">Units </string>
+    <string name="cCommodity">Commodity</string>
+    <string name="cCommuneSection">Commune Section:</string>
+    <string name="cVendorNumber">Vendor Number: </string>
+    <string name="cPrice1">Price 1</string>    
+    <string name="cPrice2">Price 2</string> 
+    <string name="cPrice3">Price 3</string> 
+    <string name="cLocation">Location</string>
+    <string name="cNewVendor">New Vendor</string>
+    <string name="cListData">Saved Data</string>
+	<string name="cAverage">Average</string>
     
 <!--     Sample info -->
 	<string name="csCommuneSection">Mapou</string>
