@@ -26,13 +26,21 @@ public class CommodityFind extends Find {
 	
 	//This code adds the database fields
 	public static final String cCommodity = "commodity";
-	public static final String cPrice = "price";
+	public static final String cPrice1 = "price1";
+	public static final String cPrice2 = "price2";
+	public static final String cPrice3 = "price3";
+	public static final String cUnits = "units";
 	
 	@DatabaseField(columnName = cCommodity)
 	protected String commodity;
-	@DatabaseField(columnName = cPrice)
-	protected float price;
-	
+	@DatabaseField(columnName = cPrice1)   
+	protected float price1;
+	@DatabaseField(columnName = cPrice2)   
+	protected float price2;
+	@DatabaseField(columnName = cPrice3)   
+	protected float price3;
+	@DatabaseField(columnName = cUnits)   //Unit of measurement
+	protected String units;
 
 	public CommodityFind() {
 		// Necessary by ormlite
@@ -82,16 +90,40 @@ public class CommodityFind extends Find {
 		return commodity;
 	}
 
-	public void setSyringesOut(String commodity) {
+	public void setCommodity(String commodity) {
 		this.commodity = commodity;
 	}
 
-	public float getPrice() {
-		return price;
+	public float getPrice1() {
+		return price1;
+	}
+	
+	public void setPrice1(float price1) {
+		this.price1 = price1;
+	}
+	
+	public float getPrice2() {
+		return price2;
+	}
+	
+	public void setPrice2(float price2) {
+		this.price2 = price2;
+	}
+	
+	public float getPrice3() {
+		return price3;
+	}
+	
+	public void setPrice3(float price3) {
+		this.price3 = price3;
 	}
 
-	public void setNew(float price) {
-		this.price = price;
+	public void setUnits(String units) {
+		this.units = units;
+	}
+	
+	public String getUnits(){
+		return units;
 	}
 	
 	@Override

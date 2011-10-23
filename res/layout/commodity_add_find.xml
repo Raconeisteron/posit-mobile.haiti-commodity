@@ -21,10 +21,10 @@
 	    <TableRow android:id="@+id/tableRow9" android:layout_width="match_parent" android:layout_weight="1" android:layout_height="0dp">
 <!-- 	        <Spinner android:layout_marginRight="20px" android:id="@+id/spinnerCommuneSection" android:entries="@+array/commune_section_names" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="20px"></Spinner> -->
     	    </TableRow>
-    <TableRow android:id="@+id/tableRow11" android:layout_width="match_parent" android:layout_weight="1" android:layout_height="0dp">
-    <TextView android:id="@+id/textView1" android:text="@string/cVendorNumber" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
-    <TextView android:id="@+id/textView9" android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="@string/csVend"></TextView>
-    	    </TableRow>
+<!--     <TableRow android:id="@+id/tableRow11" android:layout_width="match_parent" android:layout_weight="1" android:layout_height="0dp"> -->
+<!--     <TextView android:id="@+id/textView1" android:text="@string/cVendorNumber" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView> -->
+<!--     <TextView android:id="@+id/textView9" android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="@string/csVend"></TextView> -->
+<!--     	    </TableRow> -->
     	     <TableRow android:id="@+id/tableRow8" android:layout_width="match_parent" android:layout_weight="1" android:layout_height="0dp">
         <TextView android:id="@+id/textView2" android:text="@string/cCommodity" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
      	    </TableRow>
@@ -60,15 +60,17 @@
 	<TableRow android:id="@+id/tableRow14" android:layout_width="match_parent" android:layout_weight="1" android:layout_height="0dp">
 	<EditText android:inputType="numberDecimal" android:layout_height="wrap_content" android:id="@+id/editText4" android:layout_width="wrap_content"></EditText>
 	</TableRow>
-	<TextView android:text="@string/cAverage" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/textView14"></TextView>
-	<TableRow android:id="@+id/tableRow15" android:layout_width="match_parent" android:layout_weight="1" android:layout_height="0dp">
-	<EditText android:inputType="numberDecimal" android:layout_height="wrap_content" android:id="@+id/editText4" android:layout_width="wrap_content"></EditText>
-	</TableRow>
+<!-- 	<TextView android:text="@string/cAverage" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/textView14"></TextView> -->
+<!-- 	<TableRow android:id="@+id/tableRow15" android:layout_width="match_parent" android:layout_weight="1" android:layout_height="0dp"> -->
+<!-- 	<EditText android:inputType="numberDecimal" android:layout_height="wrap_content" android:id="@+id/editText4" android:layout_width="wrap_content"></EditText> -->
+<!-- 	</TableRow> -->
+	
+<!-- 	This code is used to save finds -->
 	<TableRow android:id="@+id/tableRow5" android:layout_width="match_parent" android:layout_weight="1" android:layout_height="0dp">
 		<Button android:text="@string/cNextItem" android:id="@+id/button1" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
 		<Button android:layout_height="wrap_content"
 			android:layout_width="wrap_content" android:text="@string/cVendorComplete"
-			android:id="@+id/finish"></Button>
+			android:id="@+id/saveButton"></Button>
 	</TableRow>
 <!-- 	<TableRow android:id="@+id/tableRow6" android:layout_width="wrap_content" -->
 <!-- 			android:layout_height="wrap_content"> -->
