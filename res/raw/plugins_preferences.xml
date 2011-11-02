@@ -39,6 +39,8 @@
 <!-- 			main_icon="outsidein_logo" /> -->
 			
 			
+<!-- Note:		Add the code::   type="find"   ::to the end version, or it will not work.	 -->
+			
 		<Plugin active="true" name="CommodityFind"
 			package="org.hfoss.posit.android.experimental.plugin.commodity"
 			find_class = 		"org.hfoss.posit.android.experimental.plugin.commodity.CommodityFind"

@@ -1,5 +1,6 @@
 package org.hfoss.posit.android.experimental.plugin.commodity;
 
+import java.sql.Date;
 import java.sql.SQLException;
 
 import org.hfoss.posit.android.experimental.api.Find;
@@ -25,22 +26,25 @@ public class CommodityFind extends Find {
 	protected boolean isNew;
 	
 	//This code adds the database fields
-	public static final String cCommodity = "commodity";
-	public static final String cPrice1 = "price1";
-	public static final String cPrice2 = "price2";
-	public static final String cPrice3 = "price3";
-	public static final String cUnits = "units";
+	public static final String C_COMMODITY = "commodity";
+	public static final String C_PRICE_1 = "price1";
+	public static final String C_PRICE_2 = "price2";
+	public static final String C_PRICE_3 = "price3";
+	public static final String C_UNITS = "units";
+	public static final String C_DATE = "date";
 	
-	@DatabaseField(columnName = cCommodity)
+	@DatabaseField(columnName = C_COMMODITY)
 	protected String commodity;
-	@DatabaseField(columnName = cPrice1)   
+	@DatabaseField(columnName = C_PRICE_1)   
 	protected float price1;
-	@DatabaseField(columnName = cPrice2)   
+	@DatabaseField(columnName = C_PRICE_2)   
 	protected float price2;
-	@DatabaseField(columnName = cPrice3)   
+	@DatabaseField(columnName = C_PRICE_3)   
 	protected float price3;
-	@DatabaseField(columnName = cUnits)   //Unit of measurement
+	@DatabaseField(columnName = C_UNITS)   //Unit of measurement
 	protected String units;
+	@DatabaseField(columnName = C_DATE) 
+	protected String date;
 
 	public CommodityFind() {
 		// Necessary by ormlite
@@ -126,6 +130,14 @@ public class CommodityFind extends Find {
 		return units;
 	}
 	
+	public void setDate(String date){
+		this.date = date;
+	}
+	
+	public String getDate(){
+		return date;
+	}
+	
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -147,8 +159,8 @@ public class CommodityFind extends Find {
 		sb.append(IS_ADHOC).append("=").append(is_adhoc).append(",");
 		sb.append(ACTION).append("=").append(action).append(",");
 		sb.append(DELETED).append("=").append(deleted).append(",");
-		sb.append(SYRINGES_IN).append("=").append(syringesIn).append(",");
-		sb.append(SYRINGES_OUT).append("=").append(syringesOut).append(",");
+//		sb.append(SYRINGES_IN).append("=").append(syringesIn).append(",");
+//		sb.append(SYRINGES_OUT).append("=").append(syringesOut).append(",");
 		return sb.toString();
 	}
 
