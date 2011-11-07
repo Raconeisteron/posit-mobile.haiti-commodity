@@ -142,7 +142,7 @@ OnDateChangedListener {
 		
 		
 		CommodityFind oiFind = (CommodityFind)find;
-		EditText et = (EditText)findViewById(R.id.guidEditText);
+		EditText et; // = (EditText)findViewById(R.id.guidEditText);
 //		et.setText(oiFind.getGuid());
 		
 		
