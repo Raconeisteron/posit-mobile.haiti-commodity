@@ -25,6 +25,8 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.ContactsContract;
@@ -35,10 +37,12 @@ import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import org.hfoss.posit.android.experimental.R;
-import org.hfoss.posit.android.experimental.api.authentication.NetworkUtilities;
+//import org.hfoss.posit.android.experimental.api.authentication.NetworkUtilities;
+import org.hfoss.posit.android.experimental.sync.Communicator;
 import org.hfoss.posit.android.experimental.sync.SyncAdapter;
 
 /**
@@ -118,6 +122,21 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
         mPasswordEdit = (EditText) findViewById(R.id.password_edit);
         mUsernameEdit.setText(mUsername);
         mMessage.setText(getMessage());
+        
+        // Checks for connectivity over wifi or mobile.  TODO: Other network types? They are listed in ConnectivityManager.
+        ConnectivityManager connectivityManager = (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo[] networkInfos = connectivityManager.getAllNetworkInfo();
+        
+        boolean isConnected = false;
+        for (NetworkInfo info : networkInfos){
+        	if (info.isConnected() && (info.getType() == ConnectivityManager.TYPE_MOBILE || info.getType() == ConnectivityManager.TYPE_WIFI)) 
+        		isConnected=true;
+        }
+        if (!isConnected){
+        	Toast.makeText(this, "Sorry, you need a network connection to authenticate.", Toast.LENGTH_LONG).show();
+        	finish();
+        }
+        
     }
 
     /*
@@ -126,7 +145,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
     @Override
     protected Dialog onCreateDialog(int id) {
         final ProgressDialog dialog = new ProgressDialog(this);
-        dialog.setMessage("Authenticaitaitating");
+        dialog.setMessage("Authenticating");
         dialog.setIndeterminate(true);
         dialog.setCancelable(true);
         dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
@@ -152,6 +171,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
             mUsername = mUsernameEdit.getText().toString();
         }
         mPassword = mPasswordEdit.getText().toString();
+      
         // Get the imei for our server..
         TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
         String imei = telephonyManager.getDeviceId();
@@ -161,8 +181,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
             showProgress();
             // Start authenticating...
             mAuthThread =
-                NetworkUtilities.attemptAuth(mUsername, mPassword, imei, mHandler,
-                    AuthenticatorActivity.this);
+                Communicator.attemptAuth(mUsername, mPassword, imei, mHandler, this);
         }
     }
 
@@ -190,9 +209,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
      * AccountAuthenticatorResult which is sent back to the caller. Also sets
      * the authToken in AccountManager for this account.
      * 
+     * @param authToken the auth token from the server.
+     * 
      * @param the confirmCredentials result.
      */
-    private void finishLogin() {
+    private void finishLogin(String authKey) {
 
         Log.i(TAG, "finishLogin()");
         final Account account = new Account(mUsername, SyncAdapter.ACCOUNT_TYPE);
@@ -204,7 +225,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
             mAccountManager.setPassword(account, mPassword);
         }
         final Intent intent = new Intent();
-        mAuthtoken = mPassword;
+        mAuthtoken = authKey;
         intent.putExtra(AccountManager.KEY_ACCOUNT_NAME, mUsername);
         intent.putExtra(AccountManager.KEY_ACCOUNT_TYPE,SyncAdapter.ACCOUNT_TYPE);
         if (mAuthtokenType != null && mAuthtokenType.equals(SyncAdapter.AUTHTOKEN_TYPE)) {
@@ -212,6 +233,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
         }
         setAccountAuthenticatorResult(intent.getExtras());
         setResult(RESULT_OK, intent);
+        Toast.makeText(this, "Authentication successful.  You can now use POSIT.", Toast.LENGTH_LONG).show();
         finish();
     }
 
@@ -225,14 +247,14 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
     /**
      * Called when the authentication process completes (see attemptLogin()).
      */
-    public void onAuthenticationResult(boolean result) {
+    public void onAuthenticationResult(boolean result, String authKey) {
 
         Log.i(TAG, "onAuthenticationResult(" + result + ")");
         // Hide the progress dialog
         hideProgress();
         if (result) {
             if (!mConfirmCredentials) {
-                finishLogin();
+                finishLogin(authKey);
             } else {
                 finishConfirmCredentials(true);
             }
@@ -240,12 +262,12 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
             Log.e(TAG, "onAuthenticationResult: failed to authenticate");
             if (mRequestNewAccount) {
                 // "Please enter a valid username/password.
-                mMessage.setText("Please enter a valid username passwort");
+                mMessage.setText(getString(R.string.authFailed));
             } else {
                 // "Please enter a valid password." (Used when the
                 // account is already in the database but the password
                 // doesn't work.)
-                mMessage.setText("Plz enter a valid password (yeah change thisss)");
+                mMessage.setText(getString(R.string.authFailed));
             }
         }
     }
@@ -257,12 +279,12 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
         if (TextUtils.isEmpty(mUsername)) {
             // If no username, then we ask the user to log in using an
             // appropriate service.
-            final CharSequence msg = "WHAT?";
+            final CharSequence msg = getString(R.string.missingUsername);
             return msg;
         }
         if (TextUtils.isEmpty(mPassword)) {
             // We have an account but no password
-            return "I dont know";
+            return getString(R.string.missingPassword);
         }
         return null;
     }

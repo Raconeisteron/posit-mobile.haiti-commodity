@@ -16,6 +16,7 @@ package org.hfoss.posit.android.experimental.api.authentication;
  * the License.
  */
 
+import org.hfoss.posit.android.experimental.sync.Communicator;
 import org.hfoss.posit.android.experimental.sync.SyncAdapter;
 
 import android.accounts.AbstractAccountAuthenticator;
@@ -26,8 +27,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
-import org.hfoss.posit.android.experimental.api.authentication.NetworkUtilities;
+//import org.hfoss.posit.android.experimental.api.authentication.NetworkUtilities;
 
 /**
  * This class is an implementation of AbstractAccountAuthenticator for
@@ -35,7 +37,9 @@ import org.hfoss.posit.android.experimental.api.authentication.NetworkUtilities;
  */
 class Authenticator extends AbstractAccountAuthenticator {
 
-    // Authentication Service context
+    private static final String TAG = "Authenticator";
+    
+	// Authentication Service context
     private final Context mContext;
 
     public Authenticator(Context context) {
@@ -61,9 +65,9 @@ class Authenticator extends AbstractAccountAuthenticator {
 
         if (options != null && options.containsKey(AccountManager.KEY_PASSWORD)) {
             final String password = options.getString(AccountManager.KEY_PASSWORD);
-            final boolean verified = onlineConfirmPassword(account.name, password);
+            final String authKey = onlineConfirmPassword(account.name, password);
             final Bundle result = new Bundle();
-            result.putBoolean(AccountManager.KEY_BOOLEAN_RESULT, verified);
+            result.putBoolean(AccountManager.KEY_BOOLEAN_RESULT, authKey != null);
             return result;
         }
         // Launch AuthenticatorActivity to confirm credentials
@@ -84,7 +88,7 @@ class Authenticator extends AbstractAccountAuthenticator {
     @Override
     public Bundle getAuthToken(AccountAuthenticatorResponse response, Account account,
         String authTokenType, Bundle loginOptions) {
-
+    	Log.i(TAG, "getAuthToken()");
         if (!authTokenType.equals(SyncAdapter.AUTHTOKEN_TYPE)) {
             final Bundle result = new Bundle();
             result.putString(AccountManager.KEY_ERROR_MESSAGE, "invalid authTokenType");
@@ -93,12 +97,12 @@ class Authenticator extends AbstractAccountAuthenticator {
         final AccountManager am = AccountManager.get(mContext);
         final String password = am.getPassword(account);
         if (password != null) {
-            final boolean verified = onlineConfirmPassword(account.name, password);
-            if (verified) {
+            final String authKey = onlineConfirmPassword(account.name, password);
+            if (authKey != null) {
                 final Bundle result = new Bundle();
                 result.putString(AccountManager.KEY_ACCOUNT_NAME, account.name);
                 result.putString(AccountManager.KEY_ACCOUNT_TYPE, SyncAdapter.ACCOUNT_TYPE);
-                result.putString(AccountManager.KEY_AUTHTOKEN, password);
+                result.putString(AccountManager.KEY_AUTHTOKEN, authKey);
                 return result;
             }
         }
@@ -132,12 +136,13 @@ class Authenticator extends AbstractAccountAuthenticator {
 
     /**
      * Validates user's password on the server
+     * @return the authKey from the server
      */
-    private boolean onlineConfirmPassword(String username, String password) {
+    private String onlineConfirmPassword(String username, String password) {
     	TelephonyManager telephonyManager = (TelephonyManager)mContext.getSystemService(Context.TELEPHONY_SERVICE);
     	String imei = telephonyManager.getDeviceId();
-        return NetworkUtilities
-            .authenticate(username, password, imei, null/* Handler */, null/* Context */);
+        return Communicator
+            .loginUser(username, password, imei, null, mContext);
     }
 
     @Override

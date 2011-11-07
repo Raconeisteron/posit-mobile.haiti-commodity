@@ -3,24 +3,26 @@ package org.hfoss.posit.android.experimental.api.activity;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 import org.hfoss.posit.android.experimental.R;
 import org.hfoss.posit.android.experimental.api.Find;
 import org.hfoss.posit.android.experimental.api.database.DbManager;
 import org.hfoss.posit.android.experimental.plugin.FindPluginManager;
 
-import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -28,13 +30,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
+
+import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 
 public class FindActivity extends OrmLiteBaseActivity<DbManager> // Activity
 		implements OnClickListener, OnItemClickListener, LocationListener {
@@ -44,54 +47,127 @@ public class FindActivity extends OrmLiteBaseActivity<DbManager> // Activity
 
 	private LocationManager mLocationManager;
 	private Location mCurrentLocation;
+	private boolean mGeoTag; 
+	private TextView mLatitudeView = null;
+	private TextView mLongitudeView = null;
+	private String mProvider = null;
 
+	/**
+	 * This may be invoked by a FindActivity subclass, which may or may not have latitude
+	 * and longitude fields.  
+	 */
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		// Get the custom add find layout from the plugin settings, if there is
-		// one.
-		int resId = getResources().getIdentifier(
-				FindPluginManager.mAddFindLayout, "layout", getPackageName());
+		// Get the custom add find layout from the plugin settings, if there is one.
+		int resId = getResources().getIdentifier(FindPluginManager.mAddFindLayout, "layout", getPackageName());
 
 		setContentView(resId);
+		mLatitudeView = (TextView) findViewById(R.id.latitudeValueTextView);
+		mLongitudeView = (TextView) findViewById(R.id.longitudeValueTextView);
+		
 		initializeListeners();
+		
+		// Check if settings allow Geotagging
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);		
+		mGeoTag = prefs.getBoolean("geotagKey", true);
+		if (mGeoTag) {
+			// Get location manager.  
+			mLocationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+			Criteria criteria = new Criteria();
+			criteria.setAccuracy(Criteria.ACCURACY_COARSE);
+			criteria.setPowerRequirement(Criteria.NO_REQUIREMENT);
+			mProvider = mLocationManager.getBestProvider(criteria, true);
+			
+			// Set the current location
+			Location location = null;
+			if (mProvider != null && mLatitudeView != null && mLongitudeView != null) {
+				Log.i(TAG, "Location provider selected = " + mProvider);
+				location =  mLocationManager.getLastKnownLocation(mProvider);
+				if (location != null) {
+					int lat = (int) (location.getLatitude());
+					int lng = (int) (location.getLongitude());
+					mLatitudeView.setText(String.valueOf(lat));
+					mLongitudeView.setText(String.valueOf(lng));
+				} else {
+					mLatitudeView.setText("Unavailable");
+					mLongitudeView.setText("Unavailable");
+				}
+				//mLocationManager.requestLocationUpdates(provider, 10000, 0, this);
+			}
+			else {
+				Toast.makeText(this, "Unable to get a location via Wifi or GPS.  Are they enabled?", Toast.LENGTH_LONG)
+						.show();
+				Log.i(TAG, "Cannot request location updates, wifi or GPS might not be enabled/need a view of the sky");
+			}
+		} else { // Geotagging is off
+			TextView tView = (TextView) findViewById(R.id.longitudeTextView); 
+			if (tView != null)
+				tView.setVisibility(View.INVISIBLE);
+			if (mLongitudeView != null)
+				mLongitudeView.setVisibility(View.INVISIBLE);
+			tView = (TextView) findViewById(R.id.latitudeTextView);
+			if (tView != null)
+				tView.setVisibility(View.INVISIBLE);	
+			if (mLatitudeView != null)
+				mLatitudeView.setVisibility(View.INVISIBLE);
+		}
+	}
+	
+	/**
+	 * This may be invoked from a FindActivity subclass which has its own layout. So 
+	 * all Views here must be referred to only contingently.  They many not exist. 
+	 */
+	protected void onResume() {
+		super.onResume();
+
 		Bundle extras = getIntent().getExtras();
 
-		// Check for a new location every ten seconds while we're adding a new
-		// find.
-		mLocationManager = (LocationManager) this
-				.getSystemService(Context.LOCATION_SERVICE);
-
-		Criteria criteria = new Criteria();
-		criteria.setAccuracy(Criteria.ACCURACY_COARSE);
-		criteria.setPowerRequirement(Criteria.NO_REQUIREMENT);
-		String provider = mLocationManager.getBestProvider(criteria, true);
-		if (provider != null)
-			mLocationManager.requestLocationUpdates(provider, 10000, 0, this);
-		else {
-			Toast.makeText(this, "Unable to get a location via Wifi or GPS.  Are they enabled?", Toast.LENGTH_LONG).show();
-			Log.i(TAG, "Cannot request location updates, wifi or GPS might not be enabled/need a view of the sky");
-		}
+		if(mGeoTag) {
+			mLocationManager.requestLocationUpdates(mProvider, 10000, 0, this);
+			Location lastKnownLocation = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+			if (lastKnownLocation == null)
+				Toast.makeText(this, "Unable to retrieve last known location.", Toast.LENGTH_LONG).show();
+			else
+				mCurrentLocation = lastKnownLocation;
+		}	
 
 		if (extras != null) {
 			if (getIntent().getAction().equals(Intent.ACTION_EDIT)) {
 				Find find = getHelper().getFindById(extras.getInt(Find.ORM_ID));
 				displayContentInView(find);
 			}
-		}
+		} else {
+			TextView idView = (TextView) findViewById(R.id.guidRealValueTextView);
+			if (idView != null)
+				idView.setText(UUID.randomUUID().toString());
+
+			TextView tView = (TextView) findViewById(R.id.guidValueTextView);
+			if (tView != null)
+				tView.setText(idView.getText().toString().substring(0,8)+" ...");
+
+			tView = (TextView) findViewById(R.id.timeValueTextView);
+			if (tView != null) {
+				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+				Date date = new Date();
+				tView.setText(dateFormat.format(date));
+			}
+
+			setLocationTextViews(mCurrentLocation);
+		}		
+
 	}
+	
+	
 
-	protected void onResume() {
-		super.onResume();
-
-		Location lastKnownLocation = mLocationManager
-				.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-		if (lastKnownLocation == null)
-			Toast.makeText(this,
-					"Unable to retrieve last known location.",
-					Toast.LENGTH_LONG).show();
-		else
-			mCurrentLocation = lastKnownLocation;
+	/**
+	 * RemoveUpdates whenever the activity is paused.
+	 */
+	@Override
+	protected void onPause() {
+		super.onPause();
+		if (mLocationManager != null)
+			mLocationManager.removeUpdates(this);
 	}
 
 	/**
@@ -109,10 +185,16 @@ public class FindActivity extends OrmLiteBaseActivity<DbManager> // Activity
 	 * @param location
 	 */
 	protected void setLocationTextViews(Location location) {
-		TextView tView = (TextView) findViewById(R.id.longitudeValueTextView);
-		tView.setText(String.valueOf(location.getLongitude()));
-		tView = (TextView) findViewById(R.id.latitudeValueTextView);
-		tView.setText(String.valueOf(location.getLatitude()));
+		TextView longView = (TextView) findViewById(R.id.longitudeValueTextView);
+		TextView latView = (TextView) findViewById(R.id.latitudeValueTextView);
+		if (longView != null && latView != null) 
+			if (mCurrentLocation != null) {
+				longView.setText(String.valueOf(location.getLongitude()));
+				latView.setText(String.valueOf(location.getLatitude()));
+			} else {
+				longView.setText("0.0");
+				latView.setText("0.0");
+			}
 	}
 
 	/**
@@ -137,11 +219,11 @@ public class FindActivity extends OrmLiteBaseActivity<DbManager> // Activity
 	 */
 	@Override
 	public boolean onMenuItemSelected(int featureId, MenuItem item) {
-		Intent intent;
 		switch (item.getItemId()) {
-
 		case R.id.save_find_menu_item:
-			saveFind();
+			if (saveFind()) {
+				finish();
+			}
 			break;
 
 		case R.id.delete_find_menu_item:
@@ -175,14 +257,26 @@ public class FindActivity extends OrmLiteBaseActivity<DbManager> // Activity
 		} catch (InstantiationException e) {
 			e.printStackTrace();
 		}
-
-		EditText eText = (EditText) findViewById(R.id.guidEditText);
-		if (eText != null) {
-			value = eText.getText().toString();
+		
+		TextView idView = (TextView) findViewById(R.id.guidRealValueTextView);
+		if (idView != null) {
+			value = idView.getText().toString();
 			find.setGuid(value);
 		}
-
-		eText = (EditText) findViewById(R.id.nameEditText);
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		TextView tView = (TextView) findViewById(R.id.timeValueTextView);
+		if (tView != null) {
+			value = tView.getText().toString();
+			try {
+				find.setTime(dateFormat.parse(value));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		EditText eText = (EditText) findViewById(R.id.nameEditText);
 		if (eText != null) {
 			value = eText.getText().toString();
 			find.setName(value);
@@ -193,11 +287,14 @@ public class FindActivity extends OrmLiteBaseActivity<DbManager> // Activity
 			value = eText.getText().toString();
 			find.setDescription(value);
 		}
-		eText = (EditText) findViewById(R.id.guidEditText);
-		if (eText != null) {
-			value = eText.getText().toString();
-			find.setGuid(value);
-		}
+		
+//		if (mCurrentLocation != null) {
+//			find.setLatitude(mCurrentLocation.getLatitude());
+//			find.setLongitude(mCurrentLocation.getLongitude());
+//		} else {
+//			find.setLatitude(0);
+//			find.setLongitude(0);
+//		}
 
 		// Removing for now.. using "currentLocation" variable instead
 		// TextView tView = (TextView) findViewById(R.id.latitudeValueTextView);
@@ -212,7 +309,7 @@ public class FindActivity extends OrmLiteBaseActivity<DbManager> // Activity
 		// find.setLongitude(Double.parseDouble(value));
 		// }
 
-		if (mCurrentLocation != null) {
+		if (mGeoTag && mCurrentLocation != null) {
 			find.setLatitude(mCurrentLocation.getLatitude());
 			find.setLongitude(mCurrentLocation.getLongitude());
 		} else {
@@ -220,23 +317,26 @@ public class FindActivity extends OrmLiteBaseActivity<DbManager> // Activity
 			find.setLongitude(0);
 		}
 
-		DatePicker datePicker = (DatePicker) findViewById(R.id.datePicker);
-		if (datePicker != null) {
-			value = datePicker.getMonth() + "/" + datePicker.getDayOfMonth()
-					+ "/" + datePicker.getYear();
-			SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
-			Date date = null;
-			try {
-				date = (Date) formatter.parse(value);
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-			if (date != null)
-				find.setTime(date);
-		}
-
+//		DatePicker datePicker = (DatePicker) findViewById(R.id.datePicker);
+//		if (datePicker != null) {
+//			value = datePicker.getMonth() + "/" + datePicker.getDayOfMonth() + "/" + datePicker.getYear();
+//			SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+//			Date date = null;
+//			try {
+//				date = (Date) formatter.parse(value);
+//			} catch (ParseException e) {
+//				e.printStackTrace();
+//			}
+//			if (date != null)
+//				find.setTime(date);
+//		}
+		
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		int projectId = prefs.getInt(getString(R.string.projectPref), 0);
+		find.setProject_id(projectId);
+		
 		// Mark the find unsynced TODO: Do we need this?
-		find.setSynced(Find.NOT_SYNCED);
+		// find.setSynced(Find.NOT_SYNCED);
 
 		return find;
 	}
@@ -252,19 +352,30 @@ public class FindActivity extends OrmLiteBaseActivity<DbManager> // Activity
 		eText.setText(find.getName());
 		eText = (EditText) findViewById(R.id.descriptionEditText);
 		eText.setText(find.getDescription());
-		eText = (EditText) findViewById(R.id.guidEditText);
-		eText.setText(find.getGuid());
-
-		DatePicker datePicker = (DatePicker) findViewById(R.id.datePicker);
-
-		datePicker.init(find.getTime().getYear() + 1900, find.getTime()
-				.getMonth(), find.getTime().getDate(), null);
+//		eText = (EditText) findViewById(R.id.guidEditText);
+//		eText.setText(find.getGuid());
+//
+//		DatePicker datePicker = (DatePicker) findViewById(R.id.datePicker);
+//
+//		datePicker.init(find.getTime().getYear() + 1900, find.getTime().getMonth(), find.getTime().getDate(), null);
 
 		TextView tView = (TextView) findViewById(R.id.longitudeValueTextView);
 		tView.setText(String.valueOf(find.getLongitude()));
-
 		tView = (TextView) findViewById(R.id.latitudeValueTextView);
 		tView.setText(String.valueOf(find.getLatitude()));
+		
+		tView = (TextView) findViewById(R.id.timeValueTextView);
+		tView = (TextView) findViewById(R.id.timeValueTextView);
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		tView.setText(dateFormat.format(find.getTime()));
+
+		TextView idView = (TextView) findViewById(R.id.guidRealValueTextView);
+		idView.setText(find.getGuid());
+
+		tView = (TextView) findViewById(R.id.guidValueTextView);
+		String id = idView.getText().toString();
+		tView.setText(id.substring(0,Math.min(8,id.length()))+" ...");
+
 	}
 
 	/**
@@ -272,8 +383,7 @@ public class FindActivity extends OrmLiteBaseActivity<DbManager> // Activity
 	 */
 	public void onLocationChanged(Location location) {
 		mCurrentLocation = location;
-		Log.i(TAG, "Got a new location: " + mCurrentLocation.getLatitude()
-				+ "," + mCurrentLocation.getLongitude());
+		Log.i(TAG, "Got a new location: " + mCurrentLocation.getLatitude() + "," + mCurrentLocation.getLongitude());
 
 	}
 
@@ -307,32 +417,23 @@ public class FindActivity extends OrmLiteBaseActivity<DbManager> // Activity
 	protected Dialog onCreateDialog(int id) {
 		switch (id) {
 		case CONFIRM_DELETE_DIALOG:
-			return new AlertDialog.Builder(this)
-					.setIcon(R.drawable.alert_dialog_icon)
+			return new AlertDialog.Builder(this).setIcon(R.drawable.alert_dialog_icon)
 					.setTitle(R.string.alert_dialog_2)
-					.setPositiveButton(R.string.alert_dialog_ok,
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog,
-										int whichButton) {
-									// User clicked OK so do some stuff
-									if (deleteFind()) {
-										Toast.makeText(FindActivity.this,
-												R.string.deleted_from_database,
-												Toast.LENGTH_SHORT).show();
-										finish();
-									} else
-										Toast.makeText(FindActivity.this,
-												R.string.delete_failed,
-												Toast.LENGTH_SHORT).show();
-								}
-							})
-					.setNegativeButton(R.string.alert_dialog_cancel,
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog,
-										int whichButton) {
-									// User clicked cancel so do nothing
-								}
-							}).create();
+					.setPositiveButton(R.string.alert_dialog_ok, new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int whichButton) {
+							// User clicked OK so do some stuff
+							if (deleteFind()) {
+								Toast.makeText(FindActivity.this, R.string.deleted_from_database, Toast.LENGTH_SHORT)
+										.show();
+								finish();
+							} else
+								Toast.makeText(FindActivity.this, R.string.delete_failed, Toast.LENGTH_SHORT).show();
+						}
+					}).setNegativeButton(R.string.alert_dialog_cancel, new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int whichButton) {
+							// User clicked cancel so do nothing
+						}
+					}).create();
 
 			// case CONFIRM_EXIT:
 			// Log.i(TAG, "CONFIRM_EXIT dialog");
@@ -371,11 +472,19 @@ public class FindActivity extends OrmLiteBaseActivity<DbManager> // Activity
 	protected boolean saveFind() {
 		int rows = 0;
 		Find find = retrieveContentFromView();
+		
+		// A valid GUID is required
+		if (!isValidGuid(find.getGuid())) {
+			Toast.makeText(this, "You must provide a valid Id for this Find.", Toast.LENGTH_LONG).show();
+			return false;
+		}
+		// SharedPref
+		// find.setProject_id()
 		if (getIntent().getAction().equals(Intent.ACTION_INSERT))
-			rows = find.insert(this.getHelper().getFindDao());
+			rows = getHelper().insert(find);
 		else if (getIntent().getAction().equals(Intent.ACTION_EDIT)) {
 			find.setId(getIntent().getExtras().getInt(Find.ORM_ID));
-			rows = find.update(this.getHelper().getFindDao());
+			rows = getHelper().update(find);
 		} else
 			rows = 0; // Something wrong with intent
 		if (rows > 0) {
@@ -383,6 +492,16 @@ public class FindActivity extends OrmLiteBaseActivity<DbManager> // Activity
 		} else
 			Log.e(TAG, "Find not inserted: " + find);
 		return rows > 0;
+	}
+	
+	/**
+	 * By default a Guid must not be the empty string. This method can
+	 * be overridden in the plugin extension. 
+	 * @param guid
+	 * @return
+	 */
+	protected boolean isValidGuid(String guid) {
+		return guid.length() != 0;
 	}
 
 	protected boolean deleteFind() {
@@ -402,7 +521,7 @@ public class FindActivity extends OrmLiteBaseActivity<DbManager> // Activity
 		}
 
 		find.setId(getIntent().getExtras().getInt(Find.ORM_ID));
-		rows = find.delete(this.getHelper().getFindDao());
+		rows = getHelper().delete(find);
 		return rows > 0;
 
 	}
@@ -410,7 +529,8 @@ public class FindActivity extends OrmLiteBaseActivity<DbManager> // Activity
 	@Override
 	public void finish() {
 		Log.i(TAG, "onFinish()");
-		mLocationManager.removeUpdates(this);
+		if (mGeoTag)
+			mLocationManager.removeUpdates(this);
 		mLocationManager = null;
 		mCurrentLocation = null;
 		super.finish();
@@ -425,8 +545,9 @@ public class FindActivity extends OrmLiteBaseActivity<DbManager> // Activity
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.saveButton:
-			saveFind();
-			finish();
+			if (saveFind()) {
+				finish();
+			}
 			break;
 
 		}
