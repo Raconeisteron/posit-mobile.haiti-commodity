@@ -37,7 +37,7 @@ public class CommodityListFindsActivity extends ListFindsActivity {
 
 		List<? extends Find> list = this.getHelper().getAllFinds();
 
-		int resId = getResources().getIdentifier(FindPluginManager.mListFindLayout,
+		int resId = getResources().getIdentifier(FindPluginManager.mFindPlugin.mListFindLayout,
 			    "layout", getPackageName());
 		
 		CommodityFindsListAdapter adapter = new CommodityFindsListAdapter(this,
