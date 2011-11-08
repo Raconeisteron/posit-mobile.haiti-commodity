@@ -94,6 +94,8 @@ OnDateChangedListener {
 			prefs.getString(getString(R.string.cCommune_section_key),"");
 		Log.i(TAG, communesectionkey);
 		
+		TextView tView = (TextView) findViewById(R.id.textView10);
+		tView.setText(prefs.getString(getString(R.string.cCommune_section_key),""));
 		
 		// Commodity spinner
 		Spinner spinner = null;
