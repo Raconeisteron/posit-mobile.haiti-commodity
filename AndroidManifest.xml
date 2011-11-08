@@ -143,6 +143,21 @@
 		<activity android:name=".SettingsActivity"
 			android:screenOrientation="portrait" />
 			
+	<!-- Activities for Commodity Tracker plugin -->
+		<activity
+			android:name="org.hfoss.posit.android.experimental.plugin.commodity.CommodityFindActivity"
+			android:launchMode="singleTop" android:screenOrientation="portrait"
+			android:configChanges="orientation|keyboardHidden" />
+		<activity
+			android:name="org.hfoss.posit.android.experimental.plugin.commodity.CommodityListFindsActivity"
+			android:launchMode="singleTop" android:screenOrientation="portrait"
+			android:configChanges="orientation|keyboardHidden" />
+
+		<activity
+			android:name="org.hfoss.posit.android.experimental.plugin.commodity.CommodityAboutActivity"
+			android:launchMode="singleTop" android:screenOrientation="portrait"
+			android:configChanges="orientation|keyboardHidden" />
+			
 <!-- 		<receiver android:name=".plugin.acdivoca.AcdiVocaSmsManager"> -->
 <!-- 			<intent-filter> -->
 <!-- 				<action android:name="android.provider.Telephony.SMS_RECEIVED" /> -->
