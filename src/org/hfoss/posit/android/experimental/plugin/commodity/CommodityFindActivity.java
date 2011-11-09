@@ -30,11 +30,11 @@ import android.widget.TextView;
 
 
 /**
- * FindActivity subclass for Outside In plugin.
+ * FindActivity subclass for Commodity Tracker plugin.
  * 
  */
-public class CommodityFindActivity extends FindActivity implements OnItemSelectedListener, 
-OnDateChangedListener {
+public class CommodityFindActivity extends FindActivity 
+implements OnItemSelectedListener, OnDateChangedListener {
 
 	private static final String TAG = "CommodityFindActivity";
 
