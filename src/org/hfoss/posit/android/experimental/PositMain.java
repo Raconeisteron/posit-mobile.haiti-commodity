@@ -35,6 +35,7 @@ import org.hfoss.posit.android.experimental.plugin.FunctionPlugin;
 import org.hfoss.posit.android.experimental.plugin.acdivoca.AcdiVocaFind;
 import org.hfoss.posit.android.experimental.plugin.acdivoca.AcdiVocaLocaleManager;
 import org.hfoss.posit.android.experimental.plugin.acdivoca.AttributeManager;
+import org.hfoss.posit.android.experimental.plugin.commodity.CommodityAdminActivity;
 import org.hfoss.posit.android.experimental.plugin.Plugin;
 
 import android.app.Activity;
@@ -437,7 +438,9 @@ public class PositMain extends OrmLiteBaseActivity<DbManager> implements android
 		// AppControlManager.isAgriUser())
 		// adminMenu.setVisible(false);
 		// else
-		// adminMenu.setVisible(true);
+		adminMenu.setVisible(true);
+		
+		//Note: I set the admin visibility to true for now
 
 		return super.onPrepareOptionsMenu(menu);
 
@@ -458,9 +461,12 @@ public class PositMain extends OrmLiteBaseActivity<DbManager> implements android
 		case R.id.map_finds_menu_item:
 			startActivity(new Intent(this, MapFindsActivity.class));
 			break;
-		// case R.id.admin_menu_item:
-		// startActivity(new Intent(this, AcdiVocaAdminActivity.class));
-		// break;
+			
+// Note: This should be a function plugin			
+		 case R.id.admin_menu_item:
+		 startActivity(new Intent(this, CommodityAdminActivity.class));
+		 break;
+			
 		case R.id.about_menu_item:
 			startActivity(new Intent(this, AboutActivity.class));
 			break;
