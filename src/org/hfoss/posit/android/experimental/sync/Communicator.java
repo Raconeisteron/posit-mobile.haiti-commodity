@@ -37,6 +37,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map.Entry;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 import org.apache.http.NameValuePair;
@@ -65,6 +67,8 @@ import org.hfoss.posit.android.experimental.api.database.DbHelper;
 import org.hfoss.posit.android.experimental.api.activity.ListFindsActivity;
 import org.hfoss.posit.android.experimental.api.activity.ListProjectsActivity;
 import org.hfoss.posit.android.experimental.api.activity.ListFindsActivity;
+import org.hfoss.posit.android.experimental.plugin.FindPluginManager;
+import org.hfoss.posit.android.experimental.plugin.outsidein.OutsideInFind;
 
 import android.util.Log;
 import android.widget.Toast;
@@ -198,7 +202,7 @@ public class Communicator {
 		return false;
 	}
 	
-	private static String getAuthKey(Context context) {
+	public static String getAuthKey(Context context) {
 		AccountManager accountManager = AccountManager.get(context);
 
 		// TODO: again just picking the first account here.. how are you
@@ -543,46 +547,50 @@ public class Communicator {
 		});
 	}
 
-	//
-	// public String createProject(String server, String projectName,
-	// String projectDescription, String authKey) {
-	// String url = server + "/api/newProject?authKey=" + authKey;
-	// HashMap<String, String> sendMap = new HashMap<String, String>();
-	// sendMap.put("name", projectName);
-	// sendMap.put("description", projectDescription);
-	//
-	// HashMap<String, Object> responseMap = null;
-	// Log.i(TAG, "Create Project URL=" + url);
-	//
-	// try {
-	// responseString = doHTTPPost(url, sendMap);
-	// Log.i(TAG, responseString);
-	// if (responseString.contains("[ERROR]")) {
-	// Toast.makeText(mContext, responseString, Toast.LENGTH_LONG)
-	// .show();
-	// return Constants.AUTHN_FAILED + ":" + "Error";
-	// }
-	// ResponseParser parser = new ResponseParser(responseString);
-	// responseMap = parser.parseObject();
-	// } catch (Exception e) {
-	// Toast.makeText(mContext, e.getMessage() + "", Toast.LENGTH_LONG)
-	// .show();
-	// }
-	// try {
-	// if (responseMap.containsKey(ERROR_CODE))
-	// return responseMap.get(ERROR_CODE) + ":"
-	// + responseMap.get(ERROR_MESSAGE);
-	// else if (responseMap.containsKey(MESSAGE_CODE)) {
-	// return (String) responseMap.get(MESSAGE);
-	//
-	// } else {
-	// return "Malformed message from server.";
-	// }
-	// } catch (Exception e) {
-	// Log.e(TAG, "createProject " + e.getMessage());
-	// return e.getMessage();
-	// }
-	// }
+	
+	public String createProject(Context context, String server, String projectName,
+			String projectDescription, String authKey) {
+		String url = server + "/api/newProject?authKey=" + authKey;
+		
+		List<NameValuePair> nvp = new ArrayList<NameValuePair>();
+		
+		nvp.add(new BasicNameValuePair("name", projectName));
+		nvp.add(new BasicNameValuePair("description", projectDescription));
+		
+		HashMap<String, Object> responseMap = null;
+		Log.i(TAG, "Create Project URL=" + url);
+
+		String responseString = null;
+		
+		try {
+			responseString = doHTTPPost(url, nvp);
+			Log.i(TAG, responseString);
+			if (responseString.contains("[ERROR]")) {
+				Toast.makeText(context, responseString, Toast.LENGTH_LONG).show();
+				return Constants.AUTHN_FAILED + ":" + "Error";
+			}
+			ResponseParser parser = new ResponseParser(responseString);
+			responseMap = parser.parseObject();
+		} catch (Exception e) {
+			Toast.makeText(context, e.getMessage() + "", Toast.LENGTH_LONG).show();
+		}
+		try {
+			if (responseMap.containsKey(ERROR_CODE))
+				return responseMap.get(ERROR_CODE) + ":"
+				+ responseMap.get(ERROR_MESSAGE);
+			else if (responseMap.containsKey(MESSAGE_CODE)) {
+				return (String) responseMap.get(MESSAGE);
+
+			} else {
+				return "Malformed message from server.";
+			}
+		} catch (Exception e) {
+			Log.e(TAG, "createProject " + e.getMessage());
+			return e.getMessage();
+		}
+	}
+	
+	
 	//
 	// public String registerUser(String server, String firstname,
 	// String lastname, String email, String password, String check,
@@ -653,6 +661,8 @@ public class Communicator {
 
 		return response;
 	}
+	
+	
 
 	/**
 	 * 
@@ -671,37 +681,42 @@ public class Communicator {
 			ContentValues cv = getRemoteFindById(context, authKey, guid);
 
 			if (cv == null) {
-				return false; // Shouldn't be null
+				return false; // Shouldn't be null--we know its ID
 			} else {
-				// cv.put(PositDbHelper.FINDS_SYNCED,
-				// PositDbHelper.FIND_IS_SYNCED);
 				Log.i(TAG, cv.toString());
-				// Update the DB
-				Find find = DbHelper.getDbManager(context).getFindByGuid(guid);
-				if (find != null) {
-					// if (cv.containsKey(PositDbHelper.FINDS_DELETED)) {
-					// if ((Integer) cv.get(PositDbHelper.FINDS_DELETED) == 1) {
-					// dbh.deleteFind(guid);
-					// }
-					// }
-					Log.i(TAG, "Updating existing find: " + find.getId());
-					Find updatedFind = new Find(cv);
-					updatedFind.setId(find.getId());
-					rows = DbHelper.getDbManager(context).updateWithoutHistory(updatedFind);
+				try {
 					
-				} else {
-					Log.i(TAG, "Adding a new find" + find);
-					find = new Find(cv);
-					rows = DbHelper.getDbManager(context).insertWithoutHistory(find);
+					// Find out what Find class POSIT is configured for
+					Class<? extends Find> findClass = FindPluginManager.mFindPlugin.getmFindClass();
 					
-					// }
-					// if (!success) {
-					// Log.i(TAG, "Error recording sync stamp");
-					// mHandler.sendEmptyMessage(SYNCERROR);
-					// } else {
-					// Log.i(TAG, "Recorded timestamp stamp");
-					// }
-					// dbh.close();
+					Log.i(TAG, "Find class = " + findClass.getSimpleName());
+					
+					// Update the DB
+					Find find = DbHelper.getDbManager(context).getFindByGuid(guid);
+					if (find != null) {
+						Log.i(TAG, "Updating existing find: " + find.getId());
+						Find updatedFind = findClass.newInstance();
+						updatedFind.updateObject(cv);
+						
+//						Find updatedFind = (OutsideInFind)find;
+//						((OutsideInFind) updatedFind).updateObject(cv);
+						updatedFind.setId(find.getId());
+						rows = DbHelper.getDbManager(context).updateWithoutHistory(updatedFind);				
+					} else {
+					//	find = new OutsideInFind();
+						find = findClass.newInstance();
+						Log.i(TAG, "Inserting new find: " + find.getId());
+						find.updateObject(cv);
+//						((OutsideInFind) find).updateObject(cv);
+						Log.i(TAG, "Adding a new find " + find);
+						rows = DbHelper.getDbManager(context).insertWithoutHistory(find);
+					}
+				} catch (IllegalAccessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InstantiationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 			}
 		}
@@ -1122,7 +1137,7 @@ public class Communicator {
 	public static List<NameValuePair> getNameValuePairs(Find find) {
 		// Get fields from both class and superclass
 		List<NameValuePair> pairs = null;
-		if (find instanceof Find) { // For basic POSIT
+		if (find.getClass().getName().equals(Find.class.getName())) { // For basic POSIT
 			pairs = getNameValuePairs(find, find.getClass());
 		} else { // For find extensions
 			String extendedDataPairs = getNameValuePairs(find, find.getClass()).toString();
@@ -1132,13 +1147,22 @@ public class Communicator {
 		return pairs;
 	}
 
+	/**
+	 * Returns a list on name/value pairs for the Find.  Should work for Plugin Finds as
+	 * well as Basic Finds.  
+	 * @param find
+	 * @param clazz
+	 * @return
+	 */
 	private static List<NameValuePair> getNameValuePairs(Find find, Class clazz) {
 		Field[] fields = clazz.getDeclaredFields();
+
 		List<NameValuePair> nvp = new ArrayList<NameValuePair>();
 		String methodName = "";
 		String value = "";
 
 		for (Field field : fields) {
+//			Log.i(TAG, "class= " + clazz + " field = " + field);
 			if (!Modifier.isFinal(field.getModifiers())) {
 				String key = field.getName();
 				methodName = "get" + key.substring(0, 1).toUpperCase() + key.substring(1);
@@ -1202,10 +1226,10 @@ public class Communicator {
 		try {
 			JSONObject jobj = new JSONObject(responseString);
 			String findJson = jobj.getString("find");
-			JSONObject find = new JSONObject(findJson);
+			JSONObject find = new JSONObject(findJson);			
 			cv.put(Find.GUID, find.getString(Find.GUID));
 			cv.put(Find.PROJECT_ID, find.getInt(Find.PROJECT_ID));
-			cv.put(Find.NAME, find.getString(Find.NAME));
+			cv.put(Find.NAME, find.getString(Find.NAME));			
 			cv.put(Find.DESCRIPTION, find.getString(Find.DESCRIPTION));
 			// FIXME add add_time and modify_time for this
 			cv.put(Find.TIME, find.getString("add_time"));
@@ -1213,17 +1237,57 @@ public class Communicator {
 			cv.put(Find.LATITUDE, find.getDouble(Find.LATITUDE));
 			cv.put(Find.LONGITUDE, find.getDouble(Find.LONGITUDE));
 			cv.put(Find.REVISION, find.getInt(Find.REVISION));
+			
+			// Is this a extended find?
+			if (jobj.has(Find.EXTENSION)) {
+				String extradata = jobj.getString(Find.EXTENSION);		
+				Log.i(TAG, "extradata = " + extradata);
+				if ( !extradata.equals("null") )
+					addExtraDataToContentValues(cv, extradata);
+			}
+			
 			return cv;
 		} catch (JSONException e) {
-			Log.i(TAG, e.getMessage());
+			Log.i(TAG, "JSONException " + e.getMessage());
 			e.printStackTrace();
 		} catch (Exception e) {
-			Log.i(TAG, e.getMessage());
+			Log.i(TAG, "Exception " + e.getMessage());
 			e.printStackTrace();
 		}
 		return null;
 	}
 
+	/**
+	 * The data has the form: [attr=value, ...] or 'null'
+	 * @param cv
+	 * @param data
+	 */
+	static private void addExtraDataToContentValues(ContentValues cv, String data) {
+		Log.i(TAG, "data = " + data  + " " + data.length());
+		if (data.equals("null")) 
+			return;
+		data = data.trim();
+		data = data.substring(1,data.length()-1);
+		StringTokenizer st = new StringTokenizer(data,",");
+		while (st.hasMoreElements()) {
+			String attrvalpair = (String) st.nextElement();
+			String attr = attrvalpair.substring(0,attrvalpair.indexOf("="));
+			attr = attr.trim();
+			String val = attrvalpair.substring(attrvalpair.indexOf("=")+1);
+			val = val.trim();
+			Log.i(TAG, "Putting " + attr + "=" + val + " into CV");
+			if (Integer.getInteger(val) != null)
+				cv.put(attr, Integer.parseInt(val));
+//			else if (Boolean.getBoolean(val) != null)
+//				cv.put(attr, Boolean.parseBoolean(val))
+//			else if (Double.getDouble(val) != null))
+//				cv.put(attr, Double.parseDouble(val))
+			else
+				cv.put(attr, val);
+		}
+		
+	}
+	
 	// /**
 	// * Get an image from the server using the guid as Key.
 	// *
