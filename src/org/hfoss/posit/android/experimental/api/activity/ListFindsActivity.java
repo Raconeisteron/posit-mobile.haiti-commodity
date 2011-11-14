@@ -50,6 +50,7 @@ public class ListFindsActivity extends OrmLiteBaseListActivity<DbManager> {
 	private ArrayList<FunctionPlugin> mListMenuPlugins = null;
 
 	private static final int CONFIRM_DELETE_DIALOG = 0;
+	List<? extends Find> finds;
 	
 	protected static FindsListAdapter mAdapter = null;
 	
@@ -83,6 +84,9 @@ public class ListFindsActivity extends OrmLiteBaseListActivity<DbManager> {
 		fillList(mAdapter);
 	}
 
+	public void onGetChangedFindsResult(String finds) {
+		Log.i(TAG,"Got changed finds: " + finds);
+	}
 	/**
 	 * Called in onResume() and gets all of the finds in the database and puts
 	 * them in an adapter. Override for a custom adapter/layout for this
@@ -93,12 +97,12 @@ public class ListFindsActivity extends OrmLiteBaseListActivity<DbManager> {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		int projectId = prefs.getInt(getString(R.string.projectPref), 0);
 		
-		List<? extends Find> list = this.getHelper().getFindsByProjectId(projectId);
+		finds = this.getHelper().getFindsByProjectId(projectId);
 
 		int resId = getResources().getIdentifier(
 				FindPluginManager.mFindPlugin.mListFindLayout, "layout", getPackageName());
 
-		FindsListAdapter adapter = new FindsListAdapter(this, resId, list);
+		FindsListAdapter adapter = new FindsListAdapter(this, resId, finds);
 
 		return adapter;
 	}
@@ -161,7 +165,6 @@ public class ListFindsActivity extends OrmLiteBaseListActivity<DbManager> {
 		case R.id.sync_finds_menu_item:
 			Log.i(TAG, "Sync finds menu item");
 			startActivityForResult(new Intent(this,SyncActivity.class), 0);
-			
 //			Log.i(TAG, "Sync finds menu item");
 //			AccountManager manager = AccountManager.get(this);
 //			Account[] accounts = manager
@@ -192,7 +195,6 @@ public class ListFindsActivity extends OrmLiteBaseListActivity<DbManager> {
 //				Toast.makeText(this, "Sync error: Unable to get " + SyncAdapter.ACCOUNT_TYPE, Toast.LENGTH_LONG).show();
 //			}
 			break;
-			
 		case R.id.map_finds_menu_item:
 			Log.i(TAG, "Map finds menu item");
 			startActivity(new Intent(this, MapFindsActivity.class));
@@ -210,7 +212,20 @@ public class ListFindsActivity extends OrmLiteBaseListActivity<DbManager> {
 						startActivity(new Intent(this, plugin.getmMenuActivity()));
 				}
 			}
+
 			break;
+	
+
+		// case R.id.save_find_menu_item:
+		// saveFind();
+		// break;
+		//
+		// case R.id.delete_find_menu_item:
+		// showDialog(CONFIRM_DELETE_DIALOG);
+		// break;
+		//
+		// default:
+		// return false;
 		}
 		return true;
 	} // onMenuItemSelected
