@@ -59,4 +59,9 @@
 
     </string>
     
+    <!--     Admin Menu -->
+    <string name="cload_commodity_data">Load Commodity Data</string> 
+    <string name="cload_market_data">Load Market Data</string> 
+    <string name="csend_commodity_report">Send Commodity Report</string>
+    
 </resources>
