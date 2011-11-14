@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.hfoss.posit.android.experimental.api.Find;
+import org.hfoss.posit.android.experimental.api.database.DbManager;
 import org.hfoss.posit.android.experimental.plugin.acdivoca.AcdiVocaFind;
 import org.hfoss.posit.android.experimental.plugin.acdivoca.AttributeManager;
 import org.hfoss.posit.android.experimental.plugin.commodity.CommodityFind;
@@ -23,8 +24,9 @@ import com.j256.ormlite.stmt.PreparedQuery;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.Where;
 import com.j256.ormlite.support.ConnectionSource;
+import com.j256.ormlite.table.DatabaseTable;
 import com.j256.ormlite.table.TableUtils;
-
+@DatabaseTable(tableName = DbManager.FIND_TABLE_NAME)
 public class CommodityFind extends Find {
 
 	public static final String SYRINGES_IN = "syringes_in";
