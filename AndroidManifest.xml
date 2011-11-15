@@ -84,7 +84,11 @@
 			android:name="org.hfoss.posit.android.experimental.functionplugins.LogFindsActivity" />
 		<activity
 			android:name="org.hfoss.posit.android.experimental.functionplugins.LoginActivity" />
-		<!--  Commodity Admin function plugin -->	
+		<activity
+			android:name="org.hfoss.posit.android.experimental.functionplugins.FilePickerActivity" />
+		<activity
+			android:name="org.hfoss.posit.android.experimental.functionplugins.FileViewActivity" />
+<!--  Commodity Admin function plugin -->	
 <activity
 			android:name="org.hfoss.posit.android.experimental.functionplugins.CommodityAdminActivity" />
 

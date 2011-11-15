@@ -38,7 +38,7 @@ import java.util.Iterator;
 //import org.hfoss.posit.android.Log;
 import org.hfoss.posit.android.experimental.R;
 import org.hfoss.posit.android.experimental.api.AppControlManager;
-import org.hfoss.posit.android.experimental.api.activity.FilePickerActivity;
+import org.hfoss.posit.android.experimental.functionplugins.FilePickerActivity;
 import org.hfoss.posit.android.experimental.api.database.DbManager;
 //import org.hfoss.posit.android.experimental.api.FilePickerActivity;
 import org.hfoss.posit.android.experimental.plugin.FindActivityProvider;
