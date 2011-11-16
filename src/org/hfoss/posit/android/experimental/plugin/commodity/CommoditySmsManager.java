@@ -32,6 +32,7 @@ import java.util.Iterator;
 import org.hfoss.posit.android.experimental.R;
 import org.hfoss.posit.android.experimental.api.database.DbManager;
 import org.hfoss.posit.android.experimental.api.service.SmsService;
+import org.hfoss.posit.android.experimental.functionplugins.CommodityAdminActivity;
 
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.android.apptools.OrmLiteBaseListActivity;
