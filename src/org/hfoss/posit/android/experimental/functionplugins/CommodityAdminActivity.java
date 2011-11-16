@@ -102,9 +102,9 @@ implements SmsCallBack {
 	public static final int MAX_BENEFICIARIES = 20000;  // Max readable
 	
 	public static final String DEFAULT_DIRECTORY = "commodity";
-//	public static final String DEFAULT_MCHN_DIRECTORY = "commodity/mchn";
+	public static final String DEFAULT_MCHN_DIRECTORY = "commodity/mchn";
 	public static final String DEFAULT_AGRI_DIRECTORY = "commodity/agri";
-//	public static final String DEFAULT_LOG_DIRECTORY = "commodity/super";
+	public static final String DEFAULT_LOG_DIRECTORY = "commodity/super";
 	public static final String SMS_LOG_FILE = "smslog.txt";
 	public static final String DEFAULT_BENEFICIARY_FILE = "Beneficiare.csv";
 	public static final String DEFAULT_LIVELIHOOD_FILE = "Livelihood.csv";
@@ -214,6 +214,13 @@ implements SmsCallBack {
 	
 		// What type of user is logged in?
 		Log.i(TAG, "UserType = " + AppControlManager.getUserType());
+		
+		loadAgriItem.setVisible(true);
+		loadAgriItem.setEnabled(true);
+		loadMchnItem.setVisible(true);
+		loadMchnItem.setEnabled(true);
+		sendDistrReport.setVisible(true);
+		sendDistrReport.setEnabled(true);
 		
 		
 		//Note: Need to re-implement Super user
@@ -434,7 +441,7 @@ implements SmsCallBack {
 
 				SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-// No types in Commodity Tracker But do need to use distribution point code for markets and commue sections				
+// No types in Commodity Tracker But do need to use distribution point code for markets and commune sections				
 
 				
 //				if (beneficiaryType == CommodityFind.TYPE_MCHN) {
@@ -500,13 +507,16 @@ implements SmsCallBack {
 	 */
 	private int importBeneficiaryDataToDb(String filename, int beneficiaryType) {		
 		ContentValues values = new ContentValues();
+		
+		
+		
 	
 		// Read all the file names on the SD Card
 //		File directory = new File(Environment.getExternalStorageDirectory() + "/" + DEFAULT_DIRECTORY);
 //		File file[] = directory.listFiles();
-		
-		// List files on sdcard
-//	    File file[] = Environment.getExternalStorageDirectory().listFiles(); 
+//		
+//		// List files on sdcard
+////	    File file[] = Environment.getExternalStorageDirectory().listFiles(); 
 //	    for (int i = 0; i < file.length; i++)
 //	    	Log.i(TAG, file[i].getAbsolutePath());  
 		
@@ -538,11 +548,13 @@ implements SmsCallBack {
 // I need this code. Should be split into Markets and Commodities instead.		
 //		try {
 //		if (beneficiaryType == CommodityFind.TYPE_MCHN) {
-//			nImports = CommodityFind.addUpdateBeneficiaries(this.dbManager.getCommodityFindDao(),  mBeneficiaries);
+			nImports = CommodityFind.addUpdateBeneficiaries(this.dbManager.getCommodityFindDao(),  mBeneficiaries);
 //		} else  {
 //			nImports = CommodityFind.addAgriBeneficiaries(this.dbManager.getCommodityFindDao(), mBeneficiaries);
 //		}
-//		} catch (SQLException e) {
+//		}
+		
+//		catch (SQLException e) {
 //			e.printStackTrace();
 //		}
 
@@ -571,13 +583,13 @@ implements SmsCallBack {
 // Finds don't have types in this project		
 		
 //		if (beneficiaryType == CommodityFind.TYPE_MCHN)
-//			file = new File(Environment.getExternalStorageDirectory() 
-//				+ "/" + DEFAULT_MCHN_DIRECTORY + "/" 
-//				+ filename);
-//		else 
 			file = new File(Environment.getExternalStorageDirectory() 
-					+ "/" + DEFAULT_AGRI_DIRECTORY + "/" 
-					+ filename);
+				+ "/" + DEFAULT_MCHN_DIRECTORY + "/" 
+				+ filename);
+//		else 
+//			file = new File(Environment.getExternalStorageDirectory() 
+//					+ "/" + DEFAULT_AGRI_DIRECTORY + "/" 
+//					+ filename);
 			
 
 		BufferedReader br = null;
