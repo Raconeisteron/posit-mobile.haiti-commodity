@@ -24,21 +24,27 @@ package org.hfoss.posit.android.experimental.functionplugins;
 
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 
 //Note: the following imports often do not apply and have been heavily edited
 //import org.hfoss.posit.android.Log;
 import org.hfoss.posit.android.experimental.R;
 import org.hfoss.posit.android.experimental.api.AppControlManager;
-import org.hfoss.posit.android.experimental.functionplugins.FilePickerActivity;
+import org.hfoss.posit.android.experimental.api.Find;
+import org.hfoss.posit.android.experimental.functionplugins.CommodityFilePickerActivity;
 import org.hfoss.posit.android.experimental.api.database.DbManager;
 //import org.hfoss.posit.android.experimental.api.FilePickerActivity;
 import org.hfoss.posit.android.experimental.plugin.FindActivityProvider;
@@ -102,12 +108,12 @@ implements SmsCallBack {
 	public static final int MAX_BENEFICIARIES = 20000;  // Max readable
 	
 	public static final String DEFAULT_DIRECTORY = "commodity";
-	public static final String DEFAULT_MCHN_DIRECTORY = "commodity/mchn";
-	public static final String DEFAULT_AGRI_DIRECTORY = "commodity/agri";
+	public static final String DEFAULT_MCHN_DIRECTORY = "commodity/commoditylists";
+	public static final String DEFAULT_AGRI_DIRECTORY = "commodity/markets";
 	public static final String DEFAULT_LOG_DIRECTORY = "commodity/super";
 	public static final String SMS_LOG_FILE = "smslog.txt";
-	public static final String DEFAULT_BENEFICIARY_FILE = "Beneficiare.csv";
-	public static final String DEFAULT_LIVELIHOOD_FILE = "Livelihood.csv";
+	public static final String DEFAULT_COMMODITYLIST_FILE = "commoditylist.csv";
+	public static final String DEFAULT_MARKET_FILE = "marketlist.csv";
 	public static final String COMMA= ",";
 	public static final int DONE = 0;
 	public static final int ERROR = -1;
@@ -160,9 +166,25 @@ implements SmsCallBack {
 	protected void onResume() {
 		Log.i(TAG, "onResume()");
 		super.onResume();
-		
-//		AcdiVocaLocaleManager.setDefaultLocale(this);  // Locale Manager should be in API
+		int count = 0;
+////		AcdiVocaLocaleManager.setDefaultLocale(this);  // Locale Manager should be in API
 		setContentView(R.layout.acdivoca_admin);
+		List<? extends Find> finds = this.getHelper().getAllFinds();
+//		Toast.makeText(this, "Saving Finds to Log File", Toast.LENGTH_LONG).show();
+		count = logFinds(finds);
+//		if (count  >= 0) {
+//			finish();
+//			Toast.makeText(
+//					this, count + 
+//					" Finds saved to SD Card: " + DEFAULT_MCHN_DIRECTORY + "/"
+//							+ DEFAULT_COMMODITYLIST_FILE, Toast.LENGTH_LONG).show();
+//		} else {
+//			finish();
+//			Toast.makeText(
+//					this,
+//					"Error while writing to file: " + DEFAULT_LOG_DIRECTORY + "/"
+//							+ DEFAULT_COMMODITYLIST_FILE, Toast.LENGTH_LONG).show();
+//		}
 	}	
 	
 	@Override
@@ -182,6 +204,69 @@ implements SmsCallBack {
 		mContext = this;
 		return true;
 	}
+	
+	
+	
+	
+	/**
+	 * Appends Finds (as strings) to a text file on the SD card.
+	 * 
+	 * @param finds, a list of Find records	 * 
+	 * @return True if Finds were written successfully, False otherwise.
+	 */
+	protected int logFinds(List<? extends Find> finds) {
+		int count = 0;
+		try {
+			File dir = new File(Environment.getExternalStorageDirectory()
+					+ "/" + DEFAULT_MCHN_DIRECTORY);
+			if (!dir.exists()) {
+				if (dir.mkdir()) {
+					Log.i(TAG, "Created directory " + dir);
+				}
+			}
+			if (dir.canWrite()) {
+				Log.i(TAG, dir + " is writeable");
+			}
+            File file = new File(Environment.getExternalStorageDirectory()
+                    + "/" + DEFAULT_MCHN_DIRECTORY 
+                    + "/"
+                    + DEFAULT_COMMODITYLIST_FILE);
+            if (!file.exists()) {
+            	if (file.createNewFile()) 
+            		Log.i(TAG, "Created file " + file);
+            }
+            
+			PrintWriter writer = new PrintWriter(new BufferedWriter(
+					new FileWriter(file, true)));
+			
+			// NOTE:  For now we use the Find's isAdhoc field (which is unused) for
+			// recording whether the Find is logged.
+
+			Iterator<? extends Find> it = finds.iterator();
+			while (it.hasNext()) {
+				Find find = it.next();
+				Log.i(TAG, "Find = " + find);
+				
+//				if (find.getIs_adhoc() != IS_LOGGED) {
+//					find.setIs_adhoc(IS_LOGGED);
+////				if (((OutsideInFind)find).getIsLogged() == false) {
+////					((OutsideInFind) find).setIsLogged(true);
+//					getHelper().update(find);
+//					writer.println(new Date() + ": " + find);
+//					Log.i(TAG, "Wrote to file: " + find);
+//					++count;
+//				}
+			}
+			writer.flush();
+			writer.close();
+			return count;
+		} catch (IOException e) {
+			Log.e(TAG, "IO Exception writing to Log " + e.getMessage());
+			e.printStackTrace();
+			return -1;
+		}
+	}
+	
 
 	
 	/**
@@ -306,27 +391,37 @@ implements SmsCallBack {
 			startActivity(new Intent(this, CommodityListFindsActivity.class));
 			break;
 		case R.id.cload_commodity_data:
-			Class<Activity> loginActivity = FindActivityProvider.getLoginActivityClass();
-			if (loginActivity != null) {
-				intent.setClass(this, loginActivity);
-//				intent.putExtra(AcdiVocaUser.USER_TYPE_STRING, AcdiVocaUser.UserType.ADMIN.ordinal());
-//				intent.putExtra(AcdiVocaFind.TYPE, AcdiVocaFind.TYPE_MCHN);
-				this.startActivityForResult(intent, LoginActivity.ACTION_LOGIN);
-				
-				Toast.makeText(this, getString(R.string.toast_admin_login_required), Toast.LENGTH_LONG).show();	
-			}
+			intent.setClass(this, CommodityFilePickerActivity.class);
+			
+			this.startActivityForResult(intent, CommodityFilePickerActivity.ACTION_CHOOSER);
 			break;
 		case R.id.cload_market_data:
-			loginActivity = FindActivityProvider.getLoginActivityClass();
-			if (loginActivity != null) {
-				intent.setClass(this, loginActivity);
-//				intent.putExtra(AcdiVocaUser.USER_TYPE_STRING, AcdiVocaUser.UserType.AGRON.ordinal());
-//				intent.putExtra(AcdiVocaFind.TYPE, AcdiVocaFind.TYPE_AGRI);
-				this.startActivityForResult(intent, LoginActivity.ACTION_LOGIN);
-				
-				Toast.makeText(this, getString(R.string.toast_admin_login_required), Toast.LENGTH_LONG).show();	
-			}
+			intent.setClass(this, CommodityFilePickerActivity.class);
+			
+			this.startActivityForResult(intent, CommodityFilePickerActivity.ACTION_CHOOSER);
 			break;
+			
+		//	Class<Activity> loginActivity = FindActivityProvider.getLoginActivityClass();
+		//	if (loginActivity != null) {
+//				intent.setClass(this, loginActivity);
+//				intent.putExtra(AcdiVocaUser.USER_TYPE_STRING, AcdiVocaUser.UserType.ADMIN.ordinal());
+//				intent.putExtra(AcdiVocaFind.TYPE, AcdiVocaFind.TYPE_MCHN);
+//				this.startActivityForResult(intent, LoginActivity.ACTION_LOGIN);
+				
+//				Toast.makeText(this, getString(R.string.toast_admin_login_required), Toast.LENGTH_LONG).show();	
+//			}
+//			break;
+//		case R.id.cload_market_data:
+//			loginActivity = FindActivityProvider.getLoginActivityClass();
+//			if (loginActivity != null) {
+//				intent.setClass(this, loginActivity);
+////				intent.putExtra(AcdiVocaUser.USER_TYPE_STRING, AcdiVocaUser.UserType.AGRON.ordinal());
+////				intent.putExtra(AcdiVocaFind.TYPE, AcdiVocaFind.TYPE_AGRI);
+//				this.startActivityForResult(intent, LoginActivity.ACTION_LOGIN);
+//				
+//				Toast.makeText(this, getString(R.string.toast_admin_login_required), Toast.LENGTH_LONG).show();	
+//			}
+//			break;
 //		case R.id.start_distribution:
 //			Log.i(TAG, "Start distribution event");
 //			item.setEnabled(false);
@@ -339,7 +434,7 @@ implements SmsCallBack {
 //			displayDistributionSummary();
 //			break;
 		case R.id.csend_commodity_report:
-			sendDistributionReport();
+//			sendDistributionReport();
 			break;
 		}
 		return true;
@@ -422,7 +517,7 @@ implements SmsCallBack {
 		showDialog(SEND_DIST_REP);
 	}
 	
-	
+//Need FilePickerActivity stuff	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		Log.i(TAG,"onActivityResult = " + resultCode);
@@ -430,12 +525,12 @@ implements SmsCallBack {
 
 		switch (requestCode) {
 		
-		case FilePickerActivity.ACTION_CHOOSER:
-			if (resultCode == FilePickerActivity.RESULT_OK) {
+		case CommodityFilePickerActivity.ACTION_CHOOSER:
+			if (resultCode == CommodityFilePickerActivity.RESULT_OK) {
 				String filename = data.getStringExtra(Intent.ACTION_CHOOSER);
 
 				// Are we loading beneficiary update data, all of type MCHN or AGRI data
-				beneficiaryType = data.getIntExtra(CommodityFind.TYPE, -1);
+//				beneficiaryType = data.getIntExtra(CommodityFind.TYPE, -1);
 				
 				Log.i(TAG, "File picker file = " + filename + " Beneficiary type = " + beneficiaryType);
 
@@ -478,7 +573,8 @@ implements SmsCallBack {
 				thread.start();				
 			}
 			break;
-			
+
+//Need a File Picker Activity			
 		case LoginActivity.ACTION_LOGIN:
 			if (resultCode == RESULT_OK) {
 				
@@ -486,9 +582,9 @@ implements SmsCallBack {
 				beneficiaryType = data.getIntExtra(CommodityFind.TYPE, -1);
 				Log.i(TAG, "Logged in, beneficiary type = " + beneficiaryType);
 				intent.putExtra(CommodityFind.TYPE, beneficiaryType);
-				intent.setClass(this, FilePickerActivity.class);
+				intent.setClass(this, CommodityFilePickerActivity.class);
 				
-				this.startActivityForResult(intent, FilePickerActivity.ACTION_CHOOSER);
+				this.startActivityForResult(intent, CommodityFilePickerActivity.ACTION_CHOOSER);
 			
 				break;
 			} else {
@@ -516,9 +612,9 @@ implements SmsCallBack {
 //		File file[] = directory.listFiles();
 //		
 //		// List files on sdcard
-////	    File file[] = Environment.getExternalStorageDirectory().listFiles(); 
-//	    for (int i = 0; i < file.length; i++)
-//	    	Log.i(TAG, file[i].getAbsolutePath());  
+	    File file[] = Environment.getExternalStorageDirectory().listFiles(); 
+	    for (int i = 0; i < file.length; i++)
+	    	Log.i(TAG, file[i].getAbsolutePath());  
 		
 		Log.i(TAG, "Reading beneficiaries from " + filename);
 		mBeneficiaries = loadBeneficiaryData(filename, mDistrCtr, beneficiaryType);
@@ -548,7 +644,7 @@ implements SmsCallBack {
 // I need this code. Should be split into Markets and Commodities instead.		
 //		try {
 //		if (beneficiaryType == CommodityFind.TYPE_MCHN) {
-			nImports = CommodityFind.addUpdateBeneficiaries(this.dbManager.getCommodityFindDao(),  mBeneficiaries);
+			nImports = CommodityFind.addUpdateCommodities(this.dbManager.getCommodityFindDao(),  mBeneficiaries);
 //		} else  {
 //			nImports = CommodityFind.addAgriBeneficiaries(this.dbManager.getCommodityFindDao(), mBeneficiaries);
 //		}
@@ -707,7 +803,7 @@ implements SmsCallBack {
 					}).create();
 		case IO_EXCEPTION:
 			return new AlertDialog.Builder(this).setIcon(
-					R.drawable.alert_dialog_icon).setTitle(getString(R.string.io_exc) + DEFAULT_BENEFICIARY_FILE)
+					R.drawable.alert_dialog_icon).setTitle(getString(R.string.io_exc) + DEFAULT_COMMODITYLIST_FILE)
 					.setPositiveButton(R.string.alert_dialog_ok,
 							new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog,
