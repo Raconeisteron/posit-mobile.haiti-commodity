@@ -93,6 +93,8 @@
 			android:name="org.hfoss.posit.android.experimental.functionplugins.CommodityAdminActivity" />
 <activity
 			android:name="org.hfoss.posit.android.experimental.functionplugins.CommodityFilePickerActivity" />
+<activity
+			android:name="org.hfoss.posit.android.experimental.functionplugins.CommodityFileViewActivity" />
 
 
 		<!-- Activities for Outside In plugin -->

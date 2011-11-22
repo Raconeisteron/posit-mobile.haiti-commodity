@@ -3,6 +3,11 @@
  */
 package org.hfoss.posit.android.experimental.plugin.commodity;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Calendar;
 
 import org.hfoss.posit.android.experimental.R;
@@ -10,17 +15,20 @@ import org.hfoss.posit.android.experimental.api.Find;
 import org.hfoss.posit.android.experimental.api.activity.FindActivity;
 import org.hfoss.posit.android.experimental.plugin.acdivoca.AcdiVocaFind;
 import org.hfoss.posit.android.experimental.plugin.acdivoca.AcdiVocaMchnFindActivity;
+//import org.hfoss.posit.android.plugin.acdivoca.AcdiVocaDbHelper;
 //import org.hfoss.posit.android.experimental.api.activity.SettingsActivity;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.DatePicker.OnDateChangedListener;
 import android.widget.EditText;
@@ -37,6 +45,12 @@ public class CommodityFindActivity extends FindActivity
 implements OnItemSelectedListener, OnDateChangedListener {
 
 	private static final String TAG = "CommodityFindActivity";
+	private String commodityspin[];
+	private String marketspin[];
+	private ArrayAdapter<String> mAdapter;
+	private ArrayAdapter<String> cAdapter;
+	private Spinner spinner; 
+	private EditText eText;
 
 	
 //	Preferences
@@ -64,7 +78,16 @@ implements OnItemSelectedListener, OnDateChangedListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		Log.i(TAG, "onCreate()");
 		super.onCreate(savedInstanceState);
-
+		spinner = (Spinner) findViewById(R.id.marketSpinner);
+		marketspin = loadData("/commodity/marketlist.csv");
+	    mAdapter = new ArrayAdapter<String>( 
+	            this, android.R.layout.simple_spinner_item, marketspin); 
+	    spinner.setAdapter(mAdapter); 
+	    spinner = (Spinner) findViewById(R.id.commoditySpinner);
+		commodityspin = loadData("/commodity/commoditylist.csv");
+	    cAdapter = new ArrayAdapter<String>( 
+	            this, android.R.layout.simple_spinner_item, commodityspin); 
+	    spinner.setAdapter(cAdapter); 
 
 	}
 
@@ -78,7 +101,8 @@ implements OnItemSelectedListener, OnDateChangedListener {
 				calendar.get(Calendar.MONTH), 
 				calendar.get(Calendar.DAY_OF_MONTH), this);
 		
-//		((Spinner)findViewById(R.id.commoditySpinner)).setOnItemSelectedListener(this);
+		((Spinner)findViewById(R.id.commoditySpinner)).setOnItemSelectedListener(this);
+		((Spinner)findViewById(R.id.marketSpinner)).setOnItemSelectedListener(this);
 	}
 
 	@Override
@@ -94,14 +118,31 @@ implements OnItemSelectedListener, OnDateChangedListener {
 			prefs.getString(getString(R.string.cCommune_section_key),"");
 		Log.i(TAG, communesectionkey);
 		
-		TextView tView = (TextView) findViewById(R.id.textView10);
-		tView.setText(prefs.getString(getString(R.string.cCommune_section_key),""));
+//		TextView tView = (TextView) findViewById(R.id.textView10);
+//		tView.setText(prefs.getString(getString(R.string.cCommune_section_key),""));
 		
 		// Commodity spinner
-		Spinner spinner = null;
-		spinner = (Spinner)findViewById(R.id.commoditySpinner);
+		// String commodityspin[] = loadData("/commodity/commoditylist.csv");
+			//loadData("/commodity/commoditylist.csv");
+		Spinner spinner = (Spinner) findViewById(R.id.commoditySpinner);
+	    ArrayAdapter<String> cspinnerArrayAdapter = new ArrayAdapter<String>( 
+	            this, android.R.layout.simple_spinner_item, commodityspin); 
+	    spinner.setAdapter(cspinnerArrayAdapter);  
+//		
+////		spinner = (Spinner)findViewById(R.id.commoditySpinner);
+//		setUpSpinnerAdapter(commodityspin);
 		String commoditychoice = (String) spinner.getSelectedItem();
 		find.setCommodity(commoditychoice);	
+		
+		spinner = (Spinner) findViewById(R.id.marketSpinner);
+		ArrayAdapter<String> mspinnerArrayAdapter = new ArrayAdapter<String>( 
+	            this, android.R.layout.simple_spinner_item, marketspin); 
+	    spinner.setAdapter(mspinnerArrayAdapter);  
+		String marketchoice = (String) spinner.getSelectedItem();
+
+//		Need to make a find query for markets		
+//		find.setMarket(marketchoice);	
+		
 		
 		//Commodity Prices
 		
@@ -181,9 +222,25 @@ implements OnItemSelectedListener, OnDateChangedListener {
 
 		
 		
-		Spinner spinner = (Spinner)findViewById(R.id.commoditySpinner);
+//		Spinner spinner = (Spinner)findViewById(R.id.commoditySpinner);
+//		String commodityspin[] = loadData("/commodity/commoditylist.csv");
 //		Spinner spinner2 = (Spinner)findViewById(R.id.spinnerCommuneSection);
-		setSpinner(spinner, oiFind.getCommodity(), CommodityFind.C_COMMODITY);
+		
+		Spinner spinner = (Spinner) findViewById(R.id.commoditySpinner);
+	    ArrayAdapter<String> cspinnerArrayAdapter = new ArrayAdapter<String>( 
+	            this, android.R.layout.simple_spinner_item, commodityspin); 
+	    spinner.setAdapter(cspinnerArrayAdapter); 
+//		setUpSpinnerAdapter(commodityspin);
+		
+		
+		setSpinner(spinner, commodityspin);
+		
+		
+		spinner = (Spinner) findViewById(R.id.marketSpinner);
+		ArrayAdapter<String> mspinnerArrayAdapter = new ArrayAdapter<String>( 
+	            this, android.R.layout.simple_spinner_item, marketspin); 
+	    spinner.setAdapter(mspinnerArrayAdapter);
+		setSpinner(spinner, marketspin);
 		
 		et = (EditText)findViewById(R.id.editText1);
 		et.setText(Float.toString((oiFind.getPrice1())));
@@ -274,5 +331,129 @@ implements OnItemSelectedListener, OnDateChangedListener {
 			spinner.setSelection(0);
 		}
 	}
-//	
+	
+	//spinner function using an array
+	public static void setSpinner(Spinner spinner, String[] selected){
+//		String selected = contentValues.getAsString(attribute);
+		int k = 0;
+		if(selected != null){
+			String item = (String) spinner.getItemAtPosition(k);
+			while (k < spinner.getCount()-1 && !selected.equals(item)) {
+				++k;
+				item = (String) spinner.getItemAtPosition(k);				
+			}
+			if (k < spinner.getCount())
+				spinner.setSelection(k);
+			else
+				spinner.setSelection(0);
+		}
+		else{
+			spinner.setSelection(0);
+		}
+	}
+	
+	/**
+	 * Reads beneficiary data from a text file.  Currently the
+	 * file name is hard coded as "beneficiaries.txt" and it is
+	 * stored in the /assets folder.
+	 * @return  Returns an array of Strings, each of which represents
+	 * a Beneficiary record.
+	 */
+	private String[] loadData(String filepath) {
+		String[] data = null;
+		
+		File file = null; 
+		file = new File(Environment.getExternalStorageDirectory() 
+					+ filepath);
+			
+
+		BufferedReader br = null;
+		String line = null;
+		int k = 0;
+		
+		try {
+			//InputStream iStream = this.getAssets().open("beneficiaries.txt");
+			FileInputStream iStream = new FileInputStream(file);
+			br = new BufferedReader(new InputStreamReader(iStream));
+			data = new String[20000]; //Note: temp value
+			line = br.readLine();
+			//while (line != null && k < 1000)  {
+//			if (beneficiaryType == AcdiVocaDbHelper.FINDS_TYPE_MCHN) {
+//				
+//				// Reading from Beneficiare.csv and filter by distrCtr
+//				while (line != null)  {
+//					//				Log.i(TAG, line);
+//					if (line.length() > 0 && line.charAt(0) != '*')  {
+//						if (line.contains(distrCtr)) {
+//							data[k] = line;
+//							k++;
+//						}
+//					}
+//					line = br.readLine();
+//				}
+//			} else {
+				
+				// Reading from Livelihood.csv and no filter
+				while (line != null)  {
+					//				Log.i(TAG, line);
+					if (line.length() > 0 && line.charAt(0) != '*')  {
+//						if (!line.contains("No_dossier")) {
+//						if (line.contains(distrCtr)) {	
+//							Log.i(TAG, line);
+							data[k] = line;
+							k++;
+						}
+					line = br.readLine();
+
+					}
+//				}	
+//		}
+		} catch (IOException e) {
+			Log.e(TAG, "IO Exception,  file =   " + file);
+			Log.e(TAG, e.getMessage());
+			e.printStackTrace();
+		} catch (StringIndexOutOfBoundsException e) {
+			Log.e(TAG, "Bad line?  " + line);
+//			showDialog(STRING_EXCEPTION);
+			Log.e(TAG, e.getMessage());
+			e.printStackTrace();
+		}
+		String[] dossiers = new String[k];  // Create the actual size of array
+		for (int i= 0; i < k; i++)
+			dossiers[i] = data[i];
+		return dossiers;
+	}
+	
+	private void setUpSpinnerAdapter(final String[] data) {
+		mAdapter = 
+			new ArrayAdapter<String>(
+					this,
+					android.R.layout.simple_spinner_item,
+					data );
+		mAdapter.sort(String.CASE_INSENSITIVE_ORDER);
+		mAdapter.setDropDownViewResource(
+				android.R.layout.simple_spinner_dropdown_item);
+		spinner.setAdapter(mAdapter);
+		spinner.setOnItemSelectedListener(
+				new AdapterView.OnItemSelectedListener() {
+					public void onItemSelected(
+							AdapterView<?> parent, 
+							View view, 
+							int position, 
+							long id) {
+						String d = data[position];
+
+						//eText.setText(d);
+					}
+
+					public void onNothingSelected(AdapterView<?> parent) {
+					}
+				}
+		);
+//		eText = ((EditText)findViewById(R.id.dossierEdit));
+//		eText.addTextChangedListener(this);
+//		eText.setText(""); 
+	}
+
+	
 }
