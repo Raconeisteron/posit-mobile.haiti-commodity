@@ -76,6 +76,20 @@
 			name="viewfile"
 			menuIcon="ic_menu_view" menuTitle="View File"
 			menuActivity="org.hfoss.posit.android.experimental.functionplugins.FileViewActivity" />
+			
+		<Plugin active="true"
+			type="function"
+			extensionPoint="cadminMenu"
+			name="ccviewfile"
+			menuIcon="ic_menu_view" menuTitle="Load Commodity File"
+			menuActivity="org.hfoss.posit.android.experimental.functionplugins.CommodityFileViewActivity" />
+			
+		<Plugin active="true"
+			type="function"
+			extensionPoint="cadminMenu"
+			name="cmviewfile"
+			menuIcon="ic_menu_view" menuTitle="Load Market File"
+			menuActivity="org.hfoss.posit.android.experimental.functionplugins.CommodityFilePickerActivity" />
 
 		<Plugin active="true" 
 			type="function" 

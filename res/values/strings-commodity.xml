@@ -31,6 +31,8 @@
     <string name="cNotes">Notes: </string>
     
 <!--     Form info -->    
+
+    <string name="cMarket">Market </string>
     <string name="cUnits">Units </string>
     <string name="cCommodity">Commodity</string>
     <string name="cCommuneSection">Commune Section:</string>

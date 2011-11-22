@@ -44,17 +44,19 @@ import java.util.List;
 import org.hfoss.posit.android.experimental.R;
 import org.hfoss.posit.android.experimental.api.AppControlManager;
 import org.hfoss.posit.android.experimental.api.Find;
-import org.hfoss.posit.android.experimental.functionplugins.CommodityFilePickerActivity;
+import org.hfoss.posit.android.experimental.functionplugins.FilePickerActivity;
 import org.hfoss.posit.android.experimental.api.database.DbManager;
 //import org.hfoss.posit.android.experimental.api.FilePickerActivity;
 import org.hfoss.posit.android.experimental.plugin.FindActivityProvider;
 import org.hfoss.posit.android.experimental.plugin.FindPluginManager;
+import org.hfoss.posit.android.experimental.plugin.FunctionPlugin;
 import org.hfoss.posit.android.experimental.plugin.commodity.CommodityDbManager;
 import org.hfoss.posit.android.experimental.plugin.commodity.CommodityFind;
 import org.hfoss.posit.android.experimental.plugin.commodity.CommodityListFindsActivity;
 import org.hfoss.posit.android.experimental.plugin.commodity.CommodityMessage;
 import org.hfoss.posit.android.experimental.plugin.commodity.CommoditySearchFilterActivity;
 import org.hfoss.posit.android.experimental.plugin.commodity.CommoditySmsManager;
+import org.hfoss.posit.android.experimental.functionplugins.CommodityFileViewActivity;
 import org.hfoss.posit.android.experimental.functionplugins.LoginActivity;
 import org.hfoss.posit.android.experimental.api.activity.SettingsActivity;
 
@@ -100,10 +102,18 @@ interface SmsCallBack {
 	public void smsMgrCallBack(String s);
 }
 
+
+
+
 public class CommodityAdminActivity extends OrmLiteBaseActivity<DbManager>
 implements SmsCallBack {
 
+// Needs to import the menu plugins	
+	private ArrayList<FunctionPlugin> cAdminMenuPlugins = null;
+	
 	public static String TAG = "AdminActivity";
+	//Need to figure out/document how to extend plugins from non-default locations
+	public static final String COMMODITY_ADMIN_MENU_EXTENSION = "cadminMenu";
 	
 	public static final int MAX_BENEFICIARIES = 20000;  // Max readable
 	
@@ -160,6 +170,8 @@ implements SmsCallBack {
 		Log.i(TAG, "onCreate()");
 		super.onCreate(savedInstanceState);
 		dbManager = (CommodityDbManager)dbManager;
+		cAdminMenuPlugins = FindPluginManager.getFunctionPlugins(COMMODITY_ADMIN_MENU_EXTENSION);
+		Log.i(TAG, "# main menu plugins = " + cAdminMenuPlugins.size());
 	}
 
 	@Override
@@ -199,11 +211,26 @@ implements SmsCallBack {
 	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.acdi_voca_admin_menu, menu);
-		mContext = this;
-		return true;
+//		MenuInflater inflater = getMenuInflater();
+//		inflater.inflate(R.menu.commodity_admin_menu, menu);
+//		mContext = this;
+//		return true;
+//	}
+	
+	MenuInflater inflater = getMenuInflater();
+	if (cAdminMenuPlugins.size() > 0) {
+		for (FunctionPlugin plugin: cAdminMenuPlugins) {
+			MenuItem item = menu.add(plugin.getmMenuTitle());
+			int id = getResources().getIdentifier(
+					plugin.getmMenuIcon(), "drawable", "org.hfoss.posit.android.experimental");
+			Log.i(TAG, "icon =  " + plugin.getmMenuIcon() + " id =" + id);
+			item.setIcon(id);
+			//item.setIcon(android.R.drawable.ic_menu_mapmode);				
+		}
 	}
+	inflater.inflate(R.menu.commodity_admin_menu, menu);
+	return true;
+}
 	
 	
 	
@@ -268,110 +295,110 @@ implements SmsCallBack {
 	}
 	
 
-	
-	/**
-	 * The Admin menu needs to be carefully prepared to control the management
-	 * of distribution events through the various stages:  select distribution point,
-	 * import beneficiary data, start, stop, send distribution report.  
-	 * Here's where the various values are set:
-	 * 
-	 * 1) Select distribution point -- selected in settings.
-	 * 2) Import beneficiary file -- set in SettingsActivity
-	 * 3) Start -- set in onMenuItemSelected
-	 * 4) Stop -- set in onMenuItemSelected
-	 * 5) Send report -- set in SendSms
-	 */
-//	@Override
-	public boolean onPrepareOptionsMenu(Menu menu) {
-		
-		menu.clear();
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.commodity_admin_menu, menu);
-		
-		MenuItem loadAgriItem = menu.findItem(R.id.cload_market_data);
-		MenuItem loadMchnItem = menu.findItem(R.id.cload_commodity_data);
-//		MenuItem listFindsItem = menu.findItem(R.id.admin_list_beneficiaries);
-//		MenuItem startStopDistr = menu.findItem(R.id.start_stop_distribution);
-		MenuItem sendDistrReport = menu.findItem(R.id.csend_commodity_report);
-		
-		// Is the app in Distribution mode?
-//		Log.i(TAG, "Distribution Stage = " + AppControlManager.displayDistributionStage(this));
-	
-		// What type of user is logged in?
-		Log.i(TAG, "UserType = " + AppControlManager.getUserType());
-		
-		loadAgriItem.setVisible(true);
-		loadAgriItem.setEnabled(true);
-		loadMchnItem.setVisible(true);
-		loadMchnItem.setEnabled(true);
-		sendDistrReport.setVisible(true);
-		sendDistrReport.setEnabled(true);
-		
-		
-		//Note: Need to re-implement Super user
-		
-		// Only SUPER user sees the ListFinds menu
-//		if (!AppControlManager.isSuperUser()) {  
-//			listFindsItem.setVisible(false);
-//		} else {
-//			listFindsItem.setVisible(true);
-//		}
-		
-		// Only SUPER and AGRON users can import livelihood data
-//		if ( !AppControlManager.isDuringDistributionEvent() 
-//				&& (AppControlManager.isSuperUser() || AppControlManager.isAgronUser())) {
-//			loadAgriItem.setVisible(true);
-//			loadAgriItem.setEnabled(true);
-//		} else {
-//			loadAgriItem.setVisible(false);
-//			loadAgriItem.setEnabled(false);
-//		}
-		
-		// AGRON users don't see distribution event menus
-//		if (AppControlManager.isAgronUser()) {
-//			loadMchnItem.setVisible(false);
-//			startStopDistr.setVisible(false);
-//			sendDistrReport.setVisible(false);
-//		}
-
-//		Log.i(TAG, "onPrepareMenuOptions, " 
-//				+ " distribution stage = " + AppControlManager.displayDistributionStage(this));
-		
-		// For each menu item set its visibility based on Distribution event stage
-//		MenuItem item = null;
-//		for (int k = 0; k < menu.size(); k++) {
-//			item = menu.getItem(k);
-//			switch (item.getItemId()) {
-//			case R.id.cload_commodity_data:
-//				if (AppControlManager.isImportDataStage()) 
-//					item.setEnabled(true);
-//				else 
-//					item.setEnabled(false);
-//				break;
-//			case R.id.start_stop_distribution:
-//				SubMenu sub = item.getSubMenu();
-//				if (AppControlManager.isStartDistributionStage()) {
-//					item.setEnabled(true);
-//					sub.getItem(0).setEnabled(true);
-//					sub.getItem(1).setEnabled(false);
-//				} else if (AppControlManager.isStopDistributionStage()) {
-//					item.setEnabled(true);
-//					sub.getItem(0).setEnabled(false);
-//					sub.getItem(1).setEnabled(true);		
-//				} else {
-//					item.setEnabled(false);
-//				}
-//				break;
-//			case R.id.csend_commodity_report:
-//				if (AppControlManager.isSendDistributionReportStage()) 
-//					item.setEnabled(true);
-//				else 
-//					item.setEnabled(false);
-//				break;
-//			}
-//		}
-		return super.onPrepareOptionsMenu(menu);
-	}
+//	
+//	/**
+//	 * The Admin menu needs to be carefully prepared to control the management
+//	 * of distribution events through the various stages:  select distribution point,
+//	 * import beneficiary data, start, stop, send distribution report.  
+//	 * Here's where the various values are set:
+//	 * 
+//	 * 1) Select distribution point -- selected in settings.
+//	 * 2) Import beneficiary file -- set in SettingsActivity
+//	 * 3) Start -- set in onMenuItemSelected
+//	 * 4) Stop -- set in onMenuItemSelected
+//	 * 5) Send report -- set in SendSms
+//	 */
+////	@Override
+//	public boolean onPrepareOptionsMenu(Menu menu) {
+//		
+//		menu.clear();
+//		MenuInflater inflater = getMenuInflater();
+//		inflater.inflate(R.menu.commodity_admin_menu, menu);
+//		
+//		MenuItem loadAgriItem = menu.findItem(R.id.cload_market_data);
+//		MenuItem loadMchnItem = menu.findItem(R.id.cload_commodity_data);
+////		MenuItem listFindsItem = menu.findItem(R.id.admin_list_beneficiaries);
+////		MenuItem startStopDistr = menu.findItem(R.id.start_stop_distribution);
+//		MenuItem sendDistrReport = menu.findItem(R.id.csend_commodity_report);
+//		
+//		// Is the app in Distribution mode?
+////		Log.i(TAG, "Distribution Stage = " + AppControlManager.displayDistributionStage(this));
+//	
+//		// What type of user is logged in?
+//		Log.i(TAG, "UserType = " + AppControlManager.getUserType());
+//		
+//		loadAgriItem.setVisible(true);
+//		loadAgriItem.setEnabled(true);
+//		loadMchnItem.setVisible(true);
+//		loadMchnItem.setEnabled(true);
+//		sendDistrReport.setVisible(true);
+//		sendDistrReport.setEnabled(true);
+//		
+//		
+//		//Note: Need to re-implement Super user
+//		
+//		// Only SUPER user sees the ListFinds menu
+////		if (!AppControlManager.isSuperUser()) {  
+////			listFindsItem.setVisible(false);
+////		} else {
+////			listFindsItem.setVisible(true);
+////		}
+//		
+//		// Only SUPER and AGRON users can import livelihood data
+////		if ( !AppControlManager.isDuringDistributionEvent() 
+////				&& (AppControlManager.isSuperUser() || AppControlManager.isAgronUser())) {
+////			loadAgriItem.setVisible(true);
+////			loadAgriItem.setEnabled(true);
+////		} else {
+////			loadAgriItem.setVisible(false);
+////			loadAgriItem.setEnabled(false);
+////		}
+//		
+//		// AGRON users don't see distribution event menus
+////		if (AppControlManager.isAgronUser()) {
+////			loadMchnItem.setVisible(false);
+////			startStopDistr.setVisible(false);
+////			sendDistrReport.setVisible(false);
+////		}
+//
+////		Log.i(TAG, "onPrepareMenuOptions, " 
+////				+ " distribution stage = " + AppControlManager.displayDistributionStage(this));
+//		
+//		// For each menu item set its visibility based on Distribution event stage
+////		MenuItem item = null;
+////		for (int k = 0; k < menu.size(); k++) {
+////			item = menu.getItem(k);
+////			switch (item.getItemId()) {
+////			case R.id.cload_commodity_data:
+////				if (AppControlManager.isImportDataStage()) 
+////					item.setEnabled(true);
+////				else 
+////					item.setEnabled(false);
+////				break;
+////			case R.id.start_stop_distribution:
+////				SubMenu sub = item.getSubMenu();
+////				if (AppControlManager.isStartDistributionStage()) {
+////					item.setEnabled(true);
+////					sub.getItem(0).setEnabled(true);
+////					sub.getItem(1).setEnabled(false);
+////				} else if (AppControlManager.isStopDistributionStage()) {
+////					item.setEnabled(true);
+////					sub.getItem(0).setEnabled(false);
+////					sub.getItem(1).setEnabled(true);		
+////				} else {
+////					item.setEnabled(false);
+////				}
+////				break;
+////			case R.id.csend_commodity_report:
+////				if (AppControlManager.isSendDistributionReportStage()) 
+////					item.setEnabled(true);
+////				else 
+////					item.setEnabled(false);
+////				break;
+////			}
+////		}
+//		return super.onPrepareOptionsMenu(menu);
+//	}
 
 	/**
 	 * Manages the selection of menu items.
@@ -387,18 +414,27 @@ implements SmsCallBack {
 		case R.id.settings_menu_item:
 			startActivity(new Intent(this, SettingsActivity.class));
 			break;
-		case R.id.admin_list_beneficiaries:
-			startActivity(new Intent(this, CommodityListFindsActivity.class));
-			break;
-		case R.id.cload_commodity_data:
-			intent.setClass(this, CommodityFilePickerActivity.class);
+//		case R.id.admin_list_beneficiaries:
+//			startActivity(new Intent(this, CommodityListFindsActivity.class));
+//			break;
+//		case R.id.cload_commodity_data:
+//			intent.setClass(this, CommodityFilePickerActivity.class);
+//			
+//			this.startActivityForResult(intent, CommodityFilePickerActivity.ACTION_CHOOSER);
+//			break;
+//		case R.id.cload_market_data:
+//			intent.setClass(this, CommodityFilePickerActivity.class);
+//			
+//			this.startActivityForResult(intent, CommodityFilePickerActivity.ACTION_CHOOSER);
 			
-			this.startActivityForResult(intent, CommodityFilePickerActivity.ACTION_CHOOSER);
-			break;
-		case R.id.cload_market_data:
-			intent.setClass(this, CommodityFilePickerActivity.class);
-			
-			this.startActivityForResult(intent, CommodityFilePickerActivity.ACTION_CHOOSER);
+		default:
+			if (cAdminMenuPlugins.size() > 0){
+				for (FunctionPlugin plugin: cAdminMenuPlugins) {
+					if (item.getTitle().equals(plugin.getmMenuTitle()))
+						startActivity(new Intent(this, plugin.getmMenuActivity()));
+				}
+			}
+
 			break;
 			
 		//	Class<Activity> loginActivity = FindActivityProvider.getLoginActivityClass();

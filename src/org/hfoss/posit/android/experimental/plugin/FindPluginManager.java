@@ -55,6 +55,9 @@ public class FindPluginManager {
 	public static FindPlugin mFindPlugin = null;
 	private Activity mMainActivity = null;
 
+//	
+//	//Need to figure out/document how to extend plugins from non-default locations
+//	public static final String COMMODITY_ADMIN_MENU_EXTENSION = "cadminMenu";
 
 	private FindPluginManager(Activity activity) {
 		mMainActivity = activity;

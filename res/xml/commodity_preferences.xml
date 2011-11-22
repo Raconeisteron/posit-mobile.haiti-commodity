@@ -16,16 +16,6 @@
 				android:negativeButtonText="@string/alert_dialog_cancel"
 				/>
 				
-			<ListPreference 
-				android:key="@string/cLocaleKey"
-				android:title="@string/cLocale" 
-				android:persistent="true"
-				android:defaultValue="en" 
-				android:summary="@string/cLocale"
-				android:entries="@array/locales" 
-				android:entryValues="@array/locale_values"
-				android:negativeButtonText="@string/cCancelLabel" />
-
 				
 			<ListPreference 
 				android:key="@string/cCommune_section_key" 
