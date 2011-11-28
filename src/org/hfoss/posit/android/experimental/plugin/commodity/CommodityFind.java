@@ -254,58 +254,58 @@ public class CommodityFind extends Find {
 	}
 	
 	
-	/**
-	 * Translates attribute name from Haitian to English.  Beneficiaries.txt 
-	 * 	data file represents categories in Haitian.  
-	 * @param date
-	 * @return
-	 */
-	private static String translateCategoryData(String category) {
-		if (category.equals(AttributeManager.FINDS_MALNOURISHED_HA))
-			return AttributeManager.FINDS_MALNOURISHED;
-		else if (category.equals(AttributeManager.FINDS_EXPECTING_HA))
-			return AttributeManager.FINDS_EXPECTING;
-		else if (category.equals(AttributeManager.FINDS_NURSING_HA))
-			return AttributeManager.FINDS_NURSING;		
-		else if (category.equals(AttributeManager.FINDS_PREVENTION_HA))
-			return AttributeManager.FINDS_PREVENTION;	
-		else return category;
-	}
+//	/**
+//	 * Translates attribute name from Haitian to English.  Beneficiaries.txt 
+//	 * 	data file represents categories in Haitian.  
+//	 * @param date
+//	 * @return
+//	 */
+//	private static String translateCategoryData(String category) {
+//		if (category.equals(AttributeManager.FINDS_MALNOURISHED_HA))
+//			return AttributeManager.FINDS_MALNOURISHED;
+//		else if (category.equals(AttributeManager.FINDS_EXPECTING_HA))
+//			return AttributeManager.FINDS_EXPECTING;
+//		else if (category.equals(AttributeManager.FINDS_NURSING_HA))
+//			return AttributeManager.FINDS_NURSING;		
+//		else if (category.equals(AttributeManager.FINDS_PREVENTION_HA))
+//			return AttributeManager.FINDS_PREVENTION;	
+//		else return category;
+//	}
+//	
+//	
+//	
+//	/**
+//	 * Beneficiaries.txt represents sex as 'M' or 'F'.  We represent them as
+//	 * 'FEMALE' or 'MALE'
+//	 * @param date
+//	 * @return
+//	 */
+//	private static String translateSexData(String sex) {
+//		if (sex.equals(AttributeManager.ABBREV_FEMALE))
+//			return AttributeManager.FINDS_FEMALE;
+//		else if (sex.equals(AttributeManager.ABBREV_MALE))
+//			return AttributeManager.FINDS_MALE;
+//		else return sex;
+//	}
+//	
+//	
+//	// End of code requiring refactoring
+//	
+//	
+//	
+//	
 	
 	
-	
-	/**
-	 * Beneficiaries.txt represents sex as 'M' or 'F'.  We represent them as
-	 * 'FEMALE' or 'MALE'
-	 * @param date
-	 * @return
-	 */
-	private static String translateSexData(String sex) {
-		if (sex.equals(AttributeManager.ABBREV_FEMALE))
-			return AttributeManager.FINDS_FEMALE;
-		else if (sex.equals(AttributeManager.ABBREV_MALE))
-			return AttributeManager.FINDS_MALE;
-		else return sex;
-	}
-	
-	
-	// End of code requiring refactoring
-	
-	
-	
-	
-	
-	
-	public static final String SYRINGES_IN = "syringes_in";
-	public static final String SYRINGES_OUT = "syringes_out";
-	public static final String IS_NEW = "is_new";
-
-	@DatabaseField(columnName = SYRINGES_IN)
-	protected int syringesIn;
-	@DatabaseField(columnName = SYRINGES_OUT)
-	protected int syringesOut;
-	@DatabaseField(columnName = IS_NEW)
-	protected boolean isNew;
+//	public static final String SYRINGES_IN = "syringes_in";
+//	public static final String SYRINGES_OUT = "syringes_out";
+//	public static final String IS_NEW = "is_new";
+//
+//	@DatabaseField(columnName = SYRINGES_IN)
+//	protected int syringesIn;
+//	@DatabaseField(columnName = SYRINGES_OUT)
+//	protected int syringesOut;
+//	@DatabaseField(columnName = IS_NEW)
+//	protected boolean isNew;
 	
 	//This code adds the database fields
 	public static final String C_COMMODITY = "commodity";
@@ -314,6 +314,7 @@ public class CommodityFind extends Find {
 	public static final String C_PRICE_3 = "price3";
 	public static final String C_UNITS = "units";
 	public static final String C_DATE = "date";
+	public static final String C_MARKET = "market";
 	
 	@DatabaseField(columnName = C_COMMODITY)
 	protected String commodity;
@@ -327,6 +328,8 @@ public class CommodityFind extends Find {
 	protected String units;
 	@DatabaseField(columnName = C_DATE) 
 	protected String date;
+	@DatabaseField(columnName = C_MARKET)
+	protected String market;
 	
 	public static final String MESSAGE_ID = CommodityAttributeManager.FINDS_MESSAGE_ID;
 	public static final String MESSAGE_STATUS = CommodityAttributeManager.FINDS_MESSAGE_STATUS;
@@ -484,31 +487,39 @@ public class CommodityFind extends Find {
 		}
 	}
 	
-	public int getSyringesIn() {
-		return syringesIn;
-	}
-
-	public void setSyringesIn(int syringesIn) {
-		this.syringesIn = syringesIn;
-	}
-
-	public int getSyringesOut() {
-		return syringesOut;
-	}
-
-	public void setSyringesOut(int syringesOut) {
-		this.syringesOut = syringesOut;
-	}
-
-	public boolean isNew() {
-		return isNew;
-	}
-
-	public void setNew(boolean isNew) {
-		this.isNew = isNew;
-	}
+//	public int getSyringesIn() {
+//		return syringesIn;
+//	}
+//
+//	public void setSyringesIn(int syringesIn) {
+//		this.syringesIn = syringesIn;
+//	}
+//
+//	public int getSyringesOut() {
+//		return syringesOut;
+//	}
+//
+//	public void setSyringesOut(int syringesOut) {
+//		this.syringesOut = syringesOut;
+//	}
+//
+//	public boolean isNew() {
+//		return isNew;
+//	}
+//
+//	public void setNew(boolean isNew) {
+//		this.isNew = isNew;
+//	}
 	
 	//Commodity Tracker database setters and getters
+	
+	public String getMarket() {
+		return market;
+	}
+
+	public void setMarket(String market) {
+		this.market = market;
+	}	
 	
 	public String getCommodity() {
 		return commodity;

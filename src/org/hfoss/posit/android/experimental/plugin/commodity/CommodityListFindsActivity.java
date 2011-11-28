@@ -73,10 +73,10 @@ public class CommodityListFindsActivity extends ListFindsActivity {
 				tv.setText(String.valueOf(find.getLatitude()));
 				tv = (TextView) v.findViewById(R.id.longitude);
 				tv.setText(String.valueOf(find.getLongitude()));
-				tv = (TextView) v.findViewById(R.id.syringes_in);
-				tv.setText(String.valueOf(find.getSyringesIn()));
+//				tv = (TextView) v.findViewById(R.id.syringes_in);
+//				tv.setText(String.valueOf(find.getSyringesIn()));
 				tv = (TextView) v.findViewById(R.id.longitude);
-				tv.setText(String.valueOf(find.getSyringesOut()));
+//				tv.setText(String.valueOf(find.getSyringesOut()));
 				tv = (TextView) v.findViewById(R.id.id);
 				tv.setText(Integer.toString(find.getId()));
 
