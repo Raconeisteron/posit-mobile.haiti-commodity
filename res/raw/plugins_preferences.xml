@@ -50,7 +50,7 @@
 			menuActivity="org.hfoss.posit.android.experimental.api.activity.MapFindsActivity" />
 
        <!-- Extra Buttons in PositMain -->
-       <Plugin active="fale"
+       <Plugin active="false"
             type="function"
             extensionPoint="mainButton"
             name="extraButton"
