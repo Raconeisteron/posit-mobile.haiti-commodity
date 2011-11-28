@@ -12,20 +12,10 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import org.hfoss.posit.android.experimental.R;
-import org.hfoss.posit.android.experimental.api.Find;
-import org.hfoss.posit.android.experimental.api.FindFactory;
-import org.hfoss.posit.android.experimental.api.activity.FindActivity;
-import org.hfoss.posit.android.experimental.api.activity.ListFindsActivity;
-import org.hfoss.posit.android.experimental.api.activity.SettingsActivity;
-import org.hfoss.posit.android.experimental.api.database.DbManager;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-
-import com.j256.ormlite.android.apptools.OpenHelperManager;
-import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 
 import android.app.Activity;
 import android.content.Context;
@@ -42,6 +32,9 @@ public class FindPluginManager {
 	public static final String MAIN_BUTTON_EXTENSION = "mainButton";
 	/* Function Button Ends */
 	public static final String LIST_MENU_EXTENSION = "listMenu";
+	/* To-Do Begins */
+	public static final String ADD_FIND_MENU_EXTENSION = "addFindMenu";
+	/* To-Do Ends */
 	public static final String MAIN_LOGIN_EXTENSION = "mainLogin"; 
 	
 	public static final String IS_PLUGIN = "isPlugin"; // used in subclasses to
@@ -55,9 +48,6 @@ public class FindPluginManager {
 	public static FindPlugin mFindPlugin = null;
 	private Activity mMainActivity = null;
 
-//	
-//	//Need to figure out/document how to extend plugins from non-default locations
-//	public static final String COMMODITY_ADMIN_MENU_EXTENSION = "cadminMenu";
 
 	private FindPluginManager(Activity activity) {
 		mMainActivity = activity;
