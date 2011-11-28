@@ -40,13 +40,16 @@ import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 
 import android.app.Activity;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
+import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 import android.util.Log;
 
@@ -461,5 +464,13 @@ public class CommoditySmsManager extends BroadcastReceiver {
 		}
 	}
 	
+	private void sendSMS(String phoneNumber, String message) {
+		String msgid = "temp";  //This is a temporary message id
+		Intent sendIntent = new Intent(msgid);
+		IntentFilter intentFilter = new IntentFilter(msgid);
+		PendingIntent sentIntent = PendingIntent.getActivity(mContext, 0, sendIntent, 0);
+        SmsManager sms = SmsManager.getDefault();
+        sms.sendTextMessage(phoneNumber, null, message, sentIntent, null);        
+	}
 	
 }
