@@ -323,4 +323,76 @@
 	
 	
 	
+	
+	
+	
+<!-- 	The following strings are for the commodity tracker app -->
+	
+	    <string name="commodityPrefs">les préférences des marchandises</string>
+    
+    <string name="cSmsPhoneKey">smsPhone</string>
+    <string name="cSMS_phone">Target Téléphone SMS</string>
+    <string name="cDefault_phone">8605022947</string>
+    <string name="cAlert_dialog_ok">Ok</string>
+	<string name="cAlert_dialog_cancel">Annuler</string>
+    
+<!--     <string name="cLanguage">Language</string> -->
+    <string name="cLocaleKey">locale</string>
+    <string name="cLocale">locales</string>
+    <!-- Do not translate key values-->
+    <string name="cCommune_section_key">commune_section_key</string>
+    <string name="cCommune">commune</string>
+    <string name="cCommune_section">la section commune</string>
+    <string name="cDefault_preference_string">default_null_value</string>
+    <string name="cCancelLabel">Annuler</string>
+    <string name="cAboutItem">À propos</string>
+    <string name="cMRice">Miami Rice /(Lucky/)</string>
+    <string name="cLRice">Local Rice</string>
+    <string name="cLCorn">Local Corn</string>
+    
+    <string name="cNextItem">Next Item</string>
+    <string name="cVendorComplete">Terminer</string>
+    
+    <string name="cLat">Latitude: </string>
+    <string name="cLon">Longitude: </string>
+    <string name="cDate">Date: </string>
+    <string name="cNotes">Notes: </string>
+    
+<!--     Form info -->    
+
+    <string name="cMarket">marché</string>
+    <string name="cUnits">unités </string>
+    <string name="cCommodity">marchandises</string>
+    <string name="cCommuneSection">Section Commune:</string>
+    <string name="cVendorNumber">Numéro de fournisseur:</string>
+    <string name="cPrice1">Prix ​​1</string>    
+    <string name="cPrice2">Prix ​​2</string> 
+    <string name="cPrice3">Prix ​​3</string> 
+    <string name="cLocation">Lieu</string>
+    <string name="cNewVendor">nouveau fournisseur</string>
+    <string name="cListData">Les données sauvegardées</string>
+	<string name="cAverage">Moyenne</string>
+    
+<!--     Sample info -->
+	<string name="csCommuneSection">Mapou</string>
+	<string name="csVend">6</string>
+	<string name="csLat">20.34</string>
+    <string name="csLon">-36.54</string>
+    <string name="csDate">7 October 2011</string>
+	
+    
+    <string name="commodityAboutDescription">Nous fournissons des solutions durables à la
+     les plus urgents et les problèmes de développement insolubles. Nos activités couvrent
+     le continuum de développement, de satisfaire les besoins essentiels à la stabilisation communautaire,
+     sécurité alimentaire et la nutrition, la lutte contre la pauvreté, l\'accès aux services financiers
+     l\'intégration du marché.
+
+    </string>
+    
+    <!--     Admin Menu -->
+    <string name="cload_commodity_data">Charger les données des produits de base</string> 
+    <string name="cload_market_data">Données sur le marché de charge</string> 
+    <string name="csend_commodity_report">Envoyer un rapport des produits de base</string>
+    
+	
 </resources>
