@@ -1,0 +1,39 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+	<PreferenceCategory android:key="@string/commodityPrefs"
+		android:title="@string/commodityPrefs">
+
+		<PreferenceScreen android:title="@string/commodityPrefs">
+		
+		
+		<EditTextPreference 
+				android:key="@string/cSmsPhoneKey"  
+				android:title="@string/cSMS_phone"
+				android:summary = "@string/cSMS_phone" 
+				android:phoneNumber="true"
+				android:shouldDisableView="true"
+				android:defaultValue = "@string/cDefault_phone"
+				android:positiveButtonText="@string/alert_dialog_ok"
+				android:negativeButtonText="@string/alert_dialog_cancel"
+				/>
+				
+				
+			<ListPreference 
+				android:key="@string/cCommune_section_key" 
+                android:title="@string/cCommune_section"
+                android:entries="@array/commune_section_names"
+                android:entryValues="@array/commune_section_names"
+                android:defaultValue = "@string/cDefault_preference_string"
+                android:shouldDisableView="true"
+                android:summary="@string/cCommune_section" 
+                android:negativeButtonText="@string/cCancelLabel" />    
+                
+                
+             <Preference android:key="cAboutKey" 
+				android:title="@string/cAboutItem"
+				activity_class="org.hfoss.posit.android.experimental.plugin.commodity.CommodityAboutActivity"
+				android:summary="" />
+	
+		</PreferenceScreen>
+	</PreferenceCategory>
+
+</PreferenceScreen>

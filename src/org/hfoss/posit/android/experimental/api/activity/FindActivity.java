@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import org.hfoss.posit.android.experimental.R;
 import org.hfoss.posit.android.experimental.api.Find;
+import org.hfoss.posit.android.experimental.api.LocaleManager;
 import org.hfoss.posit.android.experimental.api.database.DbManager;
 import org.hfoss.posit.android.experimental.api.service.LocationService;
 import org.hfoss.posit.android.experimental.plugin.FindPluginManager;
@@ -183,6 +184,9 @@ public class FindActivity extends OrmLiteBaseActivity<DbManager> // Activity
 	@Override
 	protected void onResume() {
 		super.onResume();
+		
+		//Note: LocaleManager should be defined in the plugin instead
+		LocaleManager.setDefaultLocale(this);
 		
 		if (mGeoTagEnabled) { 
 			mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 60000, 0, this);

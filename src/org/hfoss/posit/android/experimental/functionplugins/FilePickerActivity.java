@@ -19,7 +19,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import org.hfoss.posit.android.experimental.R;
-import org.hfoss.posit.android.experimental.plugin.acdivoca.AcdiVocaFind;
+import org.hfoss.posit.android.experimental.plugin.commodity.CommodityFind;
 
 // @see http://www.dreamincode.net/forums/topic/190013-creating-simple-file-chooser/
 public class FilePickerActivity extends ListActivity {
@@ -36,7 +36,7 @@ public class FilePickerActivity extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		Log.i(TAG, "onCreate()"); //Code added for error checking
 		Intent intent = this.getIntent();
 		 Bundle extras = intent.getExtras();
 			if (extras == null) {
@@ -47,6 +47,7 @@ public class FilePickerActivity extends ListActivity {
 		
 		File files[] = currentDir.listFiles();
 		List<String> datafiles = new ArrayList<String>();
+		Log.i(TAG, currentDir.getName()); //Code added for error checking
 		try {
 			for (File ff: files) {
 				if (ff.isFile()) {
@@ -62,9 +63,9 @@ public class FilePickerActivity extends ListActivity {
 		}
 		
 		if (datafiles.size() == 0) 
-			setContentView(R.layout.acdivoca_list_files);
+			setContentView(R.layout.commodity_list_files);
 
-        adapter = new FileArrayAdapter(this, R.layout.acdivoca_list_files, datafiles );
+        adapter = new FileArrayAdapter(this, R.layout.commodity_list_files, datafiles );
         this.setListAdapter(adapter);
 	}
 	
@@ -102,7 +103,7 @@ public class FilePickerActivity extends ListActivity {
 			View v = convertView;
 			if (v == null) {
 				LayoutInflater vi = (LayoutInflater)c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-				v = vi.inflate(R.layout.acdivoca_list_files_row, null);
+				v = vi.inflate(R.layout.commodity_list_files_row, null);
 			}
 			final String filename = items.get(position);
 			if (filename != null) {
