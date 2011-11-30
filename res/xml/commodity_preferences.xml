@@ -28,7 +28,7 @@
                 android:negativeButtonText="@string/cCancelLabel" />    
                 
                 
-             <Preference android:key="aboutKey" 
+             <Preference android:key="cAboutKey" 
 				android:title="@string/cAboutItem"
 				activity_class="org.hfoss.posit.android.experimental.plugin.commodity.CommodityAboutActivity"
 				android:summary="" />

@@ -480,7 +480,7 @@ implements OnItemSelectedListener, OnDateChangedListener {
 //	            this, android.R.layout.simple_spinner_item, marketspin); 
 //	    spinner.setAdapter(mspinnerArrayAdapter);
 //		Spinner mspinner = (Spinner) findViewById(R.id.marketSpinner);
-	    setSpinner(mspinner, oiFind.getMarket());		
+//	    setSpinner(mspinner, oiFind.getMarket());		
 		
 //		Spinner spinner = (Spinner)findViewById(R.id.commoditySpinner);
 //		String commodityspin[] = loadData("/commodity/commoditylist.csv");
@@ -495,9 +495,9 @@ implements OnItemSelectedListener, OnDateChangedListener {
 	    
 //		Spinner cspinner = (Spinner) findViewById(R.id.commoditySpinner);
 		Log.i(TAG, "##############" + oiFind.getCommodity());
-		Log.i(TAG, "##############" + cspinner.getItemAtPosition(2));
-		Log.i(TAG, "##############" + oiFind.getCommodity().equals(cspinner.getItemAtPosition(2)));
-		setSpinner(cspinner, oiFind.getCommodity());
+//		Log.i(TAG, "##############" + cspinner.getItemAtPosition(2));
+//		Log.i(TAG, "##############" + oiFind.getCommodity().equals(cspinner.getItemAtPosition(2)));
+//		setSpinner(cspinner, oiFind.getCommodity());
 		
 		
 
