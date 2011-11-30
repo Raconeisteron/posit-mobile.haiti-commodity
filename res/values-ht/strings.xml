@@ -325,5 +325,78 @@
 	</string>
 	
 	
+		
+	
+	
+	
+	
+<!-- 	The following strings are for the commodity tracker app -->
+	
+	    <string name="commodityPrefs">komodite Preferences</string>
+    
+    <string name="cSmsPhoneKey">smsPhone</string>
+    <string name="cSMS_phone">SMS Nimewo telefòn Sib</string>
+    <string name="cDefault_phone">8605022947</string>
+    <string name="cAlert_dialog_ok">Ok</string>
+	<string name="cAlert_dialog_cancel">Anile</string>
+    
+<!--     <string name="cLanguage">Language</string> -->
+    <string name="cLocaleKey">locale</string>
+    <string name="cLocale">locale</string>
+    <!-- Do not translate key values-->
+    <string name="cCommune_section_key">commune_section_key</string>
+    <string name="cCommune">komin</string>
+    <string name="cCommune_section">kominal seksyon</string>
+    <string name="cDefault_preference_string">default_null_value</string>
+    <string name="cCancelLabel">anile</string>
+    <string name="cAboutItem">About</string>
+    <string name="cMRice">Miami Rice /(Lucky/)</string>
+    <string name="cLRice">Local Rice</string>
+    <string name="cLCorn">Local Corn</string>
+    
+    <string name="cNextItem">Next Item</string>
+    <string name="cVendorComplete">fini</string>
+    
+    <string name="cLat">Etablisman: </string>
+    <string name="cLon">Lonjitid: </string>
+    <string name="cDate">Dat li te: </string>
+    <string name="cNotes">Remak: </string>
+    
+<!--     Form info -->    
+
+    <string name="cMarket">Market </string>
+    <string name="cUnits">inite </string>
+    <string name="cCommodity">komodite</string>
+    <string name="cCommuneSection">Komin Seksyon:</string>
+    <string name="cVendorNumber">Nimewo machann: </string>
+    <string name="cPrice1">Pri 1</string>    
+    <string name="cPrice2">Pri 2</string> 
+    <string name="cPrice3">Pri 3</string> 
+    <string name="cLocation">Location</string>
+    <string name="cNewVendor">New machann</string>
+    <string name="cListData">sove done</string>
+	<string name="cAverage">mwayèn</string>
+    
+<!--     Sample info -->
+	<string name="csCommuneSection">Mapou</string>
+	<string name="csVend">6</string>
+	<string name="csLat">20.34</string>
+    <string name="csLon">-36.54</string>
+    <string name="csDate">7 October 2011</string>
+	
+    
+    <string name="commodityAboutDescription">Nou bay yon seri solisyon dirab nan
+     pi ijan ak pwoblèm devlopman entranzijan. Aktivite nou travès
+     Continuum nan devlopman, ki soti nan satisfè bezwen debaz nan estabilizasyon nan kominote a,
+     manje sekirite ak nitrisyon, apèzman povrete, aksè a sèvis finansye
+     ak mache entegrasyon.
+
+    </string>
+    
+    <!--     Admin Menu -->
+    <string name="cload_commodity_data">Chaj Done Komodite</string> 
+    <string name="cload_market_data">Chaj Market Done</string> 
+    <string name="csend_commodity_report">Voye Rapò Komodite</string>
+    
 </resources>
 

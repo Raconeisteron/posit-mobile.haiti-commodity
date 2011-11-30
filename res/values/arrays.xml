@@ -232,6 +232,22 @@
 	<item>5</item>
 	<item>6</item>
 	</integer-array>	
+	
+	
+		<!-- Commodity Arrays -->
+	<string-array name="commodities"> 
+	<item>Corn</item>
+	<item>Rice</item>
+	<item>Wheat</item>
+	<item>Chicken</item>
+	</string-array>
 
+<!-- Commodity unit array -->
+	<string-array name="commodity_units"> 
+	<item>Marmite</item>
+	<item>Kilos</item>
+	<item>Pounds</item>
+	<item>Gallons</item>
+	</string-array>
 	
 </resources>

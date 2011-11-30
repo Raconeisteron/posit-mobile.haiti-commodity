@@ -346,10 +346,9 @@ public class AcdiVocaMchnFindActivity extends FindActivity implements OnDateChan
 		// Retrieving DISTRIBUTION POST from Spinner      
 		String spinnerStr = "";
 		Spinner spinner = (Spinner)findViewById(R.id.distributionSpinner);
-		if (spinner != null) {
-			spinnerStr = (String) spinner.getSelectedItem();
-			result.put(AcdiVocaFind.DISTRIBUTION_POST, AttributeManager.getMapping(spinnerStr));
-		}
+		spinnerStr = (String) spinner.getSelectedItem();
+		result.put(AcdiVocaFind.DISTRIBUTION_POST, AttributeManager.getMapping(spinnerStr));
+
 		
 		// Retrieving Alternate Collector (relative_1)
 		RadioButton rb = (RadioButton)findViewById(R.id.malnourishedRadio);
