@@ -45,26 +45,26 @@
 			<TextView android:layout_height="wrap_content"
 				android:layout_width="wrap_content" android:text="@string/cPrice1"
 				android:id="@+id/commodityPrice1"></TextView>
-			<TextView android:text="@string/cUnits" android:id="@+id/textView12" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+			<EditText android:inputType="numberDecimal" android:layout_height="wrap_content" android:id="@+id/editText1" android:layout_width="match_parent"></EditText>
 		</TableRow>
 		<TableRow android:id="@+id/tableRow3" android:layout_weight="1" android:layout_height="0dp" android:layout_width="wrap_content">
-			<EditText android:inputType="numberDecimal" android:id="@+id/editText1" android:layout_height="wrap_content" android:layout_width="match_parent">
-				<requestFocus></requestFocus>
-			</EditText>
-			<Spinner android:id="@+id/spinner1" android:layout_height="wrap_content" android:entries="@+array/commodity_units" android:layout_width="match_parent"></Spinner>
 		</TableRow>
 
 <TableRow android:id="@+id/tableRow4" android:layout_width="match_parent" android:layout_weight="1" android:layout_height="0dp">
     <TextView android:text="@string/cPrice2" android:id="@+id/textView13" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+    <EditText android:inputType="numberDecimal" android:layout_height="wrap_content" android:id="@+id/editText3" android:layout_width="match_parent">
+        <requestFocus></requestFocus>
+    </EditText>
 </TableRow>
 
 
 	<TableRow android:id="@+id/tableRow4" android:layout_width="match_parent" android:layout_weight="1" android:layout_height="0dp">
-		<EditText android:inputType="numberDecimal" android:layout_height="wrap_content" android:id="@+id/editText3" android:layout_width="match_parent"></EditText>
 	</TableRow>
-	<TextView android:text="@string/cPrice3" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/textView14"></TextView>
+	<TableRow android:id="@+id/tableRow20" android:layout_width="match_parent" android:layout_weight="1" android:layout_height="0dp">
+<TextView android:text="@string/cPrice3" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/textView14"></TextView>
+<EditText android:inputType="numberDecimal" android:layout_height="wrap_content" android:id="@+id/editText4" android:layout_width="match_parent"></EditText>
+</TableRow>
 	<TableRow android:id="@+id/tableRow14" android:layout_width="match_parent" android:layout_weight="1" android:layout_height="0dp">
-	<EditText android:inputType="numberDecimal" android:layout_height="wrap_content" android:id="@+id/editText4" android:layout_width="match_parent"></EditText>
 	</TableRow>
 <!-- 	<TextView android:text="@string/cAverage" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/textView14"></TextView> -->
 <!-- 	<TableRow android:id="@+id/tableRow15" android:layout_width="match_parent" android:layout_weight="1" android:layout_height="0dp"> -->
@@ -73,7 +73,7 @@
 	
 <!-- 	This code is used to save finds -->
 	<TableRow android:id="@+id/tableRow5" android:layout_width="match_parent" android:layout_weight="1" android:layout_height="0dp">
-		<Button android:text="@string/cNextItem" android:id="@+id/button1" android:layout_height="wrap_content" android:layout_width="match_parent"></Button>
+		<Button android:text="@string/cNextItem" android:id="@+id/nextButton" android:layout_height="wrap_content" android:layout_width="match_parent"></Button>
 		<Button android:layout_height="wrap_content"
 			android:text="@string/cVendorComplete"
 			android:id="@+id/saveButton" android:layout_width="match_parent"></Button>

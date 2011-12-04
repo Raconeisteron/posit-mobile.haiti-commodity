@@ -312,7 +312,7 @@ public class CommodityFind extends Find {
 	public static final String C_PRICE_1 = "price1";
 	public static final String C_PRICE_2 = "price2";
 	public static final String C_PRICE_3 = "price3";
-	public static final String C_UNITS = "units";
+//	public static final String C_UNITS = "units";
 	public static final String C_DATE = "date";
 	public static final String C_MARKET = "market";
 	
@@ -324,7 +324,7 @@ public class CommodityFind extends Find {
 	protected float price2;
 	@DatabaseField(columnName = C_PRICE_3)   
 	protected float price3;
-	@DatabaseField(columnName = C_UNITS)   //Unit of measurement
+//	@DatabaseField(columnName = C_UNITS)   //Unit of measurement
 	protected String units;
 	@DatabaseField(columnName = C_DATE) 
 	protected String date;
@@ -553,13 +553,13 @@ public class CommodityFind extends Find {
 		this.price3 = price3;
 	}
 
-	public void setUnits(String units) {
-		this.units = units;
-	}
-	
-	public String getUnits(){
-		return units;
-	}
+//	public void setUnits(String units) {
+//		this.units = units;
+//	}
+//	
+//	public String getUnits(){
+//		return units;
+//	}
 	
 	public void setDate(String date){
 		this.date = date;

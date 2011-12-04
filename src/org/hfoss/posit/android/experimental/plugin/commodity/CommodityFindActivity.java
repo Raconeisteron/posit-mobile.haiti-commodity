@@ -32,10 +32,12 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.DatePicker.OnDateChangedListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.CheckBox;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 /**
@@ -55,6 +57,9 @@ implements OnItemSelectedListener, OnDateChangedListener {
 	private EditText eText;
 	private String c;
 	private String d;
+	private int posc;
+	private int posd;
+	
 	
 
 	
@@ -230,7 +235,11 @@ implements OnItemSelectedListener, OnDateChangedListener {
 	@Override
 	protected void initializeListeners() {
 		super.initializeListeners();
+		Button nextButton = ((Button) findViewById(R.id.nextButton));
+		if (nextButton != null)
+			nextButton.setOnClickListener(this);
 		Calendar calendar = Calendar.getInstance();
+		
 
 		((DatePicker)findViewById(R.id.datePicker1)).init(
 				calendar.get(Calendar.YEAR),
@@ -245,7 +254,10 @@ implements OnItemSelectedListener, OnDateChangedListener {
 							View view, 
 							int position, 
 							long id) {
+						posc = position;
 						c = commodityspin[position];
+						Log.i(TAG, "#######Commodity spin choice index = " + position);
+						Log.i(TAG, "#######Commodity spin choice = " + c);
 //						find.setCommodity(c);
 						//eText.setText(d);
 					}
@@ -299,7 +311,9 @@ implements OnItemSelectedListener, OnDateChangedListener {
 	    
 		
 		find.setMarket(d);
+		Log.i(TAG, "#######Market to DB = " + d);
 		find.setCommodity(c);
+		Log.i(TAG, "#######Commodity to DB = " + c);
 		
 //		Spinner spinner = (Spinner) findViewById(R.id.marketSpinner);
 //		ArrayAdapter<String> mspinnerArrayAdapter = new ArrayAdapter<String>( 
@@ -522,6 +536,26 @@ implements OnItemSelectedListener, OnDateChangedListener {
 
 	public void onClick(View v) {
 		super.onClick(v);
+		switch (v.getId()) {
+		case R.id.nextButton:
+			if(saveFind()){
+				Toast.makeText(this, getString(R.string.ctoast_saved), Toast.LENGTH_SHORT).show();
+				if ( posc < cspinner.getCount()-1)
+					cspinner.setSelection(++posc);
+				EditText et = (EditText)findViewById(R.id.editText1);
+				et.setText(Float.toString(0));
+				
+				et = (EditText)findViewById(R.id.editText3);
+				et.setText(Float.toString(0));
+				
+				et = (EditText)findViewById(R.id.editText4);
+				et.setText(Float.toString(0));
+				
+			}
+			else
+				Toast.makeText(this, getString(R.string.ctoast_unsaved), Toast.LENGTH_SHORT).show();
+			break;
+		}
 		
 		//  If DatePicker was touched, mark the form as edited
 //		if (id == R.id.datePicker1) {

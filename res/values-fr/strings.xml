@@ -394,5 +394,9 @@
     <string name="cload_market_data">Données sur le marché de charge</string> 
     <string name="csend_commodity_report">Envoyer un rapport des produits de base</string>
     
+    
+        <!--     Toast -->
+        <string name="ctoast_saved">Saved</string>
+        <string name="ctoast_unsaved">Enregistrer échoué</string>
 	
 </resources>
