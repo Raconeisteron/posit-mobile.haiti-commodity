@@ -398,5 +398,10 @@
     <string name="cload_market_data">Chaj Market Done</string> 
     <string name="csend_commodity_report">Voye Rapò Komodite</string>
     
+    
+    <!--     Toast -->
+        <string name="ctoast_saved">Sove</string>
+        <string name="ctoast_unsaved">Save echwe</string>
+    
 </resources>
 
