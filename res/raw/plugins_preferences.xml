@@ -22,6 +22,26 @@
 
 <!-- 			login_activity_class="org.hfoss.posit.android.experimental.api.activity.LoginActivity" -->
 
+
+		<Plugin active="true" type="find" name="ClpFind"
+			package="org.hfoss.posit.android.experimental.plugin.clp"
+			find_class="org.hfoss.posit.android.experimental.plugin.clp.ClpFind"
+			find_factory="org.hfoss.posit.android.experimental.api.FindFactory"
+			find_activity_class="org.hfoss.posit.android.experimental.plugin.clp.ClpFindActivity"
+			extra_activity_class="" 
+			extra_activity_class2=""
+			list_finds_activity_class="org.hfoss.posit.android.experimental.plugin.clp.ClpListFindsActivity"
+			find_data_manager="org.hfoss.posit.android.experimental.api.database.DbManager"
+			preferences_xml="clp_preferences" 
+			add_find_layout="add_find"
+			list_find_layout="list_row" 
+			main_list_button_label="listReports"
+			main_add_button_label="addReport" 
+			main_extra_button_label=""
+			main_extra_button_label2="" 
+			main_icon="clp_logo" />
+
+
 		<Plugin active="false" type="find" name="OutsideInFind"
 			package="org.hfoss.posit.android.experimental.plugin.outsidein"
 			find_class="org.hfoss.posit.android.experimental.plugin.outsidein.OutsideInFind"
@@ -75,7 +95,9 @@
 			extensionPoint="addFindMenu"
 			name="setReminder" 
 			menuIcon="ic_menu_list" menuTitle="Set Reminder"
+			preferences_xml="todo_preferences" 
 			menuActivity="org.hfoss.posit.android.experimental.functionplugins.SetReminder"
+			service="org.hfoss.posit.android.experimental.api.service.LocationService"
 			activity_returns_result="true"
 			activity_result_action="0" />
 		<!-- To-Do Ends -->
