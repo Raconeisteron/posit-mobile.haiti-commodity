@@ -464,13 +464,13 @@ public class CommoditySmsManager extends BroadcastReceiver {
 		}
 	}
 	
-	private void sendSMS(String phoneNumber, String message) {
+	static void sendSMS(String phoneNumber, String message) {
 		String msgid = "temp";  //This is a temporary message id
 		Intent sendIntent = new Intent(msgid);
 		IntentFilter intentFilter = new IntentFilter(msgid);
-		PendingIntent sentIntent = PendingIntent.getActivity(mContext, 0, sendIntent, 0);
+//		PendingIntent sentIntent = PendingIntent.getActivity(mContext, 0, sendIntent, 0);
         SmsManager sms = SmsManager.getDefault();
-        sms.sendTextMessage(phoneNumber, null, message, sentIntent, null);        
+        sms.sendTextMessage(phoneNumber, null, message, null, null);        
 	}
 	
 }

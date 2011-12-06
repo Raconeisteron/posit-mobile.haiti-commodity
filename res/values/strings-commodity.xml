@@ -41,7 +41,7 @@
     <string name="cPrice2">Price 2</string> 
     <string name="cPrice3">Price 3</string> 
     <string name="cLocation">Location</string>
-    <string name="cNewVendor">New Vendor</string>
+    <string name="cNewItem">New Item</string>
     <string name="cListData">Saved Data</string>
 	<string name="cAverage">Average</string>
     
