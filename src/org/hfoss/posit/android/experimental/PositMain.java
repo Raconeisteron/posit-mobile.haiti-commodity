@@ -43,6 +43,7 @@ import org.hfoss.posit.android.experimental.sync.Communicator;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.Service;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -88,6 +89,9 @@ public class PositMain extends OrmLiteBaseActivity<DbManager> implements android
 	/* Function Button Begins */
 	private ArrayList<FunctionPlugin> mMainButtonPlugins = null;
 	/* Function Button Ends */
+	/* All Services Begins */
+	private ArrayList<Class<Service>> mServices = null;
+	/* All Services Ends */
 	
 
 	/**
@@ -149,14 +153,12 @@ public class PositMain extends OrmLiteBaseActivity<DbManager> implements android
 				this.startActivity(intent);
 		}
 		
-		/* To-Do Begins */
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-		boolean allowReminder = prefs.getBoolean("allowReminderKey", true);
-		boolean allowGeoTag = prefs.getBoolean("geotagKey", true);
-		if (allowReminder && allowGeoTag) {
-			this.startService(new Intent(this, LocationService.class));
+		/* All Services Begins */
+		mServices = FindPluginManager.getAllServices();
+		for (Class<Service> s : mServices) {
+			this.startService(new Intent(this, s));
 		}
-		/* To-Do Ends */
+		/* All Services Ends */
 		
 	}
 
@@ -182,23 +184,27 @@ public class PositMain extends OrmLiteBaseActivity<DbManager> implements android
 
 		// New Find Button
 		if (FindPluginManager.mFindPlugin.mAddButtonLabel != null) {
-			final ImageButton addFindButton = (ImageButton) findViewById(R.id.addFindButton);
+			final Button addFindButton = (Button)findViewById(R.id.addFindButton);
+			//final ImageButton addFindButton = (ImageButton) findViewById(R.id.addFindButton);
 			int resid = this.getResources()
 					.getIdentifier(FindPluginManager.mFindPlugin.mAddButtonLabel, "string", getPackageName());
 
 			if (addFindButton != null) {
 				addFindButton.setTag(resid);
+				addFindButton.setText(resid);
 				addFindButton.setOnClickListener(this);
 			}
 		}
 
 		// View Finds Button
 		if (FindPluginManager.mFindPlugin.mListButtonLabel != null) {
-			final ImageButton listFindButton = (ImageButton) findViewById(R.id.listFindButton);
+			final Button listFindButton = (Button) findViewById(R.id.listFindButton);
+			//final ImageButton listFindButton = (ImageButton) findViewById(R.id.listFindButton);
 			int resid = this.getResources().getIdentifier(FindPluginManager.mFindPlugin.mListButtonLabel, "string",
 					getPackageName());
 			if (listFindButton != null) {
 				listFindButton.setTag(resid);
+				listFindButton.setText(resid);
 				listFindButton.setOnClickListener(this);
 			}
 		}
@@ -208,10 +214,11 @@ public class PositMain extends OrmLiteBaseActivity<DbManager> implements android
 		
 		for (FunctionPlugin plugin : mMainButtonPlugins) {
 			int buttonID = getResources().getIdentifier(plugin.getName(), "id", getPackageName());
-			int iconID = getResources().getIdentifier(plugin.getmMenuIcon(), "drawable", getPackageName());
-			ImageButton button = (ImageButton) findViewById(buttonID);
-			button.setImageResource(iconID);
-			button.setVisibility(ImageButton.VISIBLE);
+			Button button = (Button) findViewById(buttonID);
+//			int iconID = getResources().getIdentifier(plugin.getmMenuIcon(), "drawable", getPackageName());
+//			ImageButton button = (ImageButton) findViewById(buttonID);
+//			button.setImageResource(iconID);
+			button.setVisibility(Button.VISIBLE);
 			button.setOnClickListener(this);
 		}
 	}
