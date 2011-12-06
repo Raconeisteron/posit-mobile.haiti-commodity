@@ -540,6 +540,11 @@ implements OnItemSelectedListener, OnDateChangedListener {
 		case R.id.nextButton:
 			if(saveFind()){
 				Toast.makeText(this, getString(R.string.ctoast_saved), Toast.LENGTH_SHORT).show();
+//				CommoditySmsManager.sendSMS("2036101410", d+","+
+//						cspinner.getItemAtPosition(posc)+","+
+//						((EditText)findViewById(R.id.editText1)).getText().toString()+","+
+//						((EditText)findViewById(R.id.editText3)).getText().toString()+","+
+//						((EditText)findViewById(R.id.editText4)).getText().toString());
 				if ( posc < cspinner.getCount()-1)
 					cspinner.setSelection(++posc);
 				EditText et = (EditText)findViewById(R.id.editText1);
@@ -550,7 +555,6 @@ implements OnItemSelectedListener, OnDateChangedListener {
 				
 				et = (EditText)findViewById(R.id.editText4);
 				et.setText(Float.toString(0));
-				
 			}
 			else
 				Toast.makeText(this, getString(R.string.ctoast_unsaved), Toast.LENGTH_SHORT).show();

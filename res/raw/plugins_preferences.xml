@@ -148,7 +148,7 @@
  		    add_find_layout="commodity_add_find"
  		    list_find_layout="commodity_list_row"
 			main_list_button_label="@string/cListData"
-			main_add_button_label="@string/cNewVendor"
+			main_add_button_label="@string/cNewItem"
 			main_extra_button_label=""
 			main_extra_button_label2=""
 			main_icon="acdivoca_logo" />
