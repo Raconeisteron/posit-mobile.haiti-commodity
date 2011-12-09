@@ -97,6 +97,8 @@
 			android:name="org.hfoss.posit.android.experimental.functionplugins.FilePickerActivity" />
 		<activity
 			android:name="org.hfoss.posit.android.experimental.functionplugins.FileViewActivity" />
+		<activity
+			android:name="org.hfoss.posit.android.experimental.functionplugins.sms.SmsActivity" />
 <!--  Commodity function plugins -->	
 <activity
 			android:name="org.hfoss.posit.android.experimental.functionplugins.CommodityAdminActivity" />
@@ -216,7 +218,7 @@
 		<activity android:name="org.hfoss.posit.android.experimental.sync.SyncActivity"
 			android:launchMode="singleTop" />
 			
-		<service android:name="org.hfoss.posit.android.api.service.SmsService" />
+		<service android:name="org.hfoss.posit.android.experimental.api.service.SmsService"></service>
 
 		<service android:name="org.hfoss.posit.android.experimental.sync.SyncService"
 			android:exported="true">
@@ -239,5 +241,6 @@
 		<activity android:name=".functionplugins.SetReminder" android:theme="@android:style/Theme.Translucent"></activity>
 		<service android:name=".api.service.LocationService"></service>
 		<activity android:name=".functionplugins.NotifyReminder" android:theme="@android:style/Theme.Translucent"></activity>
+		<activity android:name=".functionplugins.CameraActivity" android:screenOrientation="portrait"></activity>
 	</application>
 </manifest>
