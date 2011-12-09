@@ -468,6 +468,7 @@ public class CommoditySmsManager extends BroadcastReceiver {
 		String msgid = "temp";  //This is a temporary message id
 		Intent sendIntent = new Intent(msgid);
 		IntentFilter intentFilter = new IntentFilter(msgid);
+		Log.i(TAG, "##Phone number is: " + phoneNumber );
 //		PendingIntent sentIntent = PendingIntent.getActivity(mContext, 0, sendIntent, 0);
         SmsManager sms = SmsManager.getDefault();
         sms.sendTextMessage(phoneNumber, null, message, null, null);        

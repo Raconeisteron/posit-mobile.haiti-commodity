@@ -21,6 +21,7 @@ import org.hfoss.posit.android.experimental.plugin.acdivoca.AcdiVocaMchnFindActi
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
@@ -88,6 +89,10 @@ implements OnItemSelectedListener, OnDateChangedListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		Log.i(TAG, "onCreate()");
 		super.onCreate(savedInstanceState);
+//		Bundle extras = getIntent().getExtras();
+//
+//		if (extras == null || !getIntent().getAction().equals(Intent.ACTION_EDIT)) {
+			
 		mspinner = (Spinner) findViewById(R.id.marketSpinner);
 		marketspin = loadData("/commodity/marketlist.csv");
 	    mAdapter = new ArrayAdapter<String>( 
@@ -100,15 +105,16 @@ implements OnItemSelectedListener, OnDateChangedListener {
 	    cspinner.setAdapter(cAdapter); 
 	    
 	    
-		mAdapter = 
-			new ArrayAdapter<String>(
-					this,
-					android.R.layout.simple_spinner_item,
-					marketspin );
-//		mAdapter.sort(String.CASE_INSENSITIVE_ORDER);
-		mAdapter.setDropDownViewResource(
-				android.R.layout.simple_spinner_dropdown_item);
-		mspinner.setAdapter(mAdapter);
+	    
+//		mAdapter = 
+//			new ArrayAdapter<String>(
+//					this,
+//					android.R.layout.simple_spinner_item,
+//					marketspin );
+////		mAdapter.sort(String.CASE_INSENSITIVE_ORDER);
+//		mAdapter.setDropDownViewResource(
+//				android.R.layout.simple_spinner_dropdown_item);
+//		mspinner.setAdapter(mAdapter);
 //		mspinner.setOnItemSelectedListener(
 //				new AdapterView.OnItemSelectedListener() {
 //					public void onItemSelected(
@@ -128,15 +134,15 @@ implements OnItemSelectedListener, OnDateChangedListener {
 //				}
 //		);
 		
-		cAdapter = 
-			new ArrayAdapter<String>(
-					this,
-					android.R.layout.simple_spinner_item,
-					commodityspin );
-//		mAdapter.sort(String.CASE_INSENSITIVE_ORDER);
-		cAdapter.setDropDownViewResource(
-				android.R.layout.simple_spinner_dropdown_item);
-		cspinner.setAdapter(cAdapter);
+//		cAdapter = 
+//			new ArrayAdapter<String>(
+//					this,
+//					android.R.layout.simple_spinner_item,
+//					commodityspin );
+////		mAdapter.sort(String.CASE_INSENSITIVE_ORDER);
+//		cAdapter.setDropDownViewResource(
+//				android.R.layout.simple_spinner_dropdown_item);
+//		cspinner.setAdapter(cAdapter);
 //		cspinner.setOnItemSelectedListener(
 //				new AdapterView.OnItemSelectedListener() {
 //					public void onItemSelected(
@@ -153,8 +159,7 @@ implements OnItemSelectedListener, OnDateChangedListener {
 //					}
 //				}
 //		);
-	    
-
+//		super.onCreate(savedInstanceState);
 	}
 	
 	
@@ -254,14 +259,21 @@ implements OnItemSelectedListener, OnDateChangedListener {
 							View view, 
 							int position, 
 							long id) {
-						posc = position;
+						Log.i(TAG, "#######Value of posc = " + posc);
+//						if (posc != position)
+//							onItemSelected(parent, view, posc, id);
+//						posc = position;
+//						else{
+							
 						c = commodityspin[position];
-						Log.i(TAG, "#######Commodity spin choice index = " + position);
-						Log.i(TAG, "#######Commodity spin choice = " + c);
+						Log.i(TAG, "#######Commodity spin choice index the listener sees = " + position);
+						Log.i(TAG, "#######Commodity spin choice the listener sees = " + c);
 //						find.setCommodity(c);
 						//eText.setText(d);
-					}
-
+					
+//						}
+						}
+					
 					public void onNothingSelected(AdapterView<?> parent) {
 					}
 				}
@@ -417,15 +429,22 @@ implements OnItemSelectedListener, OnDateChangedListener {
 		
 		EditText eText = (EditText) findViewById(R.id.editText1);
 		String value = eText.getText().toString();
-		find.setPrice1(Float.parseFloat(value));
+//		if (value != null && value != "" && value != " "){ 
+//			Log.i(TAG, "#######thisistheproblem = |" + value + "|");
+			find.setPrice1(Float.parseFloat(value));
+//		}
 		
 		eText = (EditText) findViewById(R.id.editText3);
 		value = eText.getText().toString();
-		find.setPrice2(Float.parseFloat(value));
-		
+//		if (value != null && value != "" && value != " ") {
+			find.setPrice2(Float.parseFloat(value));
+//		}
+			
 		eText = (EditText) findViewById(R.id.editText4);
 		value = eText.getText().toString();
-		find.setPrice3(Float.parseFloat(value));
+//		if (value != null && value != "" && value != " ") {
+			find.setPrice3(Float.parseFloat(value));
+//		}
 		
 		//Date. Be careful, and confirm how months should be handled with Gerry
 		DatePicker picker = ((DatePicker)findViewById(R.id.datePicker1));
@@ -494,8 +513,17 @@ implements OnItemSelectedListener, OnDateChangedListener {
 //	            this, android.R.layout.simple_spinner_item, marketspin); 
 //	    spinner.setAdapter(mspinnerArrayAdapter);
 //		Spinner mspinner = (Spinner) findViewById(R.id.marketSpinner);
-//	    setSpinner(mspinner, oiFind.getMarket());		
 		
+		
+		mspinner = (Spinner) findViewById(R.id.marketSpinner);
+		marketspin = loadData("/commodity/marketlist.csv");
+	    mAdapter = new ArrayAdapter<String>( 
+	    		this, android.R.layout.simple_spinner_item, marketspin);
+	    mspinner.setAdapter(mAdapter); 
+		
+//	    posd = setSpinner(mspinner, oiFind.getMarket());		
+	    setSpinner(mspinner, oiFind.getMarket());
+	    
 //		Spinner spinner = (Spinner)findViewById(R.id.commoditySpinner);
 //		String commodityspin[] = loadData("/commodity/commoditylist.csv");
 //		Spinner spinner2 = (Spinner)findViewById(R.id.spinnerCommuneSection);
@@ -504,15 +532,23 @@ implements OnItemSelectedListener, OnDateChangedListener {
 //	    ArrayAdapter<String> cspinnerArrayAdapter = new ArrayAdapter<String>( 
 //	            this, android.R.layout.simple_spinner_item, commodityspin); 
 //	    spinner.setAdapter(cspinnerArrayAdapter); 
-//		setUpSpinnerAdapter(commodityspin);
+	    
+	    cspinner = (Spinner) findViewById(R.id.commoditySpinner);
+		commodityspin = loadData("/commodity/commoditylist.csv");
+	    cAdapter = new ArrayAdapter<String>( 
+	            this, android.R.layout.simple_spinner_item, commodityspin); 
+	    cspinner.setAdapter(cAdapter); 
+	    
+	    
+		//setUpSpinnerAdapter(commodityspin);
 		
 	    
-//		Spinner cspinner = (Spinner) findViewById(R.id.commoditySpinner);
+		//Spinner cspinner = (Spinner) findViewById(R.id.commoditySpinner);
 		Log.i(TAG, "##############" + oiFind.getCommodity());
-//		Log.i(TAG, "##############" + cspinner.getItemAtPosition(2));
-//		Log.i(TAG, "##############" + oiFind.getCommodity().equals(cspinner.getItemAtPosition(2)));
-//		setSpinner(cspinner, oiFind.getCommodity());
-		
+		Log.i(TAG, "##############" + cspinner.getItemAtPosition(2));
+		Log.i(TAG, "##############" + oiFind.getCommodity().equals(cspinner.getItemAtPosition(2)));
+//		posc = setSpinner(cspinner, oiFind.getCommodity());
+		setSpinner(cspinner, oiFind.getCommodity());
 		
 
 		
@@ -539,22 +575,25 @@ implements OnItemSelectedListener, OnDateChangedListener {
 		switch (v.getId()) {
 		case R.id.nextButton:
 			if(saveFind()){
+				String smsPref = PreferenceManager.getDefaultSharedPreferences(this).getString(this.getString(R.string.smsPhoneKey), "");
+				Log.i(TAG, "phone# = " + smsPref);
 				Toast.makeText(this, getString(R.string.ctoast_saved), Toast.LENGTH_SHORT).show();
-//				CommoditySmsManager.sendSMS("2036101410", d+","+
-//						cspinner.getItemAtPosition(posc)+","+
-//						((EditText)findViewById(R.id.editText1)).getText().toString()+","+
-//						((EditText)findViewById(R.id.editText3)).getText().toString()+","+
-//						((EditText)findViewById(R.id.editText4)).getText().toString());
+				CommoditySmsManager.sendSMS(smsPref, d+","+
+						cspinner.getItemAtPosition(posc)+","+
+						((EditText)findViewById(R.id.editText1)).getText().toString()+","+
+						((EditText)findViewById(R.id.editText3)).getText().toString()+","+
+						((EditText)findViewById(R.id.editText4)).getText().toString());
 				if ( posc < cspinner.getCount()-1)
 					cspinner.setSelection(++posc);
 				EditText et = (EditText)findViewById(R.id.editText1);
 				et.setText(Float.toString(0));
-				
+//				et.setText("");
 				et = (EditText)findViewById(R.id.editText3);
 				et.setText(Float.toString(0));
-				
+//				et.setText("");
 				et = (EditText)findViewById(R.id.editText4);
 				et.setText(Float.toString(0));
+//				et.setText("");
 			}
 			else
 				Toast.makeText(this, getString(R.string.ctoast_unsaved), Toast.LENGTH_SHORT).show();
@@ -655,6 +694,34 @@ implements OnItemSelectedListener, OnDateChangedListener {
 			spinner.setSelection(0);
 		}
 	}
+	
+//	public static int setSpinner(Spinner spinner, String selected){
+////		String selected = contentValues.getAsString(attribute);
+//		int k = 0;
+//		if(selected != null){
+//			String item = (String) spinner.getItemAtPosition(k);
+//			while (k < spinner.getCount()-1 && !selected.equals(item)) {
+//				++k;
+//				item = (String) spinner.getItemAtPosition(k);				
+//			}
+//			Log.i(TAG, "k is equal to " + k);
+//			Log.i(TAG, "spinner.getCount() is equal to " + spinner.getCount());			
+//			if (k < spinner.getCount()){	
+//				spinner.setSelection(k);
+//				Log.i(TAG, "selection is set");
+//				return k;
+//			}
+//			else
+//				Log.i(TAG, "Problem if reached");
+//				spinner.setSelection(0);
+//				return 0;
+//		}
+//		else{
+//			Log.i(TAG, "Problem if reached");
+//			spinner.setSelection(0);
+//			return 0;
+//		}
+//	}
 	
 	/**
 	 * Reads beneficiary data from a text file.  Currently the

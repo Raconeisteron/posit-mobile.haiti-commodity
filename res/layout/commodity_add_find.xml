@@ -45,14 +45,12 @@
 			<TextView android:layout_height="wrap_content"
 				android:layout_width="wrap_content" android:text="@string/cPrice1"
 				android:id="@+id/commodityPrice1"></TextView>
-			<EditText android:inputType="numberDecimal" android:layout_height="wrap_content" android:id="@+id/editText1" android:layout_width="match_parent"></EditText>
-		</TableRow>
-		<TableRow android:id="@+id/tableRow3" android:layout_weight="1" android:layout_height="0dp" android:layout_width="wrap_content">
+			<EditText android:inputType="numberDecimal" android:layout_height="wrap_content" android:id="@+id/editText1" android:layout_width="match_parent" android:text="0.0"></EditText>
 		</TableRow>
 
 <TableRow android:id="@+id/tableRow4" android:layout_width="match_parent" android:layout_weight="1" android:layout_height="0dp">
     <TextView android:text="@string/cPrice2" android:id="@+id/textView13" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
-    <EditText android:inputType="numberDecimal" android:layout_height="wrap_content" android:id="@+id/editText3" android:layout_width="match_parent">
+    <EditText android:inputType="numberDecimal" android:layout_height="wrap_content" android:id="@+id/editText3" android:layout_width="match_parent" android:text="0.0">
         <requestFocus></requestFocus>
     </EditText>
 </TableRow>
@@ -62,7 +60,7 @@
 	</TableRow>
 	<TableRow android:id="@+id/tableRow20" android:layout_width="match_parent" android:layout_weight="1" android:layout_height="0dp">
 <TextView android:text="@string/cPrice3" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/textView14"></TextView>
-<EditText android:inputType="numberDecimal" android:layout_height="wrap_content" android:id="@+id/editText4" android:layout_width="match_parent"></EditText>
+<EditText android:inputType="numberDecimal" android:layout_height="wrap_content" android:id="@+id/editText4" android:layout_width="match_parent" android:text="0.0"></EditText>
 </TableRow>
 	<TableRow android:id="@+id/tableRow14" android:layout_width="match_parent" android:layout_weight="1" android:layout_height="0dp">
 	</TableRow>
