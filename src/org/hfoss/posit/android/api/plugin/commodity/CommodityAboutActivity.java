@@ -1,7 +1,7 @@
-package org.hfoss.posit.android.experimental.plugin.commodity;
+package org.hfoss.posit.android.api.plugin.commodity;
 
-import org.hfoss.posit.android.experimental.AboutActivity;
-import org.hfoss.posit.android.experimental.R;
+import org.hfoss.posit.android.AboutActivity;
+import org.hfoss.posit.android.R;
 
 import android.os.Bundle;
 

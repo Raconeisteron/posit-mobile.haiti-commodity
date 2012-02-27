@@ -1,4 +1,4 @@
-package org.hfoss.posit.android.experimental.functionplugins;
+package org.hfoss.posit.android.functionplugin.fileviewer;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,8 +18,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import org.hfoss.posit.android.experimental.R;
-import org.hfoss.posit.android.experimental.plugin.commodity.CommodityFind;
+import org.hfoss.posit.android.R;
+import org.hfoss.posit.android.api.plugin.commodity.CommodityFind;
 
 // @see http://www.dreamincode.net/forums/topic/190013-creating-simple-file-chooser/
 public class CommodityFilePickerActivity extends ListActivity {

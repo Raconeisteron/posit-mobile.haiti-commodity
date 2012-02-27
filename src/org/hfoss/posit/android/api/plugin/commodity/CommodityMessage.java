@@ -21,7 +21,7 @@
  * 
  */
 
-package org.hfoss.posit.android.experimental.plugin.commodity;
+package org.hfoss.posit.android.api.plugin.commodity;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

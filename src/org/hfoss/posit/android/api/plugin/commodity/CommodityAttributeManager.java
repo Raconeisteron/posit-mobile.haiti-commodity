@@ -20,7 +20,7 @@
  *
  */
 
-package org.hfoss.posit.android.experimental.plugin.commodity;   // Mobile side package
+package org.hfoss.posit.android.api.plugin.commodity;   // Mobile side package
 //package haiti.server.datamodel;                  // Server side package
 
 import java.util.HashMap;

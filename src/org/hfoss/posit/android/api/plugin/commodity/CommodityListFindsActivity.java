@@ -1,11 +1,11 @@
-package org.hfoss.posit.android.experimental.plugin.commodity;
+package org.hfoss.posit.android.api.plugin.commodity;
 
 import java.util.List;
 
-import org.hfoss.posit.android.experimental.R;
-import org.hfoss.posit.android.experimental.api.Find;
-import org.hfoss.posit.android.experimental.api.activity.ListFindsActivity;
-import org.hfoss.posit.android.experimental.plugin.FindPluginManager;
+import org.hfoss.posit.android.R;
+import org.hfoss.posit.android.api.Find;
+import org.hfoss.posit.android.api.activity.ListFindsActivity;
+import org.hfoss.posit.android.api.plugin.FindPluginManager;
 
 import android.content.Context;
 import android.os.Bundle;

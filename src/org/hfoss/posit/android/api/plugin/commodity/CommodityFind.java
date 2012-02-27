@@ -1,4 +1,4 @@
-package org.hfoss.posit.android.experimental.plugin.commodity;
+package org.hfoss.posit.android.api.plugin.commodity;
 
 import java.sql.Date;
 import java.sql.SQLException;
@@ -6,14 +6,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.hfoss.posit.android.experimental.api.Find;
-import org.hfoss.posit.android.experimental.api.database.DbManager;
-import org.hfoss.posit.android.experimental.plugin.acdivoca.AcdiVocaFind;
-import org.hfoss.posit.android.experimental.plugin.acdivoca.AttributeManager;
-import org.hfoss.posit.android.experimental.plugin.commodity.CommodityFind;
-import org.hfoss.posit.android.experimental.plugin.commodity.CommodityMessage;
-import org.hfoss.posit.android.experimental.plugin.commodity.CommodityAttributeManager;
-import org.hfoss.posit.android.experimental.plugin.commodity.CommoditySearchFilterActivity;
+import org.hfoss.posit.android.api.Find;
+import org.hfoss.posit.android.api.database.DbManager;
+import org.hfoss.posit.android.plugin.acdivoca.AcdiVocaFind;
+import org.hfoss.posit.android.plugin.acdivoca.AttributeManager;
+import org.hfoss.posit.android.api.plugin.commodity.CommodityFind;
+import org.hfoss.posit.android.api.plugin.commodity.CommodityMessage;
+import org.hfoss.posit.android.api.plugin.commodity.CommodityAttributeManager;
+import org.hfoss.posit.android.api.plugin.commodity.CommoditySearchFilterActivity;
 
 import android.util.Log;
 
