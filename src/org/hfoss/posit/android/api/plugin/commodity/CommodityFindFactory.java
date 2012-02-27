@@ -1,10 +1,10 @@
 /**
  * 
  */
-package org.hfoss.posit.android.experimental.plugin.commodity;
+package org.hfoss.posit.android.api.plugin.commodity;
 
-import org.hfoss.posit.android.experimental.api.Find;
-import org.hfoss.posit.android.experimental.api.FindFactory;
+import org.hfoss.posit.android.api.Find;
+import org.hfoss.posit.android.api.FindFactory;
 
 import android.content.Context;
 

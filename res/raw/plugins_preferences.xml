@@ -175,14 +175,14 @@
 			extensionPoint="cadminMenu"
 			name="ccviewfile"
 			menuIcon="ic_menu_view" menuTitle="Load Commodity File"
-			menuActivity="org.hfoss.posit.android.experimental.functionplugins.CommodityFileViewActivity" />
+			menuActivity="org.hfoss.posit.android.functionplugin.fileviewer.CommodityFileViewActivity" />
 			
 		<Plugin active="true"
 			type="function"
 			extensionPoint="cadminMenu"
 			name="cmviewfile"
 			menuIcon="ic_menu_view" menuTitle="Load Market File"
-			menuActivity="org.hfoss.posit.android.experimental.functionplugins.CommodityFilePickerActivity" />
+			menuActivity="org.hfoss.posit.android.functionplugin.fileviewer.CommodityFilePickerActivity" />
 
 		<!--  TwitFind posts Finds on Twitter -->
 		<Plugin active="false" 
@@ -229,19 +229,19 @@
 			name="admin" 
 			menuIcon="admin3" 
 			menuTitle="Admin"
-			menuActivity="org.hfoss.posit.android.experimental.functionplugins.CommodityAdminActivity" />
+			menuActivity="org.hfoss.posit.android.functionplugin.fileviewer.CommodityAdminActivity" />
 
 
 		<Plugin active="true" type="find" name="CommodityFind"
-			package="org.hfoss.posit.android.experimental.plugin.commodity"
-			find_class = 		"org.hfoss.posit.android.experimental.plugin.commodity.CommodityFind"
-			find_factory=		"org.hfoss.posit.android.experimental.api.FindFactory"
-			find_activity_class="org.hfoss.posit.android.experimental.plugin.commodity.CommodityFindActivity" 
+			package="org.hfoss.posit.android.api.plugin.commodity"
+			find_class = 		"org.hfoss.posit.android.api.plugin.commodity.CommodityFind"
+			find_factory=		"org.hfoss.posit.android.api.FindFactory"
+			find_activity_class="org.hfoss.posit.android.api.plugin.commodity.CommodityFindActivity" 
 			extra_activity_class=""
 			extra_activity_class2=""
-			list_finds_activity_class="org.hfoss.posit.android.experimental.plugin.commodity.CommodityListFindsActivity"
- 			login_activity_class="org.hfoss.posit.android.experimental.api.activity.LoginActivity"
-			find_data_manager="org.hfoss.posit.android.experimental.api.database.DbManager" 
+			list_finds_activity_class="org.hfoss.posit.android.api.plugin.commodity.CommodityListFindsActivity"
+ 			login_activity_class="org.hfoss.posit.android.api.activity.LoginActivity"
+			find_data_manager="org.hfoss.posit.android.api.database.DbManager" 
 			preferences_xml="commodity_preferences" 
  		    add_find_layout="commodity_add_find"
  		    list_find_layout="commodity_list_row"

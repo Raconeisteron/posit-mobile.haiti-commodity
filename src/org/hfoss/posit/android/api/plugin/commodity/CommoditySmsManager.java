@@ -1,4 +1,4 @@
-package org.hfoss.posit.android.experimental.plugin.commodity;
+package org.hfoss.posit.android.api.plugin.commodity;
 /*
  * File: AcdiVocaSmsManager.java
  * 
@@ -29,10 +29,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import org.hfoss.posit.android.experimental.R;
-import org.hfoss.posit.android.experimental.api.database.DbManager;
-import org.hfoss.posit.android.experimental.api.service.SmsService;
-import org.hfoss.posit.android.experimental.functionplugins.CommodityAdminActivity;
+import org.hfoss.posit.android.R;
+import org.hfoss.posit.android.api.database.DbManager;
+import org.hfoss.posit.android.api.service.SmsService;
+import org.hfoss.posit.android.functionplugin.fileviewer.CommodityAdminActivity;
 
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.android.apptools.OrmLiteBaseListActivity;

@@ -1,4 +1,4 @@
-package org.hfoss.posit.android.experimental.functionplugins;
+package org.hfoss.posit.android.functionplugin.fileviewer;
 
 /*
 * File: TutorialActivity.java
@@ -41,24 +41,24 @@ import java.util.List;
 
 //Note: the following imports often do not apply and have been heavily edited
 //import org.hfoss.posit.android.Log;
-import org.hfoss.posit.android.experimental.R;
-import org.hfoss.posit.android.experimental.api.AppControlManager;
-import org.hfoss.posit.android.experimental.api.Find;
-import org.hfoss.posit.android.experimental.functionplugins.FilePickerActivity;
-import org.hfoss.posit.android.experimental.api.database.DbManager;
-//import org.hfoss.posit.android.experimental.api.FilePickerActivity;
-import org.hfoss.posit.android.experimental.plugin.FindActivityProvider;
-import org.hfoss.posit.android.experimental.plugin.FindPluginManager;
-import org.hfoss.posit.android.experimental.plugin.FunctionPlugin;
-import org.hfoss.posit.android.experimental.plugin.commodity.CommodityDbManager;
-import org.hfoss.posit.android.experimental.plugin.commodity.CommodityFind;
-import org.hfoss.posit.android.experimental.plugin.commodity.CommodityListFindsActivity;
-import org.hfoss.posit.android.experimental.plugin.commodity.CommodityMessage;
-import org.hfoss.posit.android.experimental.plugin.commodity.CommoditySearchFilterActivity;
-import org.hfoss.posit.android.experimental.plugin.commodity.CommoditySmsManager;
-import org.hfoss.posit.android.experimental.functionplugins.CommodityFileViewActivity;
-import org.hfoss.posit.android.experimental.functionplugins.LoginActivity;
-import org.hfoss.posit.android.experimental.api.activity.SettingsActivity;
+import org.hfoss.posit.android.R;
+import org.hfoss.posit.android.api.AppControlManager;
+import org.hfoss.posit.android.api.Find;
+import org.hfoss.posit.android.functionplugin.fileviewer.FilePickerActivity;
+import org.hfoss.posit.android.api.database.DbManager;
+//import org.hfoss.posit.android.api.FilePickerActivity;
+import org.hfoss.posit.android.api.plugin.FindActivityProvider;
+import org.hfoss.posit.android.api.plugin.FindPluginManager;
+import org.hfoss.posit.android.api.plugin.FunctionPlugin;
+import org.hfoss.posit.android.api.plugin.commodity.CommodityDbManager;
+import org.hfoss.posit.android.api.plugin.commodity.CommodityFind;
+import org.hfoss.posit.android.api.plugin.commodity.CommodityListFindsActivity;
+import org.hfoss.posit.android.api.plugin.commodity.CommodityMessage;
+import org.hfoss.posit.android.api.plugin.commodity.CommoditySearchFilterActivity;
+import org.hfoss.posit.android.api.plugin.commodity.CommoditySmsManager;
+import org.hfoss.posit.android.functionplugin.fileviewer.CommodityFileViewActivity;
+import org.hfoss.posit.android.functionplugin.login.LoginActivity;
+import org.hfoss.posit.android.api.activity.SettingsActivity;
 
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.dao.Dao;
@@ -222,7 +222,7 @@ implements SmsCallBack {
 		for (FunctionPlugin plugin: cAdminMenuPlugins) {
 			MenuItem item = menu.add(plugin.getmMenuTitle());
 			int id = getResources().getIdentifier(
-					plugin.getmMenuIcon(), "drawable", "org.hfoss.posit.android.experimental");
+					plugin.getmMenuIcon(), "drawable", "org.hfoss.posit.android");
 			Log.i(TAG, "icon =  " + plugin.getmMenuIcon() + " id =" + id);
 			item.setIcon(id);
 			//item.setIcon(android.R.drawable.ic_menu_mapmode);				

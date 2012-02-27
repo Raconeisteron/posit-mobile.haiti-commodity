@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.hfoss.posit.android.experimental.plugin.commodity;
+package org.hfoss.posit.android.api.plugin.commodity;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -10,14 +10,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Calendar;
 
-import org.hfoss.posit.android.experimental.R;
-import org.hfoss.posit.android.experimental.api.Find;
-import org.hfoss.posit.android.experimental.api.LocaleManager;
-import org.hfoss.posit.android.experimental.api.activity.FindActivity;
-import org.hfoss.posit.android.experimental.plugin.acdivoca.AcdiVocaFind;
-import org.hfoss.posit.android.experimental.plugin.acdivoca.AcdiVocaMchnFindActivity;
+import org.hfoss.posit.android.R;
+import org.hfoss.posit.android.api.Find;
+import org.hfoss.posit.android.api.LocaleManager;
+import org.hfoss.posit.android.api.activity.FindActivity;
+import org.hfoss.posit.android.plugin.acdivoca.AcdiVocaFind;
+import org.hfoss.posit.android.plugin.acdivoca.AcdiVocaMchnFindActivity;
 //import org.hfoss.posit.android.plugin.acdivoca.AcdiVocaDbHelper;
-//import org.hfoss.posit.android.experimental.api.activity.SettingsActivity;
+//import org.hfoss.posit.android.api.activity.SettingsActivity;
 
 import android.content.ContentValues;
 import android.content.Context;
