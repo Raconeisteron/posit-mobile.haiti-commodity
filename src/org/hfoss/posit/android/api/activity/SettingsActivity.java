@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import org.hfoss.posit.android.R;
+import org.hfoss.posit.android.api.LocaleManager;
 import org.hfoss.posit.android.sync.Communicator;
 import org.hfoss.posit.android.sync.SyncAdapter;
 import org.xmlpull.v1.XmlPullParser;
@@ -39,9 +40,9 @@ import android.content.res.XmlResourceParser;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
-import android.preference.Preference.OnPreferenceClickListener;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -257,6 +258,16 @@ public class SettingsActivity extends PreferenceActivity implements
 		}
 		return name;
 	}
+	
+	/**
+	 * Have all list preferences show their choice in the summary section.
+	 */	
+	private void updatePrefSummary(Preference p){
+         if (p instanceof ListPreference) {
+             ListPreference listPref = (ListPreference) p; 
+             p.setSummary(listPref.getEntry()); 
+         }
+    }
 
 	@Override
 	protected void onCreate(Bundle icicle) {
@@ -264,7 +275,6 @@ public class SettingsActivity extends PreferenceActivity implements
 		Log.i(TAG, "onCreate()");
 
 		// Add POSIT's core preferences to the Settings (if not already added)
-
 		PluginSettings settingsObject = getKeyActivityPairs(this,
 				"posit_preferences");
 		if (!pluginXmlList.contains(settingsObject))
@@ -301,6 +311,8 @@ public class SettingsActivity extends PreferenceActivity implements
 		p.setSummary(sp.getString(getString(R.string.projectNamePref), "None"));
 		p = manager.findPreference(getString(R.string.serverPref));
 		p.setSummary(sp.getString(getString(R.string.serverPref), getString(R.string.defaultServer)));
+		p = manager.findPreference(getString(R.string.localePref));
+		updatePrefSummary(p);			
 	}
 
 	/**
@@ -426,7 +438,7 @@ public class SettingsActivity extends PreferenceActivity implements
 		// }
 		// }
 	}
-
+	
 	/**
 	 * Called automatically when a preference is clicked in the View. Go through
 	 * all the plugins and see if one with an associated activity was clicked
@@ -477,7 +489,7 @@ public class SettingsActivity extends PreferenceActivity implements
 		}
 		return false;
 	}
-
+	
 	/**
 	 * Adjusts the summary string for certain preferences when a shared preference is changed.
 	 *  
@@ -501,12 +513,11 @@ public class SettingsActivity extends PreferenceActivity implements
 			
 			Log.i(TAG, "p = " + p);
 			
+			updatePrefSummary(findPreference(key));	
 			
-			//Have all list preferences show their choice in the summary section.
-			if (p instanceof ListPreference) {
-		        ListPreference listPref = (ListPreference) p;
-		        p.setSummary(listPref.getEntry());
-		    }
+			if (p!= null && key.equals(getString(R.string.localeKey))) {
+				LocaleManager.setDefaultLocale(this);
+			}
 			
 			if (p!= null && key.equals(getString(R.string.serverPref))) {
 				String server = sp.getString(key, "");
