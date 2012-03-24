@@ -314,7 +314,7 @@ public class FindActivity extends OrmLiteBaseActivity<DbManager> // Activity
 	@Override
 	public void finish() {
 		Log.i(TAG, "onFinish()");
-		if (mGeoTagEnabled)
+		if (mGeoTagEnabled && mLocationManager != null)
 			mLocationManager.removeUpdates(this);
 		mLocationManager = null;
 		mCurrentLocation = null;
@@ -669,6 +669,14 @@ public class FindActivity extends OrmLiteBaseActivity<DbManager> // Activity
 	public void onLocationChanged(Location location) {
 		if (isBetterLocation(location, mCurrentLocation)) {
 			mCurrentLocation = location;
+			// if we are creating a new find update the location as we get updates
+			if (getIntent().getAction().equals(Intent.ACTION_INSERT)) {
+				mLongitudeTV.setText(String.valueOf(mCurrentLocation
+						.getLongitude()));
+				mLatitudeTV.setText(String.valueOf(mCurrentLocation
+						.getLatitude()));
+				
+			}
 			Log.i(TAG, "Got a new location: " + mCurrentLocation.getLatitude()
 					+ "," + mCurrentLocation.getLongitude());
 		}
