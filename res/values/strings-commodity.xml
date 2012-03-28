@@ -70,5 +70,6 @@
         <!--     Toast -->
         <string name="ctoast_saved">Saved</string>
         <string name="ctoast_unsaved">Save failed</string>
+        <string name="ctoast_notexist">The file you need does not exist</string>
     
 </resources>

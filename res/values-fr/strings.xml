@@ -398,5 +398,6 @@
         <!--     Toast -->
         <string name="ctoast_saved">Saved</string>
         <string name="ctoast_unsaved">Enregistrer échoué</string>
+        <string name="ctoast_notexist">Le fichier dont vous avez besoin n\'existe pas</string>
 	
 </resources>
