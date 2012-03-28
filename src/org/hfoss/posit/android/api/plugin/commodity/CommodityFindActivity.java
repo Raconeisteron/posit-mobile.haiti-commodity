@@ -94,6 +94,28 @@ implements OnItemSelectedListener, OnDateChangedListener {
 //		if (extras == null || !getIntent().getAction().equals(Intent.ACTION_EDIT)) {
 			
 		mspinner = (Spinner) findViewById(R.id.marketSpinner);
+		
+		File file = null; 
+		file = new File(Environment.getExternalStorageDirectory() 
+					+ "/commodity/marketlist.csv");
+		
+		boolean exists = file.exists();
+		   if (!exists) {
+		   // It returns false if File or directory does not exist
+			   Toast.makeText(this, getString(R.string.ctoast_notexist)+ " " + Environment.getExternalStorageDirectory() 
+						+ "/commodity/marketlist.csv", Toast.LENGTH_SHORT).show();
+			   finish();
+		   }
+		   
+		   file = new File(Environment.getExternalStorageDirectory() 
+					+ "/commodity/commoditylist.csv");
+		   exists = file.exists();
+		   if (!exists) {
+		   // It returns false if File or directory does not exist
+			   Toast.makeText(this, getString(R.string.ctoast_notexist)+ " " + Environment.getExternalStorageDirectory() 
+						+ "/commodity/commoditylist.csv", Toast.LENGTH_SHORT).show();
+			   finish();
+		   }
 		marketspin = loadData("/commodity/marketlist.csv");
 	    mAdapter = new ArrayAdapter<String>( 
 	            this, android.R.layout.simple_spinner_item, marketspin); 
@@ -736,7 +758,6 @@ implements OnItemSelectedListener, OnDateChangedListener {
 		File file = null; 
 		file = new File(Environment.getExternalStorageDirectory() 
 					+ filepath);
-			
 
 		BufferedReader br = null;
 		String line = null;
