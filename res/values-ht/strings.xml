@@ -403,6 +403,10 @@
         <string name="ctoast_saved">Sove</string>
         <string name="ctoast_unsaved">Save echwe</string>
         <string name="ctoast_notexist">Dosye ou bezwen an pa egziste</string>
+        
+       	<string name="csenddata">voye done</string>
+       	 <string name="cLocation2">Location: </string>
+         <string name="cItem">atik: </string>  
     
 </resources>
 

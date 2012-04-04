@@ -63,7 +63,7 @@ public class CommodityListFindsActivity extends ListFindsActivity {
 			View v = convertView;
 			if (v == null) {
 				LayoutInflater vi = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-				v = vi.inflate(R.layout.outsidein_list_row, null);
+				v = vi.inflate(R.layout.commodity_list_row, null);
 			}
 			CommodityFind find = (CommodityFind)items.get(position);
 			if (find != null) {
@@ -73,8 +73,10 @@ public class CommodityListFindsActivity extends ListFindsActivity {
 				tv.setText(String.valueOf(find.getLatitude()));
 				tv = (TextView) v.findViewById(R.id.longitude);
 				tv.setText(String.valueOf(find.getLongitude()));
-//				tv = (TextView) v.findViewById(R.id.syringes_in);
-//				tv.setText(String.valueOf(find.getSyringesIn()));
+				tv = (TextView) v.findViewById(R.id.commodity_name);
+				tv.setText(String.valueOf(find.getCommodity()));
+				tv = (TextView) v.findViewById(R.id.market_name);
+				tv.setText(String.valueOf(find.getMarket()));
 				tv = (TextView) v.findViewById(R.id.longitude);
 //				tv.setText(String.valueOf(find.getSyringesOut()));
 				tv = (TextView) v.findViewById(R.id.id);
