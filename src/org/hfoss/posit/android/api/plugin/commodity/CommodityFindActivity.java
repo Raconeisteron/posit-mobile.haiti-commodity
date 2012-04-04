@@ -60,7 +60,8 @@ implements OnItemSelectedListener, OnDateChangedListener {
 	private String d;
 	private int posc;
 	private int posd;
-	
+	private int marketpos = 0; //remembers the selected market
+	private int compos = 0;
 	
 
 	
@@ -286,8 +287,11 @@ implements OnItemSelectedListener, OnDateChangedListener {
 //							onItemSelected(parent, view, posc, id);
 //						posc = position;
 //						else{
-							
-						c = commodityspin[position];
+						if (compos != 0){
+							parent.setSelection(compos);
+							compos = 0;
+						}	
+//						parent.setSelection(position);
 						Log.i(TAG, "#######Commodity spin choice index the listener sees = " + position);
 						Log.i(TAG, "#######Commodity spin choice the listener sees = " + c);
 //						find.setCommodity(c);
@@ -297,6 +301,7 @@ implements OnItemSelectedListener, OnDateChangedListener {
 						}
 					
 					public void onNothingSelected(AdapterView<?> parent) {
+//						find.setCommodity();
 					}
 				}
 		);
@@ -308,13 +313,19 @@ implements OnItemSelectedListener, OnDateChangedListener {
 							int position, 
 							long id) {
 						d = marketspin[position];
-						Log.i(TAG, "#######Market spin choice index = " + position);
+						if (marketpos != 0){
+							parent.setSelection(marketpos);
+							marketpos = 0;
+						}
+						Log.i(TAG, "#######Market spin choice index = " + marketpos);
 						Log.i(TAG, "#######Market spin choice = " + d);
 //						find.setMarket(d);
 						//eText.setText(d);
 					}
 
 					public void onNothingSelected(AdapterView<?> parent) {
+//						setSpinner(cspinner, find.getMarket());
+
 					}
 				}
 		);
@@ -493,7 +504,7 @@ implements OnItemSelectedListener, OnDateChangedListener {
 		
 //There needs to eventually be a method to retrieve the guid - The global unique Id.		
 		
-		
+// Note: is making it final a problem?
 		CommodityFind oiFind = (CommodityFind)find;
 		EditText et; // = (EditText)findViewById(R.id.guidEditText);
 //		et.setText(oiFind.getGuid());
@@ -558,7 +569,7 @@ implements OnItemSelectedListener, OnDateChangedListener {
 	    cspinner = (Spinner) findViewById(R.id.commoditySpinner);
 		commodityspin = loadData("/commodity/commoditylist.csv");
 	    cAdapter = new ArrayAdapter<String>( 
-	            this, android.R.layout.simple_spinner_item, commodityspin); 
+			this, android.R.layout.simple_spinner_item, commodityspin); 
 	    cspinner.setAdapter(cAdapter); 
 	    
 	    
@@ -571,7 +582,8 @@ implements OnItemSelectedListener, OnDateChangedListener {
 		Log.i(TAG, "##############" + oiFind.getCommodity().equals(cspinner.getItemAtPosition(2)));
 //		posc = setSpinner(cspinner, oiFind.getCommodity());
 		setSpinner(cspinner, oiFind.getCommodity());
-		
+		compos = getPos(cspinner, oiFind.getCommodity());
+		marketpos = getPos(mspinner, oiFind.getMarket());
 
 		
 		et = (EditText)findViewById(R.id.editText1);
@@ -691,8 +703,7 @@ implements OnItemSelectedListener, OnDateChangedListener {
 		}
 	}
 	
-	//spinner function using an array
-	public static void setSpinner(Spinner spinner, String selected){
+	public static int getPos(Spinner spinner, String selected){
 //		String selected = contentValues.getAsString(attribute);
 		int k = 0;
 		if(selected != null){
@@ -704,8 +715,36 @@ implements OnItemSelectedListener, OnDateChangedListener {
 			Log.i(TAG, "k is equal to " + k);
 			Log.i(TAG, "spinner.getCount() is equal to " + spinner.getCount());			
 			if (k < spinner.getCount()){	
+				return k;
+//				Log.i(TAG, "selection is set");
+			}
+			else
+				Log.i(TAG, "Problem if reached");
+				return 0;
+		}
+		else{
+			Log.i(TAG, "Problem if reached");
+			return 0;
+		}
+	}
+	
+	//spinner function using an array
+	public void setSpinner(Spinner spinner, String selected){
+//		String selected = contentValues.getAsString(attribute);
+		int k = 0;
+		marketpos = 0;
+		if(selected != null){
+			String item = (String) spinner.getItemAtPosition(k);
+			while (k < spinner.getCount()-1 && !selected.equals(item)) {
+				++k;
+				item = (String) spinner.getItemAtPosition(k);				
+			}
+			Log.i(TAG, "k is equal to " + k);
+			Log.i(TAG, "spinner.getCount() is equal to " + spinner.getCount());			
+			if (k < spinner.getCount()){	
 				spinner.setSelection(k);
-				Log.i(TAG, "selection is set");
+				marketpos = k;
+				Log.i(TAG, "selection is set: " + k);
 			}
 			else
 				Log.i(TAG, "Problem if reached");
@@ -816,36 +855,36 @@ implements OnItemSelectedListener, OnDateChangedListener {
 		return dossiers;
 	}
 	
-	private void setUpSpinnerAdapter(final String[] data) {
-		mAdapter = 
-			new ArrayAdapter<String>(
-					this,
-					android.R.layout.simple_spinner_item,
-					data );
-//		mAdapter.sort(String.CASE_INSENSITIVE_ORDER);
-		mAdapter.setDropDownViewResource(
-				android.R.layout.simple_spinner_dropdown_item);
-		cspinner.setAdapter(mAdapter);
-		cspinner.setOnItemSelectedListener(
-				new AdapterView.OnItemSelectedListener() {
-					public void onItemSelected(
-							AdapterView<?> parent, 
-							View view, 
-							int position, 
-							long id) {
-						String d = data[position];
-
-						//eText.setText(d);
-					}
-
-					public void onNothingSelected(AdapterView<?> parent) {
-					}
-				}
-		);
-//		eText = ((EditText)findViewById(R.id.dossierEdit));
-//		eText.addTextChangedListener(this);
-//		eText.setText(""); 
-	}
+//	private void setUpSpinnerAdapter(final String[] data) {
+//		mAdapter = 
+//			new ArrayAdapter<String>(
+//					this,
+//					android.R.layout.simple_spinner_item,
+//					data );
+////		mAdapter.sort(String.CASE_INSENSITIVE_ORDER);
+//		mAdapter.setDropDownViewResource(
+//				android.R.layout.simple_spinner_dropdown_item);
+//		cspinner.setAdapter(mAdapter);
+//		cspinner.setOnItemSelectedListener(
+//				new AdapterView.OnItemSelectedListener() {
+//					public void onItemSelected(
+//							AdapterView<?> parent, 
+//							View view, 
+//							int position, 
+//							long id) {
+//						String d = data[position];
+//
+//						//eText.setText(d);
+//					}
+//
+//					public void onNothingSelected(AdapterView<?> parent) {
+//					}
+//				}
+//		);
+////		eText = ((EditText)findViewById(R.id.dossierEdit));
+////		eText.addTextChangedListener(this);
+////		eText.setText(""); 
+//	}
 	
 	public String makeSMStext(Find find) {
 		CommodityFind oiFind = (CommodityFind)find;

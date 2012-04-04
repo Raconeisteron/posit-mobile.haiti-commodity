@@ -48,8 +48,8 @@
 <!--     Sample info -->
 	<string name="csCommuneSection">Mapou</string>
 	<string name="csVend">6</string>
-	<string name="csLat">20.34</string>
-    <string name="csLon">-36.54</string>
+	<string name="csLat">0.0</string>
+    <string name="csLon">0.0</string>
     <string name="csDate">7 October 2011</string>
 	
     
@@ -71,5 +71,10 @@
         <string name="ctoast_saved">Saved</string>
         <string name="ctoast_unsaved">Save failed</string>
         <string name="ctoast_notexist">The file you need does not exist</string>
+        
+        
+        <string name="csenddata">Send Data</string>
+        <string name="cLocation2">Location: </string>
+         <string name="cItem">Item: </string>
     
 </resources>
