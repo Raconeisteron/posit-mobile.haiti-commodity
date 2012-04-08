@@ -92,7 +92,7 @@
                     android:singleLine="true"
                     android:textSize="13dp" />
 
-    </RelativeLayout>
+
 
     <requestFocus>
     </requestFocus>
@@ -103,6 +103,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="3dp"
         android:layout_marginTop="3dp"
+        android:layout_below="@+id/out_prompt"
         android:text="time/date"
         android:textSize="13dp" />
 
@@ -111,7 +112,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="3dp"
+		android:layout_below="@+id/timestamp"
         android:text="lat"
         android:textSize="13dp" />
 
@@ -121,7 +122,17 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="3dp"
         android:layout_marginTop="3dp"
+		android:layout_below="@+id/latitude"
         android:text="long"
         android:textSize="13dp" />
 
+<!--     <CheckBox -->
+<!--         android:id="@+id/checkBox1" -->
+<!--         android:layout_width="wrap_content" -->
+<!--         android:layout_height="wrap_content" -->
+<!--         android:layout_alignParentRight="true" -->
+<!--         android:layout_below="@+id/longitude" -->
+<!--         android:text="@string/csenddata" /> -->
+
+    </RelativeLayout>
 </LinearLayout>

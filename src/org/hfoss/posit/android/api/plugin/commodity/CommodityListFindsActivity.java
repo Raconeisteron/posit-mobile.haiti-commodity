@@ -11,11 +11,15 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+//import android.widget.AdapterView.OnItemSelectedListener;
+//import android.widget.CheckBox;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
-public class CommodityListFindsActivity extends ListFindsActivity {
+public class CommodityListFindsActivity extends ListFindsActivity /*implements OnItemSelectedListener*/ {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +33,9 @@ public class CommodityListFindsActivity extends ListFindsActivity {
 		super.onResume();
 	}
 	
+//	protected void initializeListeners() {
+//		((CheckBox)findViewById(R.id.checkBox1)).setOnClickListener(this);
+//	}
 	/**
 	 * Sets up a custom list adapter specific to Commodity finds.
 	 */
@@ -57,6 +64,10 @@ public class CommodityListFindsActivity extends ListFindsActivity {
 				List list) {
 			super(context, textViewResourceId, list);
 		}
+		
+//		protected void initializeListeners() {		
+//
+//		}
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
@@ -67,7 +78,9 @@ public class CommodityListFindsActivity extends ListFindsActivity {
 			}
 			CommodityFind find = (CommodityFind)items.get(position);
 			if (find != null) {
+//				((CheckBox)findViewById(R.id.checkBox1)).setOnClickListener(this);
 				TextView tv = (TextView) v.findViewById(R.id.guid);
+
 				tv.setText(find.getGuid());
 				tv = (TextView) v.findViewById(R.id.latitude);
 				tv.setText(String.valueOf(find.getLatitude()));
@@ -81,10 +94,24 @@ public class CommodityListFindsActivity extends ListFindsActivity {
 //				tv.setText(String.valueOf(find.getSyringesOut()));
 				tv = (TextView) v.findViewById(R.id.id);
 				tv.setText(Integer.toString(find.getId()));
+//				((CheckBox)findViewById(R.id.checkBox1)).setOnClickListener(this);
 
 			}
 			return v;
 		}
 	}
+
+//	public void onClick(View v){
+//		int x;
+//		try{
+//			if (v.getClass().equals(Class.forName("android.widget.CheckBox"))) {
+//				x = 1;
+//			}
+//		}
+//		catch (ClassNotFoundException e) {
+//			e.printStackTrace();
+//		}
+//		
+//	}
 
 }

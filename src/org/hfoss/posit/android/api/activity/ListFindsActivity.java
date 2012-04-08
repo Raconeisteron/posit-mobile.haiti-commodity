@@ -140,16 +140,19 @@ public class ListFindsActivity extends OrmLiteBaseListActivity<DbManager> {
 
 		ListView lv = getListView();
 		lv.setTextFilterEnabled(true);
+		Log.i(TAG, "Adapter setting");
 		lv.setOnItemClickListener(new OnItemClickListener() {
 
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
+				Log.i(TAG, "Does the listerner see anything?");
 				Intent intent = new Intent(parent.getContext(),
 						FindPluginManager.mFindPlugin.getmFindActivityClass());
 				TextView tv = (TextView) view.findViewById(R.id.id);
 				int ormId = Integer.parseInt((String) tv.getText());
 				intent.putExtra(Find.ORM_ID, ormId);
 				intent.setAction(Intent.ACTION_EDIT);
+				Log.i(TAG, "Listeners set");
 				startActivity(intent);
 			}
 		});
