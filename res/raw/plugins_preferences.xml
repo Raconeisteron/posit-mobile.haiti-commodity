@@ -250,6 +250,18 @@
 			main_extra_button_label=""
 			main_extra_button_label2=""
 			main_icon="acdivoca_logo" />
+		
+				<!-- Bluetooth plugin syncs finds via bluetooth -->
+        <Plugin 
+            active="true"
+            type="function"
+            extensionPoint="listMenu"
+ 			user_can_select="true"
+ 			description="Lets you share Finds phone-to-phone through Bluetooth."
+            name="bluetooth"
+            menuIcon="ic_menu_bluetooth"
+            menuTitle="Bluetooth Sync"
+            menuActivity="org.hfoss.posit.android.functionplugin.commoditysms.BluetoothSyncActivity" />
 
 		<!-- <Plugin active="true" name="AcdiVocaFind" -->
 		<!-- package="org.hfoss.posit.android.plugin.acdivoca" -->

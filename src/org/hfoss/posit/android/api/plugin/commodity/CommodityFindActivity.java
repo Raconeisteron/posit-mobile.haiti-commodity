@@ -290,7 +290,8 @@ implements OnItemSelectedListener, OnDateChangedListener {
 						if (compos != 0){
 							parent.setSelection(compos);
 							compos = 0;
-						}	
+						}
+						c = commodityspin[position];
 //						parent.setSelection(position);
 						Log.i(TAG, "#######Commodity spin choice index the listener sees = " + position);
 						Log.i(TAG, "#######Commodity spin choice the listener sees = " + c);
@@ -312,11 +313,12 @@ implements OnItemSelectedListener, OnDateChangedListener {
 							View view, 
 							int position, 
 							long id) {
-						d = marketspin[position];
+
 						if (marketpos != 0){
 							parent.setSelection(marketpos);
 							marketpos = 0;
 						}
+						d = marketspin[position];
 						Log.i(TAG, "#######Market spin choice index = " + marketpos);
 						Log.i(TAG, "#######Market spin choice = " + d);
 //						find.setMarket(d);
