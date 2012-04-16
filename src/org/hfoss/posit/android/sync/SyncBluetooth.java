@@ -36,6 +36,8 @@ import org.hfoss.posit.android.R;
 import org.hfoss.posit.android.api.Find;
 import org.hfoss.posit.android.api.database.DbHelper;
 import org.hfoss.posit.android.api.database.DbManager;
+import org.hfoss.posit.android.api.plugin.commodity.CommodityFind;
+import org.hfoss.posit.android.api.plugin.commodity.CommoditySmsManager;
 import org.hfoss.posit.android.functionplugin.commoditysms.BluetoothFindObject;
 import org.hfoss.posit.android.functionplugin.commoditysms.BluetoothSyncActivity;
 import org.hfoss.posit.android.functionplugin.camera.Camera;
@@ -176,25 +178,43 @@ public class SyncBluetooth extends SyncMedium {
 	 * 
 	 * @param guids Array of guids of the finds to send
 	 */
-	public void sendFinds(String[] guids) {
-		
+//	public void sendFinds(String[] guids) {
+//		
+//		DbManager dbHelper = DbHelper.getDbManager(mActivity);
+//		
+//		for (String guid : guids) {
+//			
+//			boolean result = sendFind(dbHelper.getFindByGuid(guid));
+//			mHandler.obtainMessage(BluetoothSyncActivity.MESSAGE_WRITE, -1, -1,
+//					result).sendToTarget();
+//			
+//			// TODO: Fix this hack. If I don't wait between sending 2 finds,
+//			// data gets corrupted.
+//			try {
+//				Thread.sleep(400);
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//		
+//		DbHelper.releaseDbManager();
+//	}
+	
+	public void sendFinds(String phoneNumber, String[] guids){
 		DbManager dbHelper = DbHelper.getDbManager(mActivity);
-		
+		CommodityFind oiFind;
+//		CommoditySmsManager.sendSMS(smsPref, d+","+
+//				cspinner.getItemAtPosition(posc)+","+
+//				((EditText)findViewById(R.id.editText1)).getText().toString()+","+
+//				((EditText)findViewById(R.id.editText3)).getText().toString()+","+
+//				((EditText)findViewById(R.id.editText4)).getText().toString());
 		for (String guid : guids) {
-			
-			boolean result = sendFind(dbHelper.getFindByGuid(guid));
-			mHandler.obtainMessage(BluetoothSyncActivity.MESSAGE_WRITE, -1, -1,
-					result).sendToTarget();
-			
-			// TODO: Fix this hack. If I don't wait between sending 2 finds,
-			// data gets corrupted.
-			try {
-				Thread.sleep(400);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+//			boolean result = sendFind(dbHelper.getFindByGuid(guid));
+			oiFind = (CommodityFind)dbHelper.getFindByGuid(guid);
+		String s = oiFind.getMarket() + ","+ oiFind.getCommodity() + ","+
+		oiFind.getPrice1()+","+ oiFind.getPrice2()+","+ oiFind.getPrice3();
+		CommoditySmsManager.sendSMS(phoneNumber, s);
 		}
-		
 		DbHelper.releaseDbManager();
 	}
 

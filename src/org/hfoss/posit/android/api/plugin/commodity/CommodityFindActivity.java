@@ -611,14 +611,14 @@ implements OnItemSelectedListener, OnDateChangedListener {
 		switch (v.getId()) {
 		case R.id.nextButton:
 			if(saveFind()){
-				String smsPref = PreferenceManager.getDefaultSharedPreferences(this).getString(this.getString(R.string.smsPhoneKey), "");
-				Log.i(TAG, "phone# = " + smsPref);
-				Toast.makeText(this, getString(R.string.ctoast_saved), Toast.LENGTH_SHORT).show();
-				CommoditySmsManager.sendSMS(smsPref, d+","+
-						cspinner.getItemAtPosition(posc)+","+
-						((EditText)findViewById(R.id.editText1)).getText().toString()+","+
-						((EditText)findViewById(R.id.editText3)).getText().toString()+","+
-						((EditText)findViewById(R.id.editText4)).getText().toString());
+//				String smsPref = PreferenceManager.getDefaultSharedPreferences(this).getString(this.getString(R.string.smsPhoneKey), "");
+//				Log.i(TAG, "phone# = " + smsPref);
+//				Toast.makeText(this, getString(R.string.ctoast_saved), Toast.LENGTH_SHORT).show();
+//				CommoditySmsManager.sendSMS(smsPref, d+","+
+//						cspinner.getItemAtPosition(posc)+","+
+//						((EditText)findViewById(R.id.editText1)).getText().toString()+","+
+//						((EditText)findViewById(R.id.editText3)).getText().toString()+","+
+//						((EditText)findViewById(R.id.editText4)).getText().toString());
 				if ( posc < cspinner.getCount()-1)
 					cspinner.setSelection(++posc);
 				EditText et = (EditText)findViewById(R.id.editText1);

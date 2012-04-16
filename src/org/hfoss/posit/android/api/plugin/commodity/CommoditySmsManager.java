@@ -464,7 +464,7 @@ public class CommoditySmsManager extends BroadcastReceiver {
 		}
 	}
 	
-	static void sendSMS(String phoneNumber, String message) {
+	public static void sendSMS(String phoneNumber, String message) {
 		String msgid = "temp";  //This is a temporary message id
 		Intent sendIntent = new Intent(msgid);
 		IntentFilter intentFilter = new IntentFilter(msgid);
