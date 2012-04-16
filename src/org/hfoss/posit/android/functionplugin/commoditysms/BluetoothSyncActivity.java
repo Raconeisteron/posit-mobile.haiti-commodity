@@ -25,8 +25,10 @@ import java.util.List;
 
 import org.hfoss.posit.android.R;
 import org.hfoss.posit.android.api.Find;
+import org.hfoss.posit.android.api.database.DbHelper;
 import org.hfoss.posit.android.api.database.DbManager;
 import org.hfoss.posit.android.api.plugin.commodity.CommodityFind;
+import org.hfoss.posit.android.api.plugin.commodity.CommoditySmsManager;
 import org.hfoss.posit.android.sync.SyncBluetooth;
 
 import android.app.Activity;
@@ -36,12 +38,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -84,6 +88,20 @@ public class BluetoothSyncActivity extends OrmLiteBaseListActivity<DbManager> {
 	private SyncBluetooth mSyncService = null;
 
 	private SelectFindListAdapter mSFLAdapter;
+	
+	
+//	public void sendFinds(Find find){
+//		CommodityFind oiFind = (CommodityFind)find;
+//		String smsPref = PreferenceManager.getDefaultSharedPreferences(this).getString(this.getString(R.string.smsPhoneKey), "");
+////		CommoditySmsManager.sendSMS(smsPref, d+","+
+////				cspinner.getItemAtPosition(posc)+","+
+////				((EditText)findViewById(R.id.editText1)).getText().toString()+","+
+////				((EditText)findViewById(R.id.editText3)).getText().toString()+","+
+////				((EditText)findViewById(R.id.editText4)).getText().toString());
+//		String s = oiFind.getMarket() + ","+ oiFind.getCommodity() + ","+
+//		oiFind.getPrice1()+","+ oiFind.getPrice2()+","+ oiFind.getPrice3();
+//		CommoditySmsManager.sendSMS(smsPref, s);
+//	}
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -197,16 +215,19 @@ public class BluetoothSyncActivity extends OrmLiteBaseListActivity<DbManager> {
 	 */
 	public void sendSelected(View view) {
 		// Check that we are connected before trying to send
-		if (mSyncService.getState() != SyncBluetooth.STATE_CONNECTED) {
-			Toast.makeText(this, R.string.bt_not_connected, Toast.LENGTH_SHORT).show();
-			return;
-		}
+//		if (mSyncService.getState() != SyncBluetooth.STATE_CONNECTED) {
+//			Toast.makeText(this, R.string.bt_not_connected, Toast.LENGTH_SHORT).show();
+//			return;
+//		}
 		
 		String[] guids = mSFLAdapter.getSelectedGuids();
 		
 		if (guids.length > 0) {
 			Toast.makeText(this, R.string.bt_synching, Toast.LENGTH_SHORT).show();
-			mSyncService.sendFinds(guids);
+//			mSyncService.sendFinds(guids);
+			
+			String smsPref = PreferenceManager.getDefaultSharedPreferences(this).getString(this.getString(R.string.smsPhoneKey), "");
+			mSyncService.sendFinds(smsPref, guids);
 			Toast.makeText(this, R.string.bt_synching_complete, Toast.LENGTH_SHORT).show();
 		}
 	}
@@ -357,4 +378,5 @@ public class BluetoothSyncActivity extends OrmLiteBaseListActivity<DbManager> {
 			}
 		}
 	};
+
 }
