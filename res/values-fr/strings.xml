@@ -399,6 +399,7 @@
         <string name="ctoast_saved">Saved</string>
         <string name="ctoast_unsaved">Enregistrer échoué</string>
         <string name="ctoast_notexist">Le fichier dont vous avez besoin n\'existe pas</string>
+         <string name="ctoast_missing_fields">Tous les prix doivent être non nul</string>       
         
        	<string name="csenddata">Envoyer des données</string>
         <string name="cLocation2">emplacement: </string>

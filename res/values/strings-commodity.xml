@@ -71,7 +71,7 @@
         <string name="ctoast_saved">Saved</string>
         <string name="ctoast_unsaved">Save failed</string>
         <string name="ctoast_notexist">The file you need does not exist</string>
-        
+		<string name="ctoast_missing_fields">All prices must be non zero</string>
         
         <string name="csenddata">Send Data</string>
         <string name="cLocation2">Location: </string>
