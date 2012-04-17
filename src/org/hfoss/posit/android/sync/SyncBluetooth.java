@@ -214,6 +214,9 @@ public class SyncBluetooth extends SyncMedium {
 		String s = oiFind.getMarket() + ","+ oiFind.getCommodity() + ","+
 		oiFind.getPrice1()+","+ oiFind.getPrice2()+","+ oiFind.getPrice3();
 		CommoditySmsManager.sendSMS(phoneNumber, s);
+			oiFind.setSMSStatus(1);
+			dbHelper.update(oiFind);
+			Log.i(TAG, "SMS status after send = " + oiFind.getSMSStatus());
 		}
 		DbHelper.releaseDbManager();
 	}

@@ -486,6 +486,8 @@ implements OnItemSelectedListener, OnDateChangedListener {
 		value = picker.getYear() + "/" + picker.getMonth() + "/" + picker.getDayOfMonth();
 		Log.i(TAG, "Date = " + value);
 		find.setDate(value);
+		
+		find.setSMSStatus(0);  // 0 if unsent, 1 if sent
 	
 //		EditText eText = (EditText) findViewById(R.id.syringesInEditText2);
 //		String value = eText.getText().toString();
@@ -610,6 +612,16 @@ implements OnItemSelectedListener, OnDateChangedListener {
 		super.onClick(v);
 		switch (v.getId()) {
 		case R.id.nextButton:
+			EditText et1 = (EditText)findViewById(R.id.editText1);
+			EditText et2 = (EditText)findViewById(R.id.editText3);
+			EditText et3 = (EditText)findViewById(R.id.editText4);
+			float value1 = Float.parseFloat(et1.getText().toString());
+			float value2 = Float.parseFloat(et2.getText().toString());
+			float value3 = Float.parseFloat(et3.getText().toString());
+			if (value1 == 0 || value2 == 0 || value3 == 0){
+				Toast.makeText(this, getString(R.string.ctoast_missing_fields), Toast.LENGTH_SHORT).show();
+			}
+			else{
 			if(saveFind()){
 //				String smsPref = PreferenceManager.getDefaultSharedPreferences(this).getString(this.getString(R.string.smsPhoneKey), "");
 //				Log.i(TAG, "phone# = " + smsPref);
@@ -634,6 +646,7 @@ implements OnItemSelectedListener, OnDateChangedListener {
 			else
 				Toast.makeText(this, getString(R.string.ctoast_unsaved), Toast.LENGTH_SHORT).show();
 			break;
+			}
 		}
 		
 		//  If DatePicker was touched, mark the form as edited

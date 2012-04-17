@@ -311,8 +311,12 @@ public class BluetoothSyncActivity extends OrmLiteBaseListActivity<DbManager> {
 		
 		for (String findGuid : finds) {
 			CommodityFind f = (CommodityFind)dbHelper.getFindByGuid(findGuid);
-			mSFLAdapter.addItem(new SelectFind(findGuid, false, f.getId(), 
+			if (0 == f.getSMSStatus()){
+				Log.i(TAG, "SMS status = " + f.getSMSStatus());
+				mSFLAdapter.addItem(new SelectFind(findGuid, false, f.getId(), 
 					f.getCommodity(), f.getMarket()));
+				
+				}
 		}
 		
 		setListAdapter(mSFLAdapter);
