@@ -409,4 +409,6 @@
 		        <string name="bt_send">Envoyer la sélection</string>
     <string name="bt_select_all">     Sélectionner tout</string>
     <string name="bt_select_none">   Sélectionnez Aucun</string>
+          <string name="bt_synching">Envoi de données sélectionnés.</string>
+    <string name="bt_synching_complete"> Les données envoyées.</string>
 </resources>
