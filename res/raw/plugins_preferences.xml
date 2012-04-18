@@ -99,7 +99,7 @@
 <!-- Function Plugins can co-exist. Make active those that you want accessible in the app. -->
 
 		<!--  Capture Media plugin attaches to FindActivity. Takes a picture. -->
-		<Plugin active="true" 
+		<Plugin active="false" 
 			type="function" 
 			extensionPoint="addFindMenu"
 			name="Capture Media" 
@@ -154,7 +154,7 @@
 			activity_result_action="0" />
 
 		<!--  ViewFile plugin reads and displays Csv, Txt, XML files from SdCard. -->
-		<Plugin active="true"
+		<Plugin active="false"
 			type="function"
 			extensionPoint="listMenu"
 			name="viewfile"
@@ -170,14 +170,14 @@
 			preferences_xml="sms_preferences"
 			menuActivity="org.hfoss.posit.android.functionplugin.sms.SmsActivity" />
 			
-		<Plugin active="true"
+		<Plugin active="false"
 			type="function"
 			extensionPoint="cadminMenu"
 			name="ccviewfile"
 			menuIcon="ic_menu_view" menuTitle="Load Commodity File"
 			menuActivity="org.hfoss.posit.android.functionplugin.fileviewer.CommodityFileViewActivity" />
 			
-		<Plugin active="true"
+		<Plugin active="false"
 			type="function"
 			extensionPoint="cadminMenu"
 			name="cmviewfile"
@@ -214,7 +214,7 @@
 			/>
 			
 		<!--  Tracker plugin tracks the phone's expeditions and syncs to server. -->		
-		<Plugin active="true" 
+		<Plugin active="false" 
  			 type="function" 
  			 extensionPoint="mainMenu"
  			 preferences_xml="tracker_preferences" 			 
@@ -223,7 +223,7 @@
 			 menuTitle="Tracker Activity"
 			 menuActivity="org.hfoss.posit.android.functionplugin.tracker.TrackerActivity" />			
 			
-		<Plugin active="true" 
+		<Plugin active="false" 
 			type="function" 
 			extensionPoint="mainMenu"
 			name="admin" 

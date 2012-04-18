@@ -413,6 +413,8 @@
              <string name="bt_send">voye chwazi</string>
     <string name="bt_select_all">     chwazi tout</string>
     <string name="bt_select_none">  chwazi None</string>
+          <string name="bt_synching">Voye done seleksyone yo.</string>
+    <string name="bt_synching_complete">Done voye.</string>
     
 </resources>
 

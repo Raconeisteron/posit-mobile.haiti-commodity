@@ -610,8 +610,34 @@ implements OnItemSelectedListener, OnDateChangedListener {
 		
 	}
 
+//	@Override
 	public void onClick(View v) {
-		super.onClick(v);
+//		super.onClick(v);
+		switch (v.getId()) {
+	case R.id.saveButton: 
+		EditText et4 = (EditText)findViewById(R.id.editText1);
+		EditText et5 = (EditText)findViewById(R.id.editText3);
+		EditText et6 = (EditText)findViewById(R.id.editText4);
+		float value4 = Float.parseFloat(et4.getText().toString());
+		float value5 = Float.parseFloat(et5.getText().toString());
+		float value6 = Float.parseFloat(et6.getText().toString());
+		if (value4 == 0 || value5 == 0 || value6 == 0){
+			Toast.makeText(this, getString(R.string.ctoast_missing_fields), Toast.LENGTH_SHORT).show();
+			finish();
+			Log.i(TAG, "Click break 2");
+			break;
+		}
+		else{
+			if(saveFind()){
+				finish();
+			}
+			else{				
+				finish();
+			}
+			Log.i(TAG, "Click break 3");
+			break;
+		}
+	}
 		switch (v.getId()) {
 		case R.id.nextButton:
 			EditText et1 = (EditText)findViewById(R.id.editText1);
@@ -646,10 +672,14 @@ implements OnItemSelectedListener, OnDateChangedListener {
 				et.setText(Float.toString(0));
 //				et.setText("");
 			}
-			else
+			else{
 				Toast.makeText(this, getString(R.string.ctoast_unsaved), Toast.LENGTH_SHORT).show();
+				Log.i(TAG, "Click break 1");
 			break;
 			}
+			}
+
+
 		}
 		
 		//  If DatePicker was touched, mark the form as edited

@@ -350,7 +350,7 @@ public class Find implements FindInterface {
 	 *            , the ContentValues (key=val, key2=val2, ...)
 	 */
 	public void updateObject(ContentValues cv) {
-		if (! cv.equals(null)){  //Note: designed to get rid of a problem, 
+		if (!(cv == null)){  //Note: designed to get rid of a problem, 
 			//this if statement is new
 		Set<Entry<String, Object>> cvSet = cv.valueSet();
 		Iterator it = cvSet.iterator();

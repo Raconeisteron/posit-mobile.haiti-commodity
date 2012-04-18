@@ -15,8 +15,8 @@
     <string name="bt_unsuccessful_send">Something happened! The find was not sent.</string>
     <string name="bt_successful_recv">A find has been successfully received.</string>
     <string name="bt_unsuccessful_recv">There was a problem receiving a find.</string>
-    <string name="bt_synching">Synching with connected device.</string>
-    <string name="bt_synching_complete">Synching completed.</string>
+<!--     <string name="bt_synching">Synching with connected device.</string> -->
+<!--     <string name="bt_synching_complete">Synching completed.</string> -->
 
     <!--  BluetoothDeviceListActivity -->
     <string name="bt_scanning">scanning for devices...</string>
@@ -29,4 +29,6 @@
     <string name="csend_data">Send Data</string>
     
       <string name="csend_key">PCT:</string>
+      <string name="bt_synching">Sending selected data.</string>
+    <string name="bt_synching_complete">Data sent.</string>
 </resources>

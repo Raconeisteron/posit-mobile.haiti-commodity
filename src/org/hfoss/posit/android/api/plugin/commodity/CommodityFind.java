@@ -316,6 +316,7 @@ public class CommodityFind extends Find {
 	public static final String C_DATE = "date";
 	public static final String C_MARKET = "market";
 	public static final String C_SMSSTATUS = "smsstatus";
+	public static final String C_Notes = "notes";
 	
 	@DatabaseField(columnName = C_COMMODITY)
 	protected String commodity;
@@ -333,6 +334,8 @@ public class CommodityFind extends Find {
 	protected String market;
 	@DatabaseField(columnName = C_SMSSTATUS)
 	protected int smsStatus;
+	@DatabaseField(columnName = C_Notes)
+	protected String note;
 	
 	public static final String MESSAGE_ID = CommodityAttributeManager.FINDS_MESSAGE_ID;
 	public static final String MESSAGE_STATUS = CommodityAttributeManager.FINDS_MESSAGE_STATUS;
@@ -580,6 +583,13 @@ public class CommodityFind extends Find {
 		this.smsStatus = status;
 	}
 	
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String userNote) {
+		this.note = userNote;
+	}
 	
 // Turning this into something else, to use with Markets and Commodity names.	
 //	/**
