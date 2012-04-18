@@ -58,6 +58,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import org.hfoss.posit.android.api.LocaleManager;
 
 import com.j256.ormlite.android.apptools.OrmLiteBaseListActivity;
 
@@ -104,6 +105,7 @@ public class ListFindsActivity extends OrmLiteBaseListActivity<DbManager> {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		LocaleManager.setDefaultLocale(this);
 		Log.i(TAG, "onResume()");
 		mAdapter = (FindsListAdapter) setUpAdapter();
 		fillList(mAdapter);
@@ -180,6 +182,30 @@ public class ListFindsActivity extends OrmLiteBaseListActivity<DbManager> {
 		return true;
 	}
 
+	/**
+	 * Prepares the menus for this activity.
+	 * 
+	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+	 */
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		menu.clear();
+		//Re-inflate to force localization
+		MenuInflater inflater = getMenuInflater();
+		if (mListMenuPlugins.size() > 0) {
+			for (FunctionPlugin plugin: mListMenuPlugins) {
+				MenuItem item = menu.add(plugin.getmMenuTitle());
+				int id = getResources().getIdentifier(
+						plugin.getmMenuIcon(), "drawable", "org.hfoss.posit.android");
+//				Log.i(TAG, "icon =  " + plugin.getmMenuIcon() + " id =" + id);
+				item.setIcon(id);
+				//item.setIcon(android.R.drawable.ic_menu_mapmode);				
+			}
+		}
+		inflater.inflate(R.menu.list_finds_menu, menu);
+		return true;
+	}
+	
 	/**
 	 * Handles the various menu item actions.
 	 * 

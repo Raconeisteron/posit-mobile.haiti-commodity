@@ -292,6 +292,7 @@ implements OnItemSelectedListener, OnDateChangedListener {
 							compos = 0;
 						}
 						c = commodityspin[position];
+						posc = position;
 //						parent.setSelection(position);
 						Log.i(TAG, "#######Commodity spin choice index the listener sees = " + position);
 						Log.i(TAG, "#######Commodity spin choice the listener sees = " + c);
@@ -361,6 +362,7 @@ implements OnItemSelectedListener, OnDateChangedListener {
 		Log.i(TAG, "#######Market to DB = " + d);
 		find.setCommodity(c);
 		Log.i(TAG, "#######Commodity to DB = " + c);
+
 		
 //		Spinner spinner = (Spinner) findViewById(R.id.marketSpinner);
 //		ArrayAdapter<String> mspinnerArrayAdapter = new ArrayAdapter<String>( 
@@ -631,6 +633,7 @@ implements OnItemSelectedListener, OnDateChangedListener {
 //						((EditText)findViewById(R.id.editText1)).getText().toString()+","+
 //						((EditText)findViewById(R.id.editText3)).getText().toString()+","+
 //						((EditText)findViewById(R.id.editText4)).getText().toString());
+
 				if ( posc < cspinner.getCount()-1)
 					cspinner.setSelection(++posc);
 				EditText et = (EditText)findViewById(R.id.editText1);

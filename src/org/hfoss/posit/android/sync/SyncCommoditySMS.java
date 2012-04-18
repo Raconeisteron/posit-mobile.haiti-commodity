@@ -203,6 +203,8 @@ public class SyncCommoditySMS extends SyncMedium {
 	public void sendFinds(String phoneNumber, String[] guids){
 		DbManager dbHelper = DbHelper.getDbManager(mActivity);
 		CommodityFind oiFind;
+		String date;
+		int yr=0, mon=0, day=0;
 //		CommoditySmsManager.sendSMS(smsPref, d+","+
 //				cspinner.getItemAtPosition(posc)+","+
 //				((EditText)findViewById(R.id.editText1)).getText().toString()+","+
@@ -211,8 +213,14 @@ public class SyncCommoditySMS extends SyncMedium {
 		for (String guid : guids) {
 //			boolean result = sendFind(dbHelper.getFindByGuid(guid));
 			oiFind = (CommodityFind)dbHelper.getFindByGuid(guid);
+			date = oiFind.getDate();
+//			Log.i(TAG,"display DOB = " + date);
+//			int yr=0, mon=0, day=0;
+			day = Integer.parseInt(date.substring(date.lastIndexOf("/")+1));
+			yr = Integer.parseInt(date.substring(0,date.indexOf("/")));
+			mon = Integer.parseInt(date.substring(date.indexOf("/")+1,date.lastIndexOf("/"))) + 1;
 		String s = mActivity.getString(R.string.csend_key) + "," + oiFind.getMarket() + ","+ oiFind.getCommodity() + ","+
-		oiFind.getPrice1()+","+ oiFind.getPrice2()+","+ oiFind.getPrice3();
+		oiFind.getPrice1()+","+ oiFind.getPrice2()+","+ oiFind.getPrice3()+","+ day +","+ mon +","+ yr;
 		CommoditySmsManager.sendSMS(phoneNumber, s);
 			oiFind.setSMSStatus(1);
 			dbHelper.update(oiFind);
