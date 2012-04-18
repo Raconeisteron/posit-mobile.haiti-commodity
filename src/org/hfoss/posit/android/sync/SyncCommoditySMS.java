@@ -38,8 +38,8 @@ import org.hfoss.posit.android.api.database.DbHelper;
 import org.hfoss.posit.android.api.database.DbManager;
 import org.hfoss.posit.android.api.plugin.commodity.CommodityFind;
 import org.hfoss.posit.android.api.plugin.commodity.CommoditySmsManager;
-import org.hfoss.posit.android.functionplugin.commoditysms.BluetoothFindObject;
-import org.hfoss.posit.android.functionplugin.commoditysms.BluetoothSyncActivity;
+import org.hfoss.posit.android.functionplugin.commoditysms.CommoditySMSFindObject;
+import org.hfoss.posit.android.functionplugin.commoditysms.CommoditySMSSyncActivity;
 import org.hfoss.posit.android.functionplugin.camera.Camera;
 
 import android.bluetooth.BluetoothAdapter;
@@ -64,7 +64,7 @@ import android.util.Log;
  * @author Elias Adum
  *
  */
-public class SyncBluetooth extends SyncMedium {
+public class SyncCommoditySMS extends SyncMedium {
 	
 	// Debugging
 	public static final String TAG = "SyncBluetooth";
@@ -78,7 +78,7 @@ public class SyncBluetooth extends SyncMedium {
 	// Member fields
 	final BluetoothAdapter mAdapter;
 	final Handler mHandler;
-	final BluetoothSyncActivity mActivity;
+	final CommoditySMSSyncActivity mActivity;
 	private AcceptThread mAcceptThread;
 	private ConnectThread mConnectThread;
 	private ConnectedThread mConnectedThread;
@@ -96,7 +96,7 @@ public class SyncBluetooth extends SyncMedium {
 	 * @param context The UI Activity Context
 	 * @param handler Handler to send messages to the UI Activity
 	 */
-	public SyncBluetooth(BluetoothSyncActivity activity, Handler handler) {
+	public SyncCommoditySMS(CommoditySMSSyncActivity activity, Handler handler) {
 		mAdapter = BluetoothAdapter.getDefaultAdapter();
 		mState = STATE_NONE;
 		mHandler = handler;
@@ -148,7 +148,7 @@ public class SyncBluetooth extends SyncMedium {
 		//String imageStr = Camera.getPhotoAsString(find.getGuid(), mActivity);
 		
 		String imageStr = null;
-		BluetoothFindObject obj = new BluetoothFindObject(findStr, imageStr);		
+		CommoditySMSFindObject obj = new CommoditySMSFindObject(findStr, imageStr);		
 		
 		// Pack into a message and tell the BluetoothSyncService to write
 		byte[] message = null;
@@ -211,7 +211,7 @@ public class SyncBluetooth extends SyncMedium {
 		for (String guid : guids) {
 //			boolean result = sendFind(dbHelper.getFindByGuid(guid));
 			oiFind = (CommodityFind)dbHelper.getFindByGuid(guid);
-		String s = oiFind.getMarket() + ","+ oiFind.getCommodity() + ","+
+		String s = mActivity.getString(R.string.csend_key) + "," + oiFind.getMarket() + ","+ oiFind.getCommodity() + ","+
 		oiFind.getPrice1()+","+ oiFind.getPrice2()+","+ oiFind.getPrice3();
 		CommoditySmsManager.sendSMS(phoneNumber, s);
 			oiFind.setSMSStatus(1);
@@ -232,14 +232,14 @@ public class SyncBluetooth extends SyncMedium {
 	 * @return true on successs
 	 */
 	public boolean receiveFind(byte[] buffer) {
-		BluetoothFindObject obj = null;
+		CommoditySMSFindObject obj = null;
 		Find newFind = null;
 		String imageString = null;
 		
 		try {
 			ByteArrayInputStream bis = new ByteArrayInputStream(buffer);
 			ObjectInputStream ois = new ObjectInputStream(bis);
-			obj = (BluetoothFindObject) ois.readObject();
+			obj = (CommoditySMSFindObject) ois.readObject();
 			newFind = convertRawToFind(obj.getFindString());
 			imageString = obj.getImageString();
 			
@@ -284,7 +284,7 @@ public class SyncBluetooth extends SyncMedium {
 		mState = state;
 		
 		// Pass the new state to the handler so the UI activity can display changes
-		mHandler.obtainMessage(BluetoothSyncActivity.MESSAGE_STATE_CHANGE, state, -1).sendToTarget();
+		mHandler.obtainMessage(CommoditySMSSyncActivity.MESSAGE_STATE_CHANGE, state, -1).sendToTarget();
 	}
 	
 	/**
@@ -410,9 +410,9 @@ public class SyncBluetooth extends SyncMedium {
 		//cancelAcceptThread();
 		
 		// Send the name of the connected device back to the UI Activity
-		Message msg = mHandler.obtainMessage(BluetoothSyncActivity.MESSAGE_DEVICE_NAME);
+		Message msg = mHandler.obtainMessage(CommoditySMSSyncActivity.MESSAGE_DEVICE_NAME);
 		Bundle bundle = new Bundle();
-		bundle.putString(BluetoothSyncActivity.DEVICE_NAME, device.getName());
+		bundle.putString(CommoditySMSSyncActivity.DEVICE_NAME, device.getName());
 		msg.setData(bundle);
 		mHandler.sendMessage(msg);
 		
@@ -457,9 +457,9 @@ public class SyncBluetooth extends SyncMedium {
 		setState(STATE_LISTEN);
 		
 		// Send a failure message back to the Activity
-		Message msg = mHandler.obtainMessage(BluetoothSyncActivity.MESSAGE_TOAST);
+		Message msg = mHandler.obtainMessage(CommoditySMSSyncActivity.MESSAGE_TOAST);
 		Bundle bundle = new Bundle();
-		bundle.putString(BluetoothSyncActivity.TOAST, "Unable to connect device");
+		bundle.putString(CommoditySMSSyncActivity.TOAST, "Unable to connect device");
 		msg.setData(bundle);
 		mHandler.sendMessage(msg);
 	}
@@ -471,9 +471,9 @@ public class SyncBluetooth extends SyncMedium {
 		setState(STATE_LISTEN);
 
 		// Send a failure message back to the Activity
-		Message msg = mHandler.obtainMessage(BluetoothSyncActivity.MESSAGE_TOAST);
+		Message msg = mHandler.obtainMessage(CommoditySMSSyncActivity.MESSAGE_TOAST);
 		Bundle bundle = new Bundle();
-		bundle.putString(BluetoothSyncActivity.TOAST, "Device connection was lost");
+		bundle.putString(CommoditySMSSyncActivity.TOAST, "Device connection was lost");
 		msg.setData(bundle);
 		mHandler.sendMessage(msg);
 	}
@@ -523,7 +523,7 @@ public class SyncBluetooth extends SyncMedium {
 
 				// If a connection was accepted
 				if (socket != null) {
-					synchronized (SyncBluetooth.this) {
+					synchronized (SyncCommoditySMS.this) {
 						switch (mState) {
 						case STATE_LISTEN:
 						case STATE_CONNECTING:
@@ -614,12 +614,12 @@ public class SyncBluetooth extends SyncMedium {
 					Log.e(TAG, "unable to close() socket during connection failure");
 				}
 				// Start the service over to restart listening mode
-				SyncBluetooth.this.start();
+				SyncCommoditySMS.this.start();
 				return;
 			}
 
 			// Reset the ConnectThread because we're done
-			synchronized (SyncBluetooth.this) {
+			synchronized (SyncCommoditySMS.this) {
 				mConnectThread = null;
 			}
 
@@ -692,7 +692,7 @@ public class SyncBluetooth extends SyncMedium {
 					boolean result = receiveFind(buffer);
 
 					// Send the obtained bytes to the UI Activity
-					mHandler.obtainMessage(BluetoothSyncActivity.MESSAGE_READ,
+					mHandler.obtainMessage(CommoditySMSSyncActivity.MESSAGE_READ,
 							bytes, -1, result).sendToTarget();
 				} catch (IOException e) {
 					Log.e(TAG, "disconnected");

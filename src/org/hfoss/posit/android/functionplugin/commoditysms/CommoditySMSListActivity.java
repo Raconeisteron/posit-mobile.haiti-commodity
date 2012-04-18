@@ -53,7 +53,7 @@ import android.widget.TextView;
  * @author Elias Adum
  *
  */
-public class BluetoothDeviceListActivity extends Activity {
+public class CommoditySMSListActivity extends Activity {
 
 	// Debugging
     private static final String TAG = "BluetoothDeviceListActivity";

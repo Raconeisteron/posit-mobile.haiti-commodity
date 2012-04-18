@@ -35,7 +35,7 @@ import android.util.Log;
  * @author Elias Adum
  *
  */
-public class BluetoothFindObject implements Serializable {
+public class CommoditySMSFindObject implements Serializable {
 
 	private static final long serialVersionUID = 4866606116567160197L;
 	
@@ -84,7 +84,7 @@ public class BluetoothFindObject implements Serializable {
 	 * @see Camera#getPhotoAsString(String, android.content.Context)
 	 * @see SyncMedium#convertFindToRaw(org.hfoss.posit.android.api.Find)
 	 */
-	public BluetoothFindObject(String findString, String imageString) {
+	public CommoditySMSFindObject(String findString, String imageString) {
 		setFindString(findString);
 		setImageString(imageString);
 	}
