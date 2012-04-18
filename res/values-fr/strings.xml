@@ -404,5 +404,9 @@
        	<string name="csenddata">Envoyer des données</string>
         <string name="cLocation2">emplacement: </string>
          <string name="cItem">point: </string>       	
-	
+		    <string name="csend_data">Envoyer des données</string>
+		    
+		        <string name="bt_send">Envoyer la sélection</string>
+    <string name="bt_select_all">     Sélectionner tout</string>
+    <string name="bt_select_none">   Sélectionnez Aucun</string>
 </resources>

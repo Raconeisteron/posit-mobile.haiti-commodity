@@ -29,7 +29,7 @@ import org.hfoss.posit.android.api.database.DbHelper;
 import org.hfoss.posit.android.api.database.DbManager;
 import org.hfoss.posit.android.api.plugin.commodity.CommodityFind;
 import org.hfoss.posit.android.api.plugin.commodity.CommoditySmsManager;
-import org.hfoss.posit.android.sync.SyncBluetooth;
+import org.hfoss.posit.android.sync.SyncCommoditySMS;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
@@ -57,7 +57,7 @@ import com.j256.ormlite.android.apptools.OrmLiteBaseListActivity;
  * 
  * @author Elias Adum
  */
-public class BluetoothSyncActivity extends OrmLiteBaseListActivity<DbManager> {
+public class CommoditySMSSyncActivity extends OrmLiteBaseListActivity<DbManager> {
 
 	// Debugging
 	public static final String TAG = "BluetoothSyncActivity";
@@ -85,7 +85,7 @@ public class BluetoothSyncActivity extends OrmLiteBaseListActivity<DbManager> {
 	// Local Bluetooth adapter
 	private BluetoothAdapter mBluetoothAdapter = null;
 	// Sync service
-	private SyncBluetooth mSyncService = null;
+	private SyncCommoditySMS mSyncService = null;
 
 	private SelectFindListAdapter mSFLAdapter;
 	
@@ -155,7 +155,7 @@ public class BluetoothSyncActivity extends OrmLiteBaseListActivity<DbManager> {
 		// onResume() will be called when ACTION_REQUEST_ENABLE activity
 		// returns.
 		if (mSyncService != null) {
-			if (mSyncService.getState() == SyncBluetooth.STATE_NONE) {
+			if (mSyncService.getState() == SyncCommoditySMS.STATE_NONE) {
 				// Start the Bluetooth Service
 				mSyncService.start();
 			}
@@ -244,7 +244,7 @@ public class BluetoothSyncActivity extends OrmLiteBaseListActivity<DbManager> {
 		switch (item.getItemId()) {
 		case R.id.bt_connect:
 			// Launch the DeviceListActivity to see devices and perform a scan
-			Intent serverIntent = new Intent(this, BluetoothDeviceListActivity.class);
+			Intent serverIntent = new Intent(this, CommoditySMSListActivity.class);
 			startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE);
 			return true;
 		case R.id.bt_discoverable:
@@ -263,7 +263,7 @@ public class BluetoothSyncActivity extends OrmLiteBaseListActivity<DbManager> {
 			// When DeviceListActivity returns a device to connect
 			if (resultCode == Activity.RESULT_OK) {
 				// Get the device MAC address
-				String address = data.getExtras().getString(BluetoothDeviceListActivity.EXTRA_DEVICE_ADDRESS);
+				String address = data.getExtras().getString(CommoditySMSListActivity.EXTRA_DEVICE_ADDRESS);
 				// Get the Bluetooth Device object
 				BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(address);
 				// Attempt to connect to the device
@@ -303,7 +303,7 @@ public class BluetoothSyncActivity extends OrmLiteBaseListActivity<DbManager> {
 	private void setupSync() {
 		
 		mSFLAdapter = new SelectFindListAdapter(this);
-		mSyncService = new SyncBluetooth(this, mHandler);
+		mSyncService = new SyncCommoditySMS(this, mHandler);
 		
 		List<String> finds = mSyncService.getFindsNeedingSync();
 		
@@ -330,17 +330,17 @@ public class BluetoothSyncActivity extends OrmLiteBaseListActivity<DbManager> {
 			switch (msg.what) {
 			case MESSAGE_STATE_CHANGE:
 				switch (msg.arg1) {
-				case SyncBluetooth.STATE_CONNECTED:
+				case SyncCommoditySMS.STATE_CONNECTED:
 					mTitle.setText(R.string.bt_title_connected_to);
 					mTitle.append(mConnectedDeviceName);
 					break;
 
-				case SyncBluetooth.STATE_CONNECTING:
+				case SyncCommoditySMS.STATE_CONNECTING:
 					mTitle.setText(R.string.bt_title_connecting);
 					break;
 					
-				case SyncBluetooth.STATE_LISTEN:
-				case SyncBluetooth.STATE_NONE:
+				case SyncCommoditySMS.STATE_LISTEN:
+				case SyncCommoditySMS.STATE_NONE:
 					mTitle.setText(R.string.bt_title_not_connected);
 					break;
 				}

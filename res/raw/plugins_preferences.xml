@@ -258,10 +258,10 @@
             extensionPoint="listMenu"
  			user_can_select="true"
  			description="Lets you share Finds phone-to-phone through Bluetooth."
-            name="bluetooth"
+            name="commoditySMS"
             menuIcon="ic_menu_bluetooth"
-            menuTitle="Bluetooth Sync"
-            menuActivity="org.hfoss.posit.android.functionplugin.commoditysms.BluetoothSyncActivity" />
+            menuTitle="@string/csend_data"
+            menuActivity="org.hfoss.posit.android.functionplugin.commoditysms.CommoditySMSSyncActivity" />
 
 		<!-- <Plugin active="true" name="AcdiVocaFind" -->
 		<!-- package="org.hfoss.posit.android.plugin.acdivoca" -->

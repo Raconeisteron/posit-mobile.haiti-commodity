@@ -292,7 +292,7 @@
 		<activity android:name=".api.plugin.FuncPluginManagerActivity"></activity>
 
 				<!-- Activities for the Bluetooth plugin -->
-		<activity android:name="org.hfoss.posit.android.functionplugin.commoditysms.BluetoothSyncActivity" />
+		<activity android:name=".functionplugin.commoditysms.CommoditySMSSyncActivity" />
 		<activity android:name=".functionplugin.bluetooth.BluetoothDeviceListActivity" />
 	</application>
 		

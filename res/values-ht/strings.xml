@@ -407,7 +407,12 @@
         
        	<string name="csenddata">voye done</string>
        	 <string name="cLocation2">Location: </string>
-         <string name="cItem">atik: </string>  
+         <string name="cItem">atik: </string> 
+         <string name="csend_data">voye Done</string> 
+         
+             <string name="bt_send">voye chwazi</string>
+    <string name="bt_select_all">     chwazi tout</string>
+    <string name="bt_select_none">  chwazi None</string>
     
 </resources>
 
