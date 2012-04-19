@@ -2,11 +2,14 @@
 	<item 
 		android:icon="@drawable/ic_menu_refresh" 
 		android:title="@string/sync"
-		android:id="@+id/sync_finds_menu_item"></item>
+		android:id="@+id/sync_finds_menu_item"
+	    android:visible="false">
+	</item>
 	<item 
 		android:title="@string/map" 
 		android:id="@+id/map_finds_menu_item"
-		android:icon="@android:drawable/ic_menu_mapmode"></item>
+		android:icon="@android:drawable/ic_menu_mapmode"
+		android:visible="false"></item>
 	<item 
 		android:title="@string/delete_finds" 
 		android:id="@+id/delete_finds_menu_item"

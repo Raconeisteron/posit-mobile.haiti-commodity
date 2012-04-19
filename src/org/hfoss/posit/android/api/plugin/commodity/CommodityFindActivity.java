@@ -489,6 +489,10 @@ implements OnItemSelectedListener, OnDateChangedListener {
 		Log.i(TAG, "Date = " + value);
 		find.setDate(value);
 		
+		eText = (EditText) findViewById(R.id.editText2);
+		value = eText.getText().toString();
+		find.setNote(value);
+		
 		find.setSMSStatus(0);  // 0 if unsent, 1 if sent
 	
 //		EditText eText = (EditText) findViewById(R.id.syringesInEditText2);
@@ -601,6 +605,9 @@ implements OnItemSelectedListener, OnDateChangedListener {
 		et = (EditText)findViewById(R.id.editText4);
 		et.setText(Float.toString((oiFind.getPrice3())));
 		
+		et = (EditText)findViewById(R.id.editText2);
+		et.setText(oiFind.getNote());
+		
 //		
 //		et = (EditText)findViewById(R.id.syringesOutEditText2);
 //		et.setText(Integer.toString(oiFind.getSyringesOut()));
@@ -671,6 +678,8 @@ implements OnItemSelectedListener, OnDateChangedListener {
 				et = (EditText)findViewById(R.id.editText4);
 				et.setText(Float.toString(0));
 //				et.setText("");
+				et = (EditText)findViewById(R.id.editText2);
+				et.setText("");
 			}
 			else{
 				Toast.makeText(this, getString(R.string.ctoast_unsaved), Toast.LENGTH_SHORT).show();

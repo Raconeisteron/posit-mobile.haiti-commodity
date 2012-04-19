@@ -411,4 +411,11 @@
     <string name="bt_select_none">   Sélectionnez Aucun</string>
           <string name="bt_synching">Envoi de données sélectionnés.</string>
     <string name="bt_synching_complete"> Les données envoyées.</string>
+                 <string name="csynced_with">synchronisés avec:</string>
+         <string name="serverPrefLabel">Modification du serveur en cours</string>
+	<string name="currProjectLabel">Changer projet en cours</string>
+		<string name="idAddProjButton">+ Ajouter un nouveau projet</string>
+		    <string name="CancelLabel">annuler</string>
+		    	<string name="okLabel">OK</string>
+		    	         <string name="cabout_sum">Affiche des informations sur POSITx</string>
 </resources>

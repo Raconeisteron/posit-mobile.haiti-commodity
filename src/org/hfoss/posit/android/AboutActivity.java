@@ -49,7 +49,7 @@ public class AboutActivity extends Activity {
         if (server == null)
         	server = getString(R.string.defaultServer);
         TextView serverTView = (TextView) findViewById(R.id.currentServer);
-        serverTView.setText("Synced with:\n" + server);
+        serverTView.setText(getString(R.string.csynced_with) + "\n" + server);
 	}
 
 	@Override

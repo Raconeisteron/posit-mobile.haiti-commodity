@@ -415,6 +415,12 @@
     <string name="bt_select_none">  chwazi None</string>
           <string name="bt_synching">Voye done seleksyone yo.</string>
     <string name="bt_synching_complete">Done voye.</string>
-    
+             <string name="csynced_with">senkronize ak:</string>
+             	<string name="serverPrefLabel">Chanje aktyèl sèvè</string>
+	<string name="currProjectLabel">Chanje aktyèl pwojè</string>
+		<string name="idAddProjButton">+ Add nouvo pwojè</string>
+		    <string name="CancelLabel">anile</string>
+    	<string name="okLabel">OK</string>
+    	         <string name="cabout_sum">Montre enfòmasyon sou POSITx</string>
 </resources>
 
