@@ -30,8 +30,8 @@
 
 	<!-- This should not be needed in the final product, unless it is merged with the main POSIT application. -->
 	<!-- Bluetooth plugin permissions -->
-	<uses-permission android:name="android.permission.BLUETOOTH"/>
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+<!-- 	<uses-permission android:name="android.permission.BLUETOOTH"/> -->
+<!--     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/> -->
 	
 	<!-- Careful with these. They let the app delete conversation threads. -->
 

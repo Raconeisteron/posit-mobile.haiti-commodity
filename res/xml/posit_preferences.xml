@@ -5,11 +5,11 @@
 			<Preference android:key="@string/aboutPref" 
 				android:title="@string/aboutItem"
 				activity_class="org.hfoss.posit.android.AboutActivity"
-				android:summary="Display information about POSITx" />
+				android:summary="@string/cabout_sum" />
 				
-			<CheckBoxPreference android:title="@string/geotaggingPref"
-				android:defaultValue="true" android:summary="@string/geotaggingSummary"
-				android:key="@string/geotaggingKey" />
+<!-- 			<CheckBoxPreference android:title="@string/geotaggingPref" -->
+<!-- 				android:defaultValue="false" android:summary="@string/geotaggingSummary" -->
+<!-- 				android:key="@string/geotaggingKey" /> -->
 				
 			<Preference android:key="@string/projectNamePref" 
 				android:title="@string/currProjectLabel" 
@@ -59,11 +59,12 @@
 		<PreferenceScreen android:title="POSIT Preferences">
 		</PreferenceScreen>
 -->
-			<Preference 
-			    android:key="@string/pluginManagerPref" 
-			    activity_class="org.hfoss.posit.android.api.plugin.FuncPluginManagerActivity"
-			    android:title="@string/pluginManagerTitle" 
-			    android:summary="@string/pluginManagerSummary"/>
+<!-- 			<Preference  -->
+<!-- 			    android:key="@string/pluginManagerPref"  -->
+<!-- 			    activity_class="org.hfoss.posit.android.api.plugin.FuncPluginManagerActivity" -->
+<!-- 			    android:title="@string/pluginManagerTitle"  -->
+<!-- 			    android:summary="@string/pluginManagerSummary" -->
+<!-- 				/> -->
 	</PreferenceCategory>
   
 </PreferenceScreen>

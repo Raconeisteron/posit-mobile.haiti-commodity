@@ -76,5 +76,7 @@
         <string name="csenddata">Send Data</string>
         <string name="cLocation2">Location: </string>
          <string name="cItem">Item: </string>
+         <string name="csynced_with">synced with:</string>
+         <string name="cabout_sum">Display information about POSITx</string>
     
 </resources>

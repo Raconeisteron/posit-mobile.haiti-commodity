@@ -35,6 +35,7 @@
             android:layout_marginLeft="50dp"
             android:layout_toRightOf="@+id/id"
             android:text="synced"
+            android:visibility="gone"
             android:textSize="13dp" />
 
         <TextView
@@ -105,6 +106,7 @@
         android:layout_marginTop="3dp"
         android:layout_below="@+id/out_prompt"
         android:text="time/date"
+        android:visibility="gone"
         android:textSize="13dp" />
 
     <TextView
@@ -114,6 +116,7 @@
         android:layout_marginLeft="20dp"
 		android:layout_below="@+id/timestamp"
         android:text="lat"
+        android:visibility="gone"
         android:textSize="13dp" />
 
     <TextView
@@ -124,6 +127,7 @@
         android:layout_marginTop="3dp"
 		android:layout_below="@+id/latitude"
         android:text="long"
+        android:visibility="gone"
         android:textSize="13dp" />
 
 <!--     <CheckBox -->

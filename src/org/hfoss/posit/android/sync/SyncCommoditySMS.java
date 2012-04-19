@@ -519,41 +519,41 @@ public class SyncCommoditySMS extends SyncMedium {
 			BluetoothSocket socket = null;
 
 			// Listen to the server socket if we're not connected
-			while (mState != STATE_CONNECTED) {
-				try {
-					// This is a blocking call and will only return on a
-					// successful connection or an exception
-					socket = mmServerSocket.accept();
-				} catch (IOException e) {
-					Log.e(TAG, "accept() failed");
-					break;
-				}
-
-				// If a connection was accepted
-				if (socket != null) {
-					synchronized (SyncCommoditySMS.this) {
-						switch (mState) {
-						case STATE_LISTEN:
-						case STATE_CONNECTING:
-							// Situation normal. Start the connected thread.
-							connected(socket, socket.getRemoteDevice());
-							break;
-						case STATE_NONE:
-						case STATE_CONNECTED:
-							// Either not ready or already connected. Terminate
-							// new socket.
-							try {
-								socket.close();
-							} catch (IOException e) {
-								Log.e(TAG, "Could not close unwanted socket");
-							}
-							break;
-						}
-					}
-				}
-			}
-			
-			Log.i(TAG, "END mAcceptThread");
+//			while (mState != STATE_CONNECTED) {
+//				try {
+//					// This is a blocking call and will only return on a
+//					// successful connection or an exception
+//					socket = mmServerSocket.accept();
+//				} catch (IOException e) {
+//					Log.e(TAG, "accept() failed");
+//					break;
+//				}
+//
+//				// If a connection was accepted
+//				if (socket != null) {
+//					synchronized (SyncCommoditySMS.this) {
+//						switch (mState) {
+//						case STATE_LISTEN:
+//						case STATE_CONNECTING:
+//							// Situation normal. Start the connected thread.
+//							connected(socket, socket.getRemoteDevice());
+//							break;
+//						case STATE_NONE:
+//						case STATE_CONNECTED:
+//							// Either not ready or already connected. Terminate
+//							// new socket.
+//							try {
+//								socket.close();
+//							} catch (IOException e) {
+//								Log.e(TAG, "Could not close unwanted socket");
+//							}
+//							break;
+//						}
+//					}
+//				}
+//			}
+//			
+//			Log.i(TAG, "END mAcceptThread");
 		}
 
 		/**
@@ -562,11 +562,11 @@ public class SyncCommoditySMS extends SyncMedium {
 		public void cancel() {
 			Log.d(TAG, "cancel " + this);
 			
-			try {
-				mmServerSocket.close();
-			} catch (IOException e) {
-				Log.e(TAG, "close() of server failed");
-			}
+//			try {
+//				mmServerSocket.close();
+//			} catch (IOException e) {
+//				Log.e(TAG, "close() of server failed");
+//			}
 		}
 	}
 

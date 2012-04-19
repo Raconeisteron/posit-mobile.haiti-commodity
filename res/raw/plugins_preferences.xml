@@ -196,7 +196,7 @@
 			menuActivity="org.hfoss.posit.android.functionplugin.twitter.TwitFindsActivity" />
 			
 		<!--  Log plugin logs Find data to a log file on the SdCard. -->	
-		<Plugin active="true" 
+		<Plugin active="false" 
 			type="function" 
 			extensionPoint="listMenu"
 			name="log" 

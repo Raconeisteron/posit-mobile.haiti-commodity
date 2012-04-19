@@ -136,14 +136,14 @@ public class CommoditySMSSyncActivity extends OrmLiteBaseListActivity<DbManager>
 		super.onStart();
 		
 		// If Bluetooth is not on, request it to be enabled
-		if (!mBluetoothAdapter.isEnabled()) {
-			Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-			startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
+//		if (!mBluetoothAdapter.isEnabled()) {
+//			Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+//			startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
 			
 		// Otherwise set up the sync list
-		} else {
+//		} else {
 			if (mSyncService == null) setupSync();
-		}
+//		}
 	}
 	
 	@Override
@@ -242,15 +242,15 @@ public class CommoditySMSSyncActivity extends OrmLiteBaseListActivity<DbManager>
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.bt_connect:
-			// Launch the DeviceListActivity to see devices and perform a scan
-			Intent serverIntent = new Intent(this, CommoditySMSListActivity.class);
-			startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE);
-			return true;
-		case R.id.bt_discoverable:
-			// Ensure this device is discoverable by others
-			ensureDiscoverable();
-			return true;
+//		case R.id.bt_connect:
+//			// Launch the DeviceListActivity to see devices and perform a scan
+//			Intent serverIntent = new Intent(this, CommoditySMSListActivity.class);
+//			startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE);
+//			return true;
+//		case R.id.bt_discoverable:
+//			// Ensure this device is discoverable by others
+//			ensureDiscoverable();
+//			return true;
 		}
 		
 		return false;

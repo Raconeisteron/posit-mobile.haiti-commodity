@@ -2,7 +2,8 @@
 	<item 
 		android:id="@+id/save_find_menu_item" 
 		android:title="@string/save" 
-		android:icon="@android:drawable/ic_menu_save"></item>
+		android:icon="@android:drawable/ic_menu_save"
+		android:visible="false"></item>
 <!-- 	<item  -->
 <!-- 		android:id="@+id/discard_changes_menu_item"  -->
 <!-- 		android:title="@string/discard_changes"  -->
