@@ -426,6 +426,5 @@
     	      <string name="projectNameLabel">Non Pwojè a:</string>
 		   <string name="projectDescriptionLabel">Deskripsyon Pwojè a:</string>
 	<string name="createProjectButton">kreye Pwojè</string>
-		<string name="cAlert_dialog_cancel">anile</string>
 </resources>
 
