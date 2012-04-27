@@ -423,5 +423,5 @@
 		   <string name="projectNameLabel">Nom du projet:</string>
 		   <string name="projectDescriptionLabel">Description du projet:</string>
 	<string name="createProjectButton">Créer un projet</string>
-			<string name="cAlert_dialog_cancel">annuler</string>
+
 </resources>
