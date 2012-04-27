@@ -354,7 +354,7 @@
     <string name="cLRice">Local Rice</string>
     <string name="cLCorn">Local Corn</string>
     
-    <string name="cNextItem">Next Item</string>
+    <string name="cNextItem">pwochen atik</string>
     <string name="cVendorComplete">fini</string>
     
     <string name="cLat">Etablisman: </string>
@@ -404,7 +404,8 @@
         <string name="ctoast_unsaved">Save echwe</string>
         <string name="ctoast_notexist">Dosye ou bezwen an pa egziste</string>
         <string name="ctoast_missing_fields">Tout pri yo dwe ki pa zewo</string>
-        
+
+                     <!--     Miscellaneous -->
        	<string name="csenddata">voye done</string>
        	 <string name="cLocation2">Location: </string>
          <string name="cItem">atik: </string> 
@@ -422,5 +423,9 @@
 		    <string name="CancelLabel">anile</string>
     	<string name="okLabel">OK</string>
     	         <string name="cabout_sum">Montre enfòmasyon sou POSITx</string>
+    	      <string name="projectNameLabel">Non Pwojè a:</string>
+		   <string name="projectDescriptionLabel">Deskripsyon Pwojè a:</string>
+	<string name="createProjectButton">kreye Pwojè</string>
+		<string name="cAlert_dialog_cancel">anile</string>
 </resources>
 

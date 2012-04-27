@@ -350,7 +350,7 @@
     <string name="cLRice">Local Rice</string>
     <string name="cLCorn">Local Corn</string>
     
-    <string name="cNextItem">Next Item</string>
+    <string name="cNextItem">article suivant</string>
     <string name="cVendorComplete">Terminer</string>
     
     <string name="cLat">Latitude: </string>
@@ -400,7 +400,9 @@
         <string name="ctoast_unsaved">Enregistrer échoué</string>
         <string name="ctoast_notexist">Le fichier dont vous avez besoin n\'existe pas</string>
          <string name="ctoast_missing_fields">Tous les prix doivent être non nul</string>       
-        
+
+         
+             <!--     Miscellaneous -->
        	<string name="csenddata">Envoyer des données</string>
         <string name="cLocation2">emplacement: </string>
          <string name="cItem">point: </string>       	
@@ -417,5 +419,9 @@
 		<string name="idAddProjButton">+ Ajouter un nouveau projet</string>
 		    <string name="CancelLabel">annuler</string>
 		    	<string name="okLabel">OK</string>
-		    	         <string name="cabout_sum">Affiche des informations sur POSITx</string>
+		    	  <string name="cabout_sum">Affiche des informations sur POSITx</string>
+		   <string name="projectNameLabel">Nom du projet:</string>
+		   <string name="projectDescriptionLabel">Description du projet:</string>
+	<string name="createProjectButton">Créer un projet</string>
+			<string name="cAlert_dialog_cancel">annuler</string>
 </resources>
