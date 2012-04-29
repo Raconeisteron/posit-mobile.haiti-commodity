@@ -320,7 +320,10 @@
 	<!-- Authentication -->
 	<string name="accountType">org.hfoss.posit.account</string>
 	<string name="contentAuthority">org.hfoss.posit</string>
-	
+		
+		
+		<!-- Warning: Because this is the first thing users see and the local
+		cannot be changed before this section, it needed to be pre-emptively translated. -->
 	<string name="authPrompt">To use POSIT you must have an account on
 	    the server. To create a new account browse
 	    to the current server: </string>

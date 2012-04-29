@@ -533,7 +533,7 @@ implements SmsCallBack {
 		
 //		try {
 			dao = this.dbManager.getCommodityFindDao();
-			mCommodityMsgs = CommodityFind.constructMessages(dao, CommoditySearchFilterActivity.RESULT_SELECT_UPDATE, distributionCtr);
+//			mCommodityMsgs = CommodityFind.constructMessages(dao, CommoditySearchFilterActivity.RESULT_SELECT_UPDATE, distributionCtr);
 			//Don't need bulk update messages, commented out for now
 //			mCommodityMsgs.addAll(CommodityFind.constructBulkUpdateMessages(dao, distributionCtr));
 //		} 
@@ -615,9 +615,9 @@ implements SmsCallBack {
 			if (resultCode == RESULT_OK) {
 				
 				Intent intent = new Intent();
-				beneficiaryType = data.getIntExtra(CommodityFind.TYPE, -1);
+//				beneficiaryType = data.getIntExtra(CommodityFind.TYPE, -1);
 				Log.i(TAG, "Logged in, beneficiary type = " + beneficiaryType);
-				intent.putExtra(CommodityFind.TYPE, beneficiaryType);
+//				intent.putExtra(CommodityFind.TYPE, beneficiaryType);
 				intent.setClass(this, CommodityFilePickerActivity.class);
 				
 				this.startActivityForResult(intent, CommodityFilePickerActivity.ACTION_CHOOSER);

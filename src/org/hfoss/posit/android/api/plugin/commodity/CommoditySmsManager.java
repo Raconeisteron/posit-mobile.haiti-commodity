@@ -59,9 +59,9 @@ public class CommoditySmsManager extends BroadcastReceiver {
 	public static final String SENT = "SMS_SENT";
 	public static final String DELIVERED = "SMS_DELIVERED";
 	
-	public static final String INCOMING_PREFIX = 
-		CommodityMessage.ACDI_VOCA_PREFIX 
-		+ CommodityAttributeManager.ATTR_VAL_SEPARATOR;
+//	public static final String INCOMING_PREFIX = 
+//		CommodityMessage.ACDI_VOCA_PREFIX 
+//	+ CommodityAttributeManager.ATTR_VAL_SEPARATOR;
 
 	
 	public static final int MAX_MESSAGE_LENGTH = 140;
@@ -112,37 +112,37 @@ public class CommoditySmsManager extends BroadcastReceiver {
  	 */
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		Log.i(TAG, "Intent action = " + intent.getAction());
-		
-		Bundle bundle = intent.getExtras();
-
-		ArrayList<SmsMessage> messages = new ArrayList<SmsMessage>();
-
-		if (bundle != null) {
-			Object[] pdus = (Object[]) bundle.get("pdus");
-
-			for (Object pdu : pdus) {
-				SmsMessage message = SmsMessage.createFromPdu((byte[]) pdu);
-				messages.add(message);
-
-				String incomingMsg = message.getMessageBody();
-				String originatingNumber = message.getOriginatingAddress();
-
-				Log.i(TAG, "FROM: " + originatingNumber);
-				Log.i(TAG, "MESSAGE: " + incomingMsg);
-				int[] msgLen = SmsMessage.calculateLength(message.getMessageBody(), true);
-				Log.i(TAG, "" + msgLen[0]  + " " + msgLen[1] + " " + msgLen[2] + " " + msgLen[3]);
-				msgLen = SmsMessage.calculateLength(message.getMessageBody(), false);
-				Log.i(TAG, "" + msgLen[0]  + " " + msgLen[1] + " " + msgLen[2] + " " + msgLen[3]);
-
-				//Log.i(TAG, "Protocol = " + message.getProtocolIdentifier());
-				Log.i(TAG, "LENGTH: " + incomingMsg.length());				 
-
-				if (incomingMsg.startsWith(INCOMING_PREFIX)) {
-					handleCommodityIncoming(context, incomingMsg);
-				}
-			}
-		}
+//		Log.i(TAG, "Intent action = " + intent.getAction());
+//		
+//		Bundle bundle = intent.getExtras();
+//
+//		ArrayList<SmsMessage> messages = new ArrayList<SmsMessage>();
+//
+//		if (bundle != null) {
+//			Object[] pdus = (Object[]) bundle.get("pdus");
+//
+//			for (Object pdu : pdus) {
+//				SmsMessage message = SmsMessage.createFromPdu((byte[]) pdu);
+//				messages.add(message);
+//
+//				String incomingMsg = message.getMessageBody();
+//				String originatingNumber = message.getOriginatingAddress();
+//
+//				Log.i(TAG, "FROM: " + originatingNumber);
+//				Log.i(TAG, "MESSAGE: " + incomingMsg);
+//				int[] msgLen = SmsMessage.calculateLength(message.getMessageBody(), true);
+//				Log.i(TAG, "" + msgLen[0]  + " " + msgLen[1] + " " + msgLen[2] + " " + msgLen[3]);
+//				msgLen = SmsMessage.calculateLength(message.getMessageBody(), false);
+//				Log.i(TAG, "" + msgLen[0]  + " " + msgLen[1] + " " + msgLen[2] + " " + msgLen[3]);
+//
+//				//Log.i(TAG, "Protocol = " + message.getProtocolIdentifier());
+//				Log.i(TAG, "LENGTH: " + incomingMsg.length());				 
+//
+//				if (incomingMsg.startsWith(INCOMING_PREFIX)) {
+//					handleCommodityIncoming(context, incomingMsg);
+//				}
+//			}
+//		}
 	}
 
 	/**
@@ -157,40 +157,40 @@ public class CommoditySmsManager extends BroadcastReceiver {
 	 * messages should be marked acknowledged.
 	 * @param msg
 	 */
-	private void handleCommodityIncoming(Context context, String msg) {
-		Log.i(TAG, "Processing incoming SMS: " + msg);
-		boolean isAck  = false;
-		String attrvalPairs[] = msg.split(CommodityAttributeManager.PAIRS_SEPARATOR);
-
-		// The message has the format AV=ACK,IDS=1/2/3/.../,  so just two pairs
-		for (int k = 0; k < attrvalPairs.length; k++) {
-			String attrval[] = attrvalPairs[k].split(CommodityAttributeManager.ATTR_VAL_SEPARATOR);
-			String attr = "", val = "";
-			if (attrval.length == 2) {
-				attr = attrval[0];
-				val = attrval[1];
-			} else if (attrval.length == 1) {
-				attr = attrval[0];
-			}
-
-			// If this is an ACK message,  set on the isAck flag
-			if (attr.equals(CommodityMessage.ACDI_VOCA_PREFIX)
-					&& val.equals(CommodityMessage.ACK)) {
-				isAck = true;
-			}
-			// If this is the list of IDs,  parse the ID numbers and update the Db
-			if (attr.equals(CommodityMessage.IDS) && isAck) {
-				Log.i(TAG, attr + "=" + val);
-				processAckList(context, attr, val);
-			}
-		}
-	}
+//	private void handleCommodityIncoming(Context context, String msg) {
+//		Log.i(TAG, "Processing incoming SMS: " + msg);
+//		boolean isAck  = false;
+//		String attrvalPairs[] = msg.split(CommodityAttributeManager.PAIRS_SEPARATOR);
+//
+//		// The message has the format AV=ACK,IDS=1/2/3/.../,  so just two pairs
+//		for (int k = 0; k < attrvalPairs.length; k++) {
+//			String attrval[] = attrvalPairs[k].split(CommodityAttributeManager.ATTR_VAL_SEPARATOR);
+//			String attr = "", val = "";
+//			if (attrval.length == 2) {
+//				attr = attrval[0];
+//				val = attrval[1];
+//			} else if (attrval.length == 1) {
+//				attr = attrval[0];
+//			}
+//
+//			// If this is an ACK message,  set on the isAck flag
+//			if (attr.equals(CommodityMessage.ACDI_VOCA_PREFIX)
+//					&& val.equals(CommodityMessage.ACK)) {
+//				isAck = true;
+//			}
+//			// If this is the list of IDs,  parse the ID numbers and update the Db
+//			if (attr.equals(CommodityMessage.IDS) && isAck) {
+//				Log.i(TAG, attr + "=" + val);
+//				processAckList(context, attr, val);
+//			}
+//		}
+//	}
 	
 	/**
 	 * Helper method to process of list of IDs as tokens.
 	 * @param val
 	 */
-	private void processAckList(Context context, String attr, String val) {
+/*	private void processAckList(Context context, String attr, String val) {
 
 		// We use a tokenizer with a number parser so we can handle non-numeric 
 		//  data without crashing.  It skips all non-numerics as it reads the stream.
@@ -244,67 +244,67 @@ public class CommoditySmsManager extends BroadcastReceiver {
 			Log.i(TAG,"Number format exception");
 			e.printStackTrace();
 		}
-	}
+	}*/
 	
 	/**
 	 * Helper method to record a received ACK for an SMS message (avMsg) in the Db.
 	 */
 	private void recordAckInDb (Context context, CommodityMessage avMsg) {
-		CommodityDbManager db = new CommodityDbManager(context);
-		//CommodityDbManager dbManager = (CommodityDbManager)this.getHelper();
-		boolean success = false;
-		try {
-			int beneId = avMsg.getBeneficiaryId();
-			int msgId = avMsg.getMessageId();
-			Dao<CommodityFind, Integer> daoFind = db.getCommodityFindDao();
-			// Figure out if I need a commodity tracker equivalent for db.getAcdiVocaMessageDao();
-			Dao<CommodityMessage, Integer> daoMsg = db.getCommodityMessageDao();
-			
-			if (beneId < 0) {  // This was a bulk message containing dossiers numbers of many beneficiaries
-				success = CommodityMessage.updateStatus(daoMsg, beneId, msgId, CommodityMessage.MESSAGE_STATUS_ACK);
-				if (success) 
-					Log.d(TAG, "Updated ACK, for msg_id = " +  msgId);
-				else 
-					Log.e(TAG, "Unable to process ACK, for msg_id = " +  msgId);	
-				
-				CommodityMessage bulkMsg = CommodityMessage.fetchById(daoMsg, msgId);
-				if (bulkMsg != null) {
-					int rows = CommodityFind.updateMessageStatusForBulkMsg(daoFind, bulkMsg, msgId, CommodityMessage.MESSAGE_STATUS_ACK);
-					Log.i(TAG, "Updated bulk for " + rows + " beneficiaries");
-				} else {
-					Log.e(TAG, "Unable to retrieve message with id = " + msgId);
-				}
-				
-
-			} else {
-				// First retrieve the message id from the Find and update the Find
-				CommodityFind avFind = CommodityFind.fetchById(daoFind, beneId);
-				if (avFind != null) {
-					msgId = avFind.message_id;
-					avFind.message_status = CommodityMessage.MESSAGE_STATUS_ACK;
-					int rows = daoFind.update(avFind);
-					if (rows == 1) {
-						Log.d(TAG, "Updated ACK, for beneficiary_id = " +  beneId);
-					} else {
-						Log.e(TAG, "Unable to process ACK, for beneficiary_id = " +  beneId);						
-					}
-				} else {
-					Log.e(TAG, "Unable to process ACK, for beneficiary_id = " +  beneId);		
-				}
-				
-				// Next update the message
-				success = CommodityMessage.updateStatus(daoMsg, beneId, msgId, CommodityMessage.MESSAGE_STATUS_ACK);
-				if (success) 
-					Log.d(TAG, "Updated ACK, for msg_id = " +  msgId);
-				else 
-					Log.e(TAG, "Unable to process ACK, for msg_id = " +  msgId);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-//		db.recordAcknowledgedMessage(avMsg);
-		
+//		CommodityDbManager db = new CommodityDbManager(context);
+//		//CommodityDbManager dbManager = (CommodityDbManager)this.getHelper();
+//		boolean success = false;
+//		try {
+//			int beneId = avMsg.getBeneficiaryId();
+//			int msgId = avMsg.getMessageId();
+//			Dao<CommodityFind, Integer> daoFind = db.getCommodityFindDao();
+//			// Figure out if I need a commodity tracker equivalent for db.getAcdiVocaMessageDao();
+//			Dao<CommodityMessage, Integer> daoMsg = db.getCommodityMessageDao();
+//			
+//			if (beneId < 0) {  // This was a bulk message containing dossiers numbers of many beneficiaries
+//				success = CommodityMessage.updateStatus(daoMsg, beneId, msgId, CommodityMessage.MESSAGE_STATUS_ACK);
+//				if (success) 
+//					Log.d(TAG, "Updated ACK, for msg_id = " +  msgId);
+//				else 
+//					Log.e(TAG, "Unable to process ACK, for msg_id = " +  msgId);	
+//				
+//				CommodityMessage bulkMsg = CommodityMessage.fetchById(daoMsg, msgId);
+//				if (bulkMsg != null) {
+//					int rows = CommodityFind.updateMessageStatusForBulkMsg(daoFind, bulkMsg, msgId, CommodityMessage.MESSAGE_STATUS_ACK);
+//					Log.i(TAG, "Updated bulk for " + rows + " beneficiaries");
+//				} else {
+//					Log.e(TAG, "Unable to retrieve message with id = " + msgId);
+//				}
+//				
+//
+//			} else {
+//				// First retrieve the message id from the Find and update the Find
+//				CommodityFind avFind = CommodityFind.fetchById(daoFind, beneId);
+//				if (avFind != null) {
+////					msgId = avFind.message_id;
+////					avFind.message_status = CommodityMessage.MESSAGE_STATUS_ACK;
+//					int rows = daoFind.update(avFind);
+//					if (rows == 1) {
+//						Log.d(TAG, "Updated ACK, for beneficiary_id = " +  beneId);
+//					} else {
+//						Log.e(TAG, "Unable to process ACK, for beneficiary_id = " +  beneId);						
+//					}
+//				} else {
+//					Log.e(TAG, "Unable to process ACK, for beneficiary_id = " +  beneId);		
+//				}
+//				
+//				// Next update the message
+//				success = CommodityMessage.updateStatus(daoMsg, beneId, msgId, CommodityMessage.MESSAGE_STATUS_ACK);
+//				if (success) 
+//					Log.d(TAG, "Updated ACK, for msg_id = " +  msgId);
+//				else 
+//					Log.e(TAG, "Unable to process ACK, for msg_id = " +  msgId);
+//			}
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+////		db.recordAcknowledgedMessage(avMsg);
+//		
 	}
 	
 	/**
@@ -384,8 +384,8 @@ public class CommoditySmsManager extends BroadcastReceiver {
 		dbManager = (CommodityDbManager)((OrmLiteBaseActivity)context).getHelper(); 
 		while (it.hasNext()) {
 			CommodityMsg = it.next();
-			CommodityMsg.setNumberSlashBatchSize(count + CommodityAttributeManager.NUMBER_SLASH_SIZE_SEPARATOR + size);
-			int beneficiary_id = CommodityMsg.getBeneficiaryId();
+//			CommodityMsg.setNumberSlashBatchSize(count + CommodityAttributeManager.NUMBER_SLASH_SIZE_SEPARATOR + size);
+//			int beneficiary_id = CommodityMsg.getBeneficiaryId();
 //			Log.i(TAG, "To Send: " + acdiVocaMsg.getSmsMessage());
 			
 			if (!CommodityMsg.isExisting()) {
@@ -415,8 +415,8 @@ public class CommoditySmsManager extends BroadcastReceiver {
 				}
 //				CommodityDbHelper db = new CommodityDbHelper(context);
 //				int msgId = (int)db.createNewMessageTableEntry(acdiVocaMsg,beneficiary_id,CommodityMessage.MESSAGE_STATUS_UNSENT);
-				int msgId = CommodityMessage.createMessage(daoMsg,daoFind,CommodityMsg,beneficiary_id,CommodityMessage.MESSAGE_STATUS_UNSENT);
-				CommodityMsg.setMessageId(msgId);
+//				int msgId = CommodityMessage.createMessage(daoMsg,daoFind,CommodityMsg,beneficiary_id,CommodityMessage.MESSAGE_STATUS_UNSENT);
+//				CommodityMsg.setMessageId(msgId);
 				CommodityMsg.setExisting(true);
 			}
 			messages.add(CommodityMsg.toString());
