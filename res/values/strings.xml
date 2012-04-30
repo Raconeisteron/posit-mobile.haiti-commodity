@@ -324,15 +324,15 @@
 		
 		<!-- Warning: Because this is the first thing users see and the local
 		cannot be changed before this section, it needed to be pre-emptively translated. -->
-	<string name="authPrompt">To use POSIT you must have an account on
-	    the server. To create a new account browse
-	    to the current server: </string>
-	<string name="missingUsername">Please type a username.</string>
-	<string name="missingPassword">Please type a password.</string>
-	<string name="authFailed">Authentication Failed: Invalid username or password.</string>
-	<string name="username">Username</string>
-	<string name="password">Password</string>
-	<string name="okay">Okay</string>
+	<string name="authPrompt">Pou itilize enonse ou dwe genyen yon 
+	    kont sou sèvè a. Pou kreye yon nouvo kont 
+	    navige nan sèvè aktyèl la: </string>
+	<string name="missingUsername">Tanpri tape yon non itilizatè.</string>
+	<string name="missingPassword">Tanpri, tape yon modpas.</string>
+	<string name="authFailed">Otantifikasyon echwe: valid non itilizatè oubyen modpas.</string>
+	<string name="username">Nom itizatè</string>
+	<string name="password">Modpas</string>
+	<string name="okay">O.K.</string>
 	
 	<!-- Preferences -->
 	
@@ -356,4 +356,9 @@
     <string name="pluginManagerPref">pluginManagerKey</string>
     <string name="pluginManagerTitle">Plugin Manager</string>
     <string name="pluginManagerSummary">Toggle active plugins</string>
+    
+    <!-- Miscellaneous, Commodity Tracker -->
+    <string name="ToGetStarted">To get started, you must choose a project.</string>
+    <string name="YouMustGo">You must go to Android > Settings > Accounts &amp; Sync to set up an account before you use POSIT."</string>
+    <string name="YouHaveChanged">You have changed your project to:  </string>
 </resources>

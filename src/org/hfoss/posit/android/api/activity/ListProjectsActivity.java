@@ -192,7 +192,7 @@ public class ListProjectsActivity extends ListActivity implements OnClickListene
 		case CONFIRM_PROJECT_CHANGE:
 			return new AlertDialog.Builder(this)
 			.setIcon(R.drawable.icon)
-			.setTitle("You have changed your project to: " 
+			.setTitle(R.string.YouHaveChanged + " "
 					+ (String) projectList.get(mClickedPosition).get("name"))
 					.setPositiveButton(R.string.alert_dialog_ok, 
 							new DialogInterface.OnClickListener() {

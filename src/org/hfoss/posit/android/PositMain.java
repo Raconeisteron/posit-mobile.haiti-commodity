@@ -315,13 +315,12 @@ public class PositMain extends OrmLiteBaseActivity<DbManager> implements android
 		
 		String authKey = Communicator.getAuthKey(this);
 		if (authKey == null) {
-			Toast.makeText(this, "You must go to Android > Settings > Accounts & Sync to " +
-					" set up an account before you use POSIT.", Toast.LENGTH_LONG).show();
+			Toast.makeText(this, getString(R.string.YouMustGo), Toast.LENGTH_LONG).show();
 			return;
 		}
 		
 		if (sp.getString(getString(R.string.projectNamePref), "").equals("")) {
-			Toast.makeText(this, "To get started, you must choose a project.", Toast.LENGTH_LONG).show();
+			Toast.makeText(this, getString(R.string.ToGetStarted), Toast.LENGTH_LONG).show();
 			Intent i = new Intent(this, ListProjectsActivity.class);
 			startActivity(i);
 		} else {
