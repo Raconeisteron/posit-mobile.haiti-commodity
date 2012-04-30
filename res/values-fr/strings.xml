@@ -424,7 +424,8 @@
 		   <string name="projectDescriptionLabel">Description du projet:</string>
 	<string name="createProjectButton">Créer un projet</string>
 	    <string name="ToGetStarted">Pour commencer, vous devez choisir un projet.</string>
-    <string name="YouMustGo">Vous devez aller à Android > Settings > Accounts &amp; Sync de mettre en place un compte avant d'utiliser POSIT.</string>
+    <string name="YouMustGo">Vous devez aller à Android > Settings > Accounts &amp; Sync de mettre en place un compte avant d\'utiliser POSIT.</string>
     <string name="YouHaveChanged">Vous avez changé votre projet à:  </string>
-
+	<string name="delete_finds">Supprimer Tout Trouve</string>
+    
 </resources>

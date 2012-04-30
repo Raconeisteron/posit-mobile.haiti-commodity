@@ -260,7 +260,7 @@
  			description="Lets you share Finds phone-to-phone through Bluetooth."
             name="commoditySMS"
             menuIcon="ic_menu_bluetooth"
-            menuTitle="Send Data"
+            menuTitle="Voye Done"
             menuActivity="org.hfoss.posit.android.functionplugin.commoditysms.CommoditySMSSyncActivity" />
 
 <!--                     menuTitle="@string/csend_data" -->

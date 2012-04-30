@@ -349,7 +349,7 @@
     <string name="cCommune_section">kominal seksyon</string>
     <string name="cDefault_preference_string">default_null_value</string>
     <string name="cCancelLabel">anile</string>
-    <string name="cAboutItem">About</string>
+    <string name="cAboutItem">A Propos</string>
     <string name="cMRice">Miami Rice /(Lucky/)</string>
     <string name="cLRice">Local Rice</string>
     <string name="cLCorn">Local Corn</string>
@@ -364,7 +364,7 @@
     
 <!--     Form info -->    
 
-    <string name="cMarket">Market </string>
+    <string name="cMarket">Mache </string>
     <string name="cUnits">inite </string>
     <string name="cCommodity">komodite</string>
     <string name="cCommuneSection">Komin Seksyon:</string>
@@ -429,5 +429,6 @@
 	    <string name="ToGetStarted">Pou kòmanse, ou dwe chwazi yon pwojè.</string>
     <string name="YouMustGo">Ou dwe ale nan Android > Settings > Accounts &amp; Sync yo mete kanpe yon kont anvan w sèvi avèk POSIT.</string>
     <string name="YouHaveChanged">Ou te chanje pwojè ou a: </string>
+    <string name="delete_finds">Efase Tout Jwenn</string>
 </resources>
 
