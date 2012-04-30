@@ -426,5 +426,8 @@
     	      <string name="projectNameLabel">Non Pwojè a:</string>
 		   <string name="projectDescriptionLabel">Deskripsyon Pwojè a:</string>
 	<string name="createProjectButton">kreye Pwojè</string>
+	    <string name="ToGetStarted">Pou kòmanse, ou dwe chwazi yon pwojè.</string>
+    <string name="YouMustGo">Ou dwe ale nan Android > Settings > Accounts &amp; Sync yo mete kanpe yon kont anvan w sèvi avèk POSIT.</string>
+    <string name="YouHaveChanged">Ou te chanje pwojè ou a: </string>
 </resources>
 
