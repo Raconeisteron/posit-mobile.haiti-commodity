@@ -32,7 +32,6 @@ import java.util.Iterator;
 import org.hfoss.posit.android.R;
 import org.hfoss.posit.android.api.database.DbManager;
 import org.hfoss.posit.android.api.service.SmsService;
-import org.hfoss.posit.android.functionplugin.fileviewer.CommodityAdminActivity;
 
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.android.apptools.OrmLiteBaseListActivity;
@@ -460,7 +459,7 @@ public class CommoditySmsManager extends BroadcastReceiver {
 			smsService.putExtra("messages", messagesToSend);  // These messages know their msgIds
 			smsService.putExtra("phonenumber", mCommodityPhone);
 			mContext.startService(smsService);
-			mHandler.sendEmptyMessage(CommodityAdminActivity.DONE);
+//			mHandler.sendEmptyMessage(CommodityAdminActivity.DONE);
 		}
 	}
 	
