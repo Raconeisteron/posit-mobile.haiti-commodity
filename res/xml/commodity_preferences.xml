@@ -30,7 +30,7 @@
                 
              <Preference android:key="cAboutKey" 
 				android:title="@string/cAboutItem"
-				activity_class="org.hfoss.posit.android.api.plugin.commodity.CommodityAboutActivity"
+				activity_class="org.hfoss.positcommodity.android.api.plugin.commodity.CommodityAboutActivity"
 				android:summary="" />
 	
 		</PreferenceScreen>
