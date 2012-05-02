@@ -7,7 +7,7 @@
 			android:defaultValue="true" 
 			android:summary="Allows users to attach reminders to Finds"
 			android:key="allowReminderKey" 
-			service_class="org.hfoss.posit.android.functionplugin.reminder.ToDoReminderService"
+			service_class="org.hfoss.positcommodity.android.functionplugin.reminder.ToDoReminderService"
 			android:dependency="@string/geotaggingKey"/>
 	
 	</PreferenceCategory>
