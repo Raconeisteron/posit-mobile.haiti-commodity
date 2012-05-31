@@ -355,7 +355,8 @@
     <string name="cLCorn">Local Corn</string>
     
     <string name="cNextItem">pwochen atik</string>
-    <string name="cVendorComplete">fini</string>
+    <string name="cVendorComplete">sove enf√≤masyon</string>
+    <string name="defaultSpinner">chwazi opsyon</string>
     
     <string name="cLat">Etablisman: </string>
     <string name="cLon">Lonjitid: </string>
@@ -404,6 +405,7 @@
         <string name="ctoast_unsaved">Save echwe</string>
         <string name="ctoast_notexist">Dosye ou bezwen an pa egziste</string>
         <string name="ctoast_missing_fields">Tout pri yo dwe ki pa zewo</string>
+        <string name="ctoast_missing_spinner">dwe mache a ak komodite tou de ap seleksyone</string>
 
                      <!--     Miscellaneous -->
        	<string name="csenddata">voye done</string>

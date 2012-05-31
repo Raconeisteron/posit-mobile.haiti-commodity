@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import org.hfoss.positcommodity.android.R;
@@ -50,7 +51,9 @@ implements OnItemSelectedListener, OnDateChangedListener {
 
 	private static final String TAG = "CommodityFindActivity";
 	private String commodityspin[];
+	private String cadd[]; // added for new default item
 	private String marketspin[];
+	private String madd[]; // added for new default item
 	private ArrayAdapter<String> mAdapter;
 	private ArrayAdapter<String> cAdapter;
 	Spinner cspinner; 
@@ -117,16 +120,31 @@ implements OnItemSelectedListener, OnDateChangedListener {
 						+ "/commodity/commoditylist.csv", Toast.LENGTH_SHORT).show();
 			   finish();
 		   }
+		// added some more code to add new default item    
 		marketspin = loadData("/commodity/marketlist.csv");
-	    mAdapter = new ArrayAdapter<String>( 
-	            this, android.R.layout.simple_spinner_item, marketspin); 
+		madd = new String[marketspin.length+1];
+		System.arraycopy(marketspin, 0, madd, 1, marketspin.length);
+		madd[0] = getString(R.string.defaultSpinner);
+		
+		mAdapter = new ArrayAdapter<String>( 
+	            this, android.R.layout.simple_spinner_item, madd);
+	    mAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
 	    mspinner.setAdapter(mAdapter); 
+	    mspinner.setPrompt("Select Market");
+
+	    
 	    cspinner = (Spinner) findViewById(R.id.commoditySpinner);
 		commodityspin = loadData("/commodity/commoditylist.csv");
+		cadd = new String[commodityspin.length+1];
+		System.arraycopy(commodityspin, 0, cadd, 1, commodityspin.length);
+		cadd[0] = getString(R.string.defaultSpinner);
+		
 	    cAdapter = new ArrayAdapter<String>( 
-	            this, android.R.layout.simple_spinner_item, commodityspin); 
+	            this, android.R.layout.simple_spinner_item, cadd); 
+
+	    cAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	    cspinner.setAdapter(cAdapter); 
-	    
 	    
 	    
 //		mAdapter = 
@@ -291,7 +309,7 @@ implements OnItemSelectedListener, OnDateChangedListener {
 							parent.setSelection(compos);
 							compos = 0;
 						}
-						c = commodityspin[position];
+						c = cadd[position];
 						posc = position;
 //						parent.setSelection(position);
 						Log.i(TAG, "#######Commodity spin choice index the listener sees = " + position);
@@ -319,7 +337,7 @@ implements OnItemSelectedListener, OnDateChangedListener {
 							parent.setSelection(marketpos);
 							marketpos = 0;
 						}
-						d = marketspin[position];
+						d = madd[position];
 						Log.i(TAG, "#######Market spin choice index = " + marketpos);
 						Log.i(TAG, "#######Market spin choice = " + d);
 //						find.setMarket(d);
@@ -560,9 +578,16 @@ implements OnItemSelectedListener, OnDateChangedListener {
 		
 		mspinner = (Spinner) findViewById(R.id.marketSpinner);
 		marketspin = loadData("/commodity/marketlist.csv");
-	    mAdapter = new ArrayAdapter<String>( 
-	    		this, android.R.layout.simple_spinner_item, marketspin);
+		madd = new String[marketspin.length+1];
+		System.arraycopy(marketspin, 0, madd, 1, marketspin.length);
+		madd[0] = getString(R.string.defaultSpinner);
+		
+		mAdapter = new ArrayAdapter<String>( 
+	            this, android.R.layout.simple_spinner_item, madd);
+	    mAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
 	    mspinner.setAdapter(mAdapter); 
+	    mspinner.setPrompt("Select Market"); 
 		
 //	    posd = setSpinner(mspinner, oiFind.getMarket());		
 	    setSpinner(mspinner, oiFind.getMarket());
@@ -575,12 +600,22 @@ implements OnItemSelectedListener, OnDateChangedListener {
 //	    ArrayAdapter<String> cspinnerArrayAdapter = new ArrayAdapter<String>( 
 //	            this, android.R.layout.simple_spinner_item, commodityspin); 
 //	    spinner.setAdapter(cspinnerArrayAdapter); 
+	   
 	    
 	    cspinner = (Spinner) findViewById(R.id.commoditySpinner);
 		commodityspin = loadData("/commodity/commoditylist.csv");
+		cadd = new String[commodityspin.length+1];
+		System.arraycopy(commodityspin, 0, cadd, 1, commodityspin.length);
+		cadd[0] = getString(R.string.defaultSpinner);
+		
 	    cAdapter = new ArrayAdapter<String>( 
-			this, android.R.layout.simple_spinner_item, commodityspin); 
+	            this, android.R.layout.simple_spinner_item, cadd); 
+
+	    cAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	    cspinner.setAdapter(cAdapter); 
+	    
+
+
 	    
 	    
 		//setUpSpinnerAdapter(commodityspin);
@@ -621,75 +656,70 @@ implements OnItemSelectedListener, OnDateChangedListener {
 	public void onClick(View v) {
 //		super.onClick(v);
 		switch (v.getId()) {
-	case R.id.saveButton: 
-		EditText et4 = (EditText)findViewById(R.id.editText1);
-		EditText et5 = (EditText)findViewById(R.id.editText3);
-		EditText et6 = (EditText)findViewById(R.id.editText4);
-		float value4 = Float.parseFloat(et4.getText().toString());
-		float value5 = Float.parseFloat(et5.getText().toString());
-		float value6 = Float.parseFloat(et6.getText().toString());
-		if (value4 == 0 || value5 == 0 || value6 == 0){
-			Toast.makeText(this, getString(R.string.ctoast_missing_fields), Toast.LENGTH_SHORT).show();
-			finish();
-			Log.i(TAG, "Click break 2");
-			break;
-		}
-		else{
-			if(saveFind()){
-				finish();
-			}
-			else{				
-				finish();
-			}
-			Log.i(TAG, "Click break 3");
-			break;
-		}
-	}
-		switch (v.getId()) {
-		case R.id.nextButton:
-			EditText et1 = (EditText)findViewById(R.id.editText1);
-			EditText et2 = (EditText)findViewById(R.id.editText3);
-			EditText et3 = (EditText)findViewById(R.id.editText4);
-			float value1 = Float.parseFloat(et1.getText().toString());
-			float value2 = Float.parseFloat(et2.getText().toString());
-			float value3 = Float.parseFloat(et3.getText().toString());
-			if (value1 == 0 || value2 == 0 || value3 == 0){
+		
+		// rewrote the saveButton action and remove parts for next item    
+		case R.id.saveButton: 
+			
+			Spinner spinner = (Spinner)findViewById(R.id.marketSpinner);
+		    String marketText = (String) spinner.getSelectedItem();
+			
+			spinner = (Spinner)findViewById(R.id.commoditySpinner);
+			String commodityText = (String) spinner.getSelectedItem();
+			
+			
+			EditText et4 = (EditText)findViewById(R.id.editText1);
+			EditText et5 = (EditText)findViewById(R.id.editText3);
+			EditText et6 = (EditText)findViewById(R.id.editText4);
+			float value4,value5,value6;
+			if(et4.getText().toString().equals(""))
+				value4 = (float) 0.0;
+			else
+				value4 = Float.parseFloat(et4.getText().toString());
+			if(et5.getText().toString().equals(""))
+				value5 = (float) 0.0;
+			else
+				value5 = Float.parseFloat(et5.getText().toString());
+			if(et6.getText().toString().equals(""))
+				value6 = (float) 0.0;
+			else
+				value6 = Float.parseFloat(et6.getText().toString());
+			if (value4 == 0 || value5 == 0 || value6 == 0){
 				Toast.makeText(this, getString(R.string.ctoast_missing_fields), Toast.LENGTH_SHORT).show();
+				//finish();
+				Log.i(TAG, "Click break 2");
+				break;
+			}
+			if (marketText.equals(getString(R.string.defaultSpinner)) || commodityText.equals(getString(R.string.defaultSpinner))){
+				Toast.makeText(this, getString(R.string.ctoast_missing_spinner),Toast.LENGTH_SHORT).show();
+				Log.i(TAG, "Market or Commodity is not selected");
+				break;
 			}
 			else{
-			if(saveFind()){
-//				String smsPref = PreferenceManager.getDefaultSharedPreferences(this).getString(this.getString(R.string.smsPhoneKey), "");
-//				Log.i(TAG, "phone# = " + smsPref);
-//				Toast.makeText(this, getString(R.string.ctoast_saved), Toast.LENGTH_SHORT).show();
-//				CommoditySmsManager.sendSMS(smsPref, d+","+
-//						cspinner.getItemAtPosition(posc)+","+
-//						((EditText)findViewById(R.id.editText1)).getText().toString()+","+
-//						((EditText)findViewById(R.id.editText3)).getText().toString()+","+
-//						((EditText)findViewById(R.id.editText4)).getText().toString());
+				if(saveFind()){
+					cspinner.setSelection(0);
+					EditText et = (EditText)findViewById(R.id.editText1);
+	//				et.setText(Float.toString(0));
+					et.setText("");
+					
+					et = (EditText)findViewById(R.id.editText3);
+	//				et.setText(Float.toString(0));
+					et.setText("");
+					et = (EditText)findViewById(R.id.editText4);
+	//				et.setText(Float.toString(0));
+					et.setText("");
+					et = (EditText)findViewById(R.id.editText2);
+					et.setText("");
+					Toast.makeText(this, getString(R.string.ctoast_saved), Toast.LENGTH_SHORT).show();
+					//finish();
+				}
+				else{				
+					//finish();
+				}
+				Log.i(TAG, "Click break 3");
+				break;
+				}
+	}
 
-				if ( posc < cspinner.getCount()-1)
-					cspinner.setSelection(++posc);
-				EditText et = (EditText)findViewById(R.id.editText1);
-				et.setText(Float.toString(0));
-//				et.setText("");
-				et = (EditText)findViewById(R.id.editText3);
-				et.setText(Float.toString(0));
-//				et.setText("");
-				et = (EditText)findViewById(R.id.editText4);
-				et.setText(Float.toString(0));
-//				et.setText("");
-				et = (EditText)findViewById(R.id.editText2);
-				et.setText("");
-			}
-			else{
-				Toast.makeText(this, getString(R.string.ctoast_unsaved), Toast.LENGTH_SHORT).show();
-				Log.i(TAG, "Click break 1");
-			break;
-			}
-			}
-
-
-		}
 		
 		//  If DatePicker was touched, mark the form as edited
 //		if (id == R.id.datePicker1) {

@@ -79,10 +79,10 @@ public class CommodityListFindsActivity extends ListFindsActivity /*implements O
 			CommodityFind find = (CommodityFind)items.get(position);
 			if (find != null) {
 //				((CheckBox)findViewById(R.id.checkBox1)).setOnClickListener(this);
-				TextView tv = (TextView) v.findViewById(R.id.guid);
+//				TextView tv = (TextView) v.findViewById(R.id.guid);
+//				tv.setText(find.getGuid());
 
-				tv.setText(find.getGuid());
-				tv = (TextView) v.findViewById(R.id.latitude);
+				TextView tv = (TextView) v.findViewById(R.id.latitude);
 				tv.setText(String.valueOf(find.getLatitude()));
 				tv = (TextView) v.findViewById(R.id.longitude);
 				tv.setText(String.valueOf(find.getLongitude()));
@@ -95,7 +95,12 @@ public class CommodityListFindsActivity extends ListFindsActivity /*implements O
 				tv = (TextView) v.findViewById(R.id.id);
 				tv.setText(Integer.toString(find.getId()));
 //				((CheckBox)findViewById(R.id.checkBox1)).setOnClickListener(this);
-
+				tv = (TextView) v.findViewById(R.id.price1);
+				tv.setText(Float.toString(find.getPrice1())+",   ");
+				tv = (TextView) v.findViewById(R.id.price2);
+				tv.setText(Float.toString(find.getPrice2())+",   ");
+				tv = (TextView) v.findViewById(R.id.price3);
+				tv.setText(Float.toString(find.getPrice3()));
 			}
 			return v;
 		}

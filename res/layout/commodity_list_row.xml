@@ -16,14 +16,14 @@
             android:id="@+id/guid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="guid"
+            android:text="id:"
             android:textSize="13dp" />
 
         <TextView
             android:id="@+id/id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/guid"
             android:text="id#"
             android:textSize="13dp" />
@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/guid"
             android:text="@string/cItem"
-            android:textSize="13dp" />
+            android:textSize="18dp" />
 
         <TextView
             android:id="@+id/commodity_name"
@@ -54,8 +54,40 @@
             android:layout_marginLeft="5dp"
             android:layout_toRightOf="@+id/in_prompt"
             android:singleLine="true"
-            android:textSize="13dp" />
-
+            android:textSize="18dp" />
+        
+        <TextView
+            android:id="@+id/price_prompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/in_prompt"
+            android:text="@string/cPrice"
+            android:textSize="18dp" />
+        
+        
+		<TextView
+            android:id="@+id/price1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+			android:layout_below="@+id/in_prompt"
+            android:layout_marginLeft="55dp"
+            android:textSize="18dp" />
+		<TextView
+            android:id="@+id/price2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+			android:layout_below="@+id/in_prompt"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/price1"
+            android:textSize="18dp" />
+		<TextView
+            android:id="@+id/price3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+			android:layout_below="@+id/in_prompt"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/price2"
+            android:textSize="18dp" />
 
 
         <!-- <TextView android:id="@+id/idNumberText" -->
@@ -79,21 +111,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/in_prompt"
+            android:layout_below="@+id/price_prompt"
             android:text="@string/cLocation2"
             android:textSize="13dp" />
 
-                <TextView
+         <TextView
                     android:id="@+id/market_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-            		android:layout_below="@+id/in_prompt"
+            		android:layout_below="@+id/price_prompt"
             		android:layout_marginLeft="5dp"
                     android:layout_toRightOf="@+id/out_prompt"
                     android:singleLine="true"
                     android:textSize="13dp" />
 
 
+        
 
     <requestFocus>
     </requestFocus>
