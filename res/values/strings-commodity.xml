@@ -23,7 +23,8 @@
     <string name="cLCorn">Local Corn</string>
     
     <string name="cNextItem">Next Item</string>
-    <string name="cVendorComplete">Finish</string>
+    <string name="cVendorComplete">Save</string>
+    <string name="defaultSpinner">Select</string>
     
     <string name="cLat">Latitude: </string>
     <string name="cLon">Longitude: </string>
@@ -39,11 +40,13 @@
     <string name="cVendorNumber">Vendor Number: </string>
     <string name="cPrice1">Price 1</string>    
     <string name="cPrice2">Price 2</string> 
-    <string name="cPrice3">Price 3</string> 
+    <string name="cPrice3">Price 3</string>
+    <string name= "cPriceHint">0.0</string>
     <string name="cLocation">Location</string>
     <string name="cNewItem">New Item</string>
     <string name="cListData">Saved Data</string>
 	<string name="cAverage">Average</string>
+
     
 <!--     Sample info -->
 	<string name="csCommuneSection">Mapou</string>
@@ -72,10 +75,13 @@
         <string name="ctoast_unsaved">Save failed</string>
         <string name="ctoast_notexist">The file you need does not exist</string>
 		<string name="ctoast_missing_fields">All prices must be non zero</string>
+		<string name="ctoast_missing_spinner">Both Market and Commodity must be selected.</string>
         
+		
         <string name="csenddata">Send Data</string>
         <string name="cLocation2">Location: </string>
          <string name="cItem">Item: </string>
+         <string name="cPrice">Price: </string>
          <string name="csynced_with">synced with:</string>
          <string name="cabout_sum">Display information about POSITx</string>
     
