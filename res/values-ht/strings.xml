@@ -432,5 +432,7 @@
     <string name="YouMustGo">Ou dwe ale nan Android > Settings > Accounts &amp; Sync yo mete kanpe yon kont anvan w sèvi avèk POSIT.</string>
     <string name="YouHaveChanged">Ou te chanje pwojè ou a: </string>
     <string name="delete_finds">Efase Tout Jwenn</string>
+    <string name="select_all">chwazi tout</string>
+	<string name="select_none">chwazi pa</string>
 </resources>
 
