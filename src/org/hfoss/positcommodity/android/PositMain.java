@@ -164,13 +164,24 @@ public class PositMain extends OrmLiteBaseActivity<DbManager> implements android
 	 * If there's no account configured, start account setup.
 	 */
 	private void resolveAccount() {
-		AccountManager accountManager = AccountManager.get(this);
-		final int numAccount = (accountManager.getAccountsByType(SyncAdapter.ACCOUNT_TYPE)).length;
 		
-		if (numAccount == 0) {
-			Intent i = new Intent(this, AuthenticatorActivity.class);
-			this.startActivity(i);
-		}	
+		// Hack for Commodity Tracker
+		
+		int projectId = this.mSharedPrefs.getInt(getString(R.string.projectPref), 0);
+		if (projectId == 0) {
+			mSpEditor = mSharedPrefs.edit();
+			mSpEditor.putInt(getString(R.string.projectPref), 40);
+			mSpEditor.putString(getString(R.string.projectNamePref), "Projet");
+			mSpEditor.commit();
+		}
+		
+//		AccountManager accountManager = AccountManager.get(this);
+//		final int numAccount = (accountManager.getAccountsByType(SyncAdapter.ACCOUNT_TYPE)).length;
+//		
+//		if (numAccount == 0) {
+//			Intent i = new Intent(this, AuthenticatorActivity.class);
+//			this.startActivity(i);
+//		}	
 	}
 
 
@@ -313,11 +324,11 @@ public class PositMain extends OrmLiteBaseActivity<DbManager> implements android
 	public void onClick(View view) {
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
 		
-		String authKey = Communicator.getAuthKey(this);
-		if (authKey == null) {
-			Toast.makeText(this, getString(R.string.YouMustGo), Toast.LENGTH_LONG).show();
-			return;
-		}
+//		String authKey = Communicator.getAuthKey(this);
+//		if (authKey == null) {
+//			Toast.makeText(this, getString(R.string.YouMustGo), Toast.LENGTH_LONG).show();
+//			return;
+//		}
 		
 		if (sp.getString(getString(R.string.projectNamePref), "").equals("")) {
 			Toast.makeText(this, getString(R.string.ToGetStarted), Toast.LENGTH_LONG).show();
