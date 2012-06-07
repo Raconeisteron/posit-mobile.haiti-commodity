@@ -74,7 +74,7 @@ public class ListFindsActivity extends OrmLiteBaseListActivity<DbManager> {
 	private static final String TAG = "ListFindsActivity";
 	protected ArrayList<FunctionPlugin> mListMenuPlugins = null;
 
-	private static final int CONFIRM_DELETE_DIALOG = 0;
+	protected static final int CONFIRM_DELETE_DIALOG = 0;
 	public static final String ACTION_LIST_FINDS = "list_finds";
 
 	private static List<? extends Find> finds;

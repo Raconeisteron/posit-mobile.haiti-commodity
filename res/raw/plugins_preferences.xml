@@ -252,16 +252,16 @@
 			main_icon="acdivoca_logo" />
 		
 				<!-- Bluetooth plugin syncs finds via bluetooth -->
-        <Plugin 
-            active="true"
-            type="function"
-            extensionPoint="listMenu"
- 			user_can_select="true"
- 			description="Lets you share Finds phone-to-phone through Bluetooth."
-            name="commoditySMS"
-            menuIcon="ic_menu_bluetooth"
-            menuTitle="Voye Done"
-            menuActivity="org.hfoss.positcommodity.android.functionplugin.commoditysms.CommoditySMSSyncActivity" />
+<!--         <Plugin  -->
+<!--             active="true" -->
+<!--             type="function" -->
+<!--             extensionPoint="listMenu" -->
+<!--  			user_can_select="true" -->
+<!--  			description="Lets you share Finds phone-to-phone through Bluetooth." -->
+<!--             name="commoditySMS" -->
+<!--             menuIcon="ic_menu_bluetooth" -->
+<!--             menuTitle="Send Selected" /> -->
+<!--             menuActivity="org.hfoss.positcommodity.android.api.plugin.commodity.CommodityListFindsActivity" /> -->
 
 <!--                     menuTitle="@string/csend_data" -->
         

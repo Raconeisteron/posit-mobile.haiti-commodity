@@ -303,7 +303,7 @@ public class CommoditySMSSyncActivity extends OrmLiteBaseListActivity<DbManager>
 	private void setupSync() {
 		
 		mSFLAdapter = new SelectFindListAdapter(this);
-		mSyncService = new SyncCommoditySMS(this, mHandler);
+//		mSyncService = new SyncCommoditySMS(this, mHandler);
 		
 		List<String> finds = mSyncService.getFindsNeedingSync();
 		
