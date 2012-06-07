@@ -37,6 +37,7 @@ import org.hfoss.positcommodity.android.api.Find;
 import org.hfoss.positcommodity.android.api.database.DbHelper;
 import org.hfoss.positcommodity.android.api.database.DbManager;
 import org.hfoss.positcommodity.android.api.plugin.commodity.CommodityFind;
+import org.hfoss.positcommodity.android.api.plugin.commodity.CommodityListFindsActivity;
 import org.hfoss.positcommodity.android.api.plugin.commodity.CommoditySmsManager;
 import org.hfoss.positcommodity.android.functionplugin.camera.Camera;
 import org.hfoss.positcommodity.android.functionplugin.commoditysms.CommoditySMSFindObject;
@@ -78,7 +79,7 @@ public class SyncCommoditySMS extends SyncMedium {
 	// Member fields
 	final BluetoothAdapter mAdapter;
 	final Handler mHandler;
-	final CommoditySMSSyncActivity mActivity;
+	final CommodityListFindsActivity mActivity;
 	private AcceptThread mAcceptThread;
 	private ConnectThread mConnectThread;
 	private ConnectedThread mConnectedThread;
@@ -96,7 +97,7 @@ public class SyncCommoditySMS extends SyncMedium {
 	 * @param context The UI Activity Context
 	 * @param handler Handler to send messages to the UI Activity
 	 */
-	public SyncCommoditySMS(CommoditySMSSyncActivity activity, Handler handler) {
+	public SyncCommoditySMS(CommodityListFindsActivity activity, Handler handler) {
 		mAdapter = BluetoothAdapter.getDefaultAdapter();
 		mState = STATE_NONE;
 		mHandler = handler;
@@ -178,44 +179,15 @@ public class SyncCommoditySMS extends SyncMedium {
 	 * 
 	 * @param guids Array of guids of the finds to send
 	 */
-//	public void sendFinds(String[] guids) {
-//		
-//		DbManager dbHelper = DbHelper.getDbManager(mActivity);
-//		
-//		for (String guid : guids) {
-//			
-//			boolean result = sendFind(dbHelper.getFindByGuid(guid));
-//			mHandler.obtainMessage(BluetoothSyncActivity.MESSAGE_WRITE, -1, -1,
-//					result).sendToTarget();
-//			
-//			// TODO: Fix this hack. If I don't wait between sending 2 finds,
-//			// data gets corrupted.
-//			try {
-//				Thread.sleep(400);
-//			} catch (InterruptedException e) {
-//				e.printStackTrace();
-//			}
-//		}
-//		
-//		DbHelper.releaseDbManager();
-//	}
-	
 	public void sendFinds(String phoneNumber, String[] guids){
 		DbManager dbHelper = DbHelper.getDbManager(mActivity);
 		CommodityFind oiFind;
 		String date;
 		int yr=0, mon=0, day=0;
-//		CommoditySmsManager.sendSMS(smsPref, d+","+
-//				cspinner.getItemAtPosition(posc)+","+
-//				((EditText)findViewById(R.id.editText1)).getText().toString()+","+
-//				((EditText)findViewById(R.id.editText3)).getText().toString()+","+
-//				((EditText)findViewById(R.id.editText4)).getText().toString());
 		for (String guid : guids) {
-//			boolean result = sendFind(dbHelper.getFindByGuid(guid));
 			oiFind = (CommodityFind)dbHelper.getFindByGuid(guid);
 			date = oiFind.getDate();
-//			Log.i(TAG,"display DOB = " + date);
-//			int yr=0, mon=0, day=0;
+			Log.i(TAG, date);
 			day = Integer.parseInt(date.substring(date.lastIndexOf("/")+1));
 			yr = Integer.parseInt(date.substring(0,date.indexOf("/")));
 			mon = Integer.parseInt(date.substring(date.indexOf("/")+1,date.lastIndexOf("/"))) + 1;
@@ -227,6 +199,7 @@ public class SyncCommoditySMS extends SyncMedium {
 			Log.i(TAG, "SMS status after send = " + oiFind.getSMSStatus());
 		}
 		DbHelper.releaseDbManager();
+		Log.i(TAG,"SENDING DONE");
 	}
 
 	@Override

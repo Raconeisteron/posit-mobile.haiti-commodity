@@ -43,7 +43,7 @@
 	<string name="new_find">New Find</string>
 	<string name="list_find">List Finds</string>
 	<string name="friends">Connected Friends: </string>
-	<string name="no_finds">No Finds</string>
+	<string name="no_finds">No New Commodity</string>
 	<string name="no_videos">No Videos</string>
 	<string name="no_audio_clips">No Audio Clips</string>
 	<string name="confirm">Save to DB</string>
@@ -142,6 +142,8 @@
 	<string name="delete">Delete</string>
 	<string name="delete_selected">Delete Selected</string>
 	<string name="delete_finds">Delete All Finds</string>
+	<string name="select_all">Select All</string>
+	<string name="select_none">Select None</string>
 	<string name="delete_videos">Delete All Videos</string>
 	<string name="delete_audio_clips">Delete All Audio Clips</string>
 	<string name="delete_find_image">Delete Find Image</string>

@@ -6,14 +6,27 @@
 	    android:visible="false">
 	</item>
 	<item 
+	    android:title="@string/csenddata" 
+		android:id="@+id/send_selected">
+	</item>	
+	<item 
 		android:title="@string/map" 
 		android:id="@+id/map_finds_menu_item"
 		android:icon="@android:drawable/ic_menu_mapmode"
 		android:visible="false"></item>
 	<item 
+	    android:title="@string/select_all" 
+		android:id="@+id/select_all_items">
+	</item>	
+<!-- 	<item  -->
+<!-- 	    android:title="@string/select_none"  -->
+<!-- 		android:id="@+id/select_none_items"> -->
+<!-- 	</item>	 -->
+	<item 
 		android:title="@string/delete_finds" 
 		android:id="@+id/delete_finds_menu_item"
-		android:icon="@android:drawable/ic_menu_delete"></item>
+		android:icon="@android:drawable/ic_menu_delete">
+	</item>
 
 </menu>
 
