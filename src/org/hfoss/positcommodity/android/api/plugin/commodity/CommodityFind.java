@@ -296,29 +296,53 @@ public class CommodityFind extends Find {
 		return count;
 	}
 	
-
+//	protected String commodity;
+//	@DatabaseField(columnName = C_PRICE_1)   
+//	protected float price1;
+//	@DatabaseField(columnName = C_PRICE_2)   
+//	protected float price2;
+//	@DatabaseField(columnName = C_PRICE_3)   
+//	protected float price3;
+////	@DatabaseField(columnName = C_UNITS)   //Unit of measurement
+//	protected String units;
+//	@DatabaseField(columnName = C_DATE) 
+//	protected String date;
+//	@DatabaseField(columnName = C_MARKET)
+//	protected String market;
+//	@DatabaseField(columnName = C_SMSSTATUS)
+//	protected int smsStatus;
+//	@DatabaseField(columnName = C_Notes)
+//	protected String note;
 	
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(ORM_ID).append("=").append(id).append(",");
+//		sb.append(ORM_ID).append("=").append(id).append(",");
 		sb.append(GUID).append("=").append(guid).append(",");
-		sb.append(NAME).append("=").append(name).append(",");
-		sb.append(LATITUDE).append("=").append(latitude).append(",");
-		sb.append(LONGITUDE).append("=").append(longitude).append(",");
-		if (time != null)
-			sb.append(TIME).append("=").append(time.toString()).append(",");
-		else
-			sb.append(TIME).append("=").append("").append(",");
-		if (modify_time != null)
-			sb.append(MODIFY_TIME).append("=").append(modify_time.toString())
-					.append(",");
-		else
-			sb.append(MODIFY_TIME).append("=").append("").append(",");
-		sb.append(REVISION).append("=").append(revision).append(",");
-		sb.append(IS_ADHOC).append("=").append(is_adhoc).append(",");
-		sb.append(ACTION).append("=").append(action).append(",");
-		sb.append(DELETED).append("=").append(deleted).append(",");
+		sb.append(C_COMMODITY).append("=").append(commodity).append(",");
+		sb.append(C_DATE).append("=").append(date).append(",");
+		sb.append(C_MARKET).append("=").append(market).append(",");
+		sb.append(C_PRICE_1).append("=").append(price1).append(",");
+		sb.append(C_PRICE_2).append("=").append(price2).append(",");
+		sb.append(C_PRICE_3).append("=").append(price3).append(",");
+		sb.append(C_Notes).append("=").append(note).append(",");
+//		sb.append(NAME).append("=").append(name).append(",");
+//		sb.append(LATITUDE).append("=").append(latitude).append(",");
+//		sb.append(LONGITUDE).append("=").append(longitude).append(",");
+//		if (time != null)
+//			sb.append(TIME).append("=").append(time.toString()).append(",");
+//		else
+//			sb.append(TIME).append("=").append("").append(",");
+//		if (modify_time != null)
+//			sb.append(MODIFY_TIME).append("=").append(modify_time.toString())
+//					.append(",");
+//		else
+//			sb.append(MODIFY_TIME).append("=").append("").append(",");
+//		sb.append(REVISION).append("=").append(revision).append(",");
+//		sb.append(IS_ADHOC).append("=").append(is_adhoc).append(",");
+//		sb.append(ACTION).append("=").append(action).append(",");
+//		sb.append(DELETED).append("=").append(deleted).append(",");
+		
 		return sb.toString();
 	}
 

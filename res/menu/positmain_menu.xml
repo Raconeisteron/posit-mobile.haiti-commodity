@@ -17,6 +17,11 @@
 		android:visible="false">
 	</item>
 	<item 
+		android:id="@+id/main_viewFinds" 
+		android:title="@string/viewFinds"
+		android:icon="@drawable/ic_menu_view_32">
+	</item>
+	<item 
 		android:id="@+id/about_menu_item" 
 		android:title="@string/aboutItem"
 		android:icon="@drawable/about2">
