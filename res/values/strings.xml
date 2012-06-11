@@ -11,7 +11,7 @@
 	<string name="defaultServer">http://www.cs.trincoll.edu/~ram/positweb</string>
 
 	<string name="addFind">Add find</string>
-	<string name="viewFinds">View finds</string>
+	<string name="viewFinds">View log</string>
 	<string name="invisible">invisible</string> <!--  Label to hide the button -->
 
 	<string name="confirmChange">Confirm</string>
@@ -160,6 +160,7 @@
 	<string name="alert_dialog_delete_audio">Do you want to delete this audio clip?</string>
 <!-- 	<string name="alert_dialog_cancel">Cancel</string> -->
 	<string name="confirm_delete">Are you sure you want to delete all finds?</string>
+	<string name="confirm_phone">Sending to the following number: </string>
 	<string name="discard_changes">Discard Changes</string>
 	<string name="sync">Sync</string>
 	<string name="syncFindText">sync Finds</string>

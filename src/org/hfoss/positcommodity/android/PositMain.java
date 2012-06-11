@@ -37,6 +37,7 @@ import org.hfoss.positcommodity.android.api.plugin.ActiveFuncPluginChangeEventLi
 import org.hfoss.positcommodity.android.api.plugin.FindActivityProvider;
 import org.hfoss.positcommodity.android.api.plugin.FindPluginManager;
 import org.hfoss.positcommodity.android.api.plugin.FunctionPlugin;
+import org.hfoss.positcommodity.android.functionplugin.fileviewer.FileViewActivity;
 import org.hfoss.positcommodity.android.sync.Communicator;
 import org.hfoss.positcommodity.android.sync.SyncAdapter;
 
@@ -447,6 +448,11 @@ public class PositMain extends OrmLiteBaseActivity<DbManager> implements android
 		case R.id.about_menu_item:
 			startActivity(new Intent(this, AboutActivity.class));
 			break;
+		case R.id.main_viewFinds:
+			Log.i(TAG, "View log finds");
+			Intent intent = new Intent(this, FileViewActivity.class);
+			startActivity(intent);
+			break;	
 			
 		default:
 			

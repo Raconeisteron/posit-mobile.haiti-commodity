@@ -40,6 +40,7 @@ import android.util.Log;
 import android.widget.Toast;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 
+
 /**
  * Plugin to log a Find to a log file.
  *
@@ -88,7 +89,9 @@ public class LogFindsActivity extends OrmLiteBaseActivity<DbManager> {
 		int count = 0;
 		try {
 			File dir = new File(Environment.getExternalStorageDirectory()
-					+ "/" + DEFAULT_LOG_DIRECTORY);
+					+ "/" + "csv");
+//			File dir = new File(Environment.getFilesDir()
+//					+ "/" + DEFAULT_LOG_DIRECTORY);
 			if (!dir.exists()) {
 				if (dir.mkdir()) {
 					Log.i(TAG, "Created directory " + dir);
@@ -98,7 +101,7 @@ public class LogFindsActivity extends OrmLiteBaseActivity<DbManager> {
 				Log.i(TAG, dir + " is writeable");
 			}
             File file = new File(Environment.getExternalStorageDirectory()
-                    + "/" + DEFAULT_LOG_DIRECTORY 
+                    + "/" + "csv" 
                     + "/"
                     + DEFAULT_LOG_FILE);
             if (!file.exists()) {

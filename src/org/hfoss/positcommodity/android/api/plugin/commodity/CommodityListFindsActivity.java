@@ -7,6 +7,7 @@ import org.hfoss.positcommodity.android.R;
 import org.hfoss.positcommodity.android.api.Find;
 import org.hfoss.positcommodity.android.api.activity.ListFindsActivity;
 import org.hfoss.positcommodity.android.api.activity.MapFindsActivity;
+import org.hfoss.positcommodity.android.api.activity.SettingsActivity;
 import org.hfoss.positcommodity.android.api.database.DbHelper;
 import org.hfoss.positcommodity.android.api.database.DbManager;
 import org.hfoss.positcommodity.android.api.plugin.FindPluginManager;
@@ -14,12 +15,17 @@ import org.hfoss.positcommodity.android.api.plugin.FunctionPlugin;
 import org.hfoss.positcommodity.android.functionplugin.commoditysms.CommoditySMSSyncActivity;
 import org.hfoss.positcommodity.android.functionplugin.commoditysms.SelectFind;
 import org.hfoss.positcommodity.android.functionplugin.commoditysms.SelectFindListAdapter;
+import org.hfoss.positcommodity.android.functionplugin.log.LogFindsActivity;
 import org.hfoss.positcommodity.android.sync.SyncActivity;
 import org.hfoss.positcommodity.android.sync.SyncCommoditySMS;
+import org.hfoss.positcommodity.android.functionplugin.fileviewer.FileViewActivity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -55,6 +61,7 @@ public class CommodityListFindsActivity extends ListFindsActivity /*implements O
 	private static Boolean menuFlag = false; // for toggling menu item
 	private final Handler mHandler = new Handler();
 	private SyncCommoditySMS mSyncService = null;
+	private static final int CONFIRM_PHONE = 1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -155,7 +162,8 @@ public class CommodityListFindsActivity extends ListFindsActivity /*implements O
 				break;
 			}
 		case R.id.send_selected:	
-			sendSelected(findViewById(R.layout.commodity_list_row));
+			//sendSelected(findViewById(R.layout.commodity_list_row));
+			showDialog(CONFIRM_PHONE);
 			break;
 		}
 		return true;
@@ -187,10 +195,50 @@ public class CommodityListFindsActivity extends ListFindsActivity /*implements O
 			Log.i(TAG, "What we have : "+ smsPref);
 			mSyncService = new SyncCommoditySMS(this, mHandler);
 			mSyncService.sendFinds(smsPref, (String[])guids);
+			Intent intent = new Intent(this, LogFindsActivity.class);
+			startActivity(intent);
 			Toast.makeText(this, R.string.bt_synching_complete, Toast.LENGTH_SHORT).show();
 			finish();
 		}
 	}
+	
+	@Override
+	protected Dialog onCreateDialog(int id) {
+		switch (id) {
+		case CONFIRM_DELETE_DIALOG:
+			return new AlertDialog.Builder(this).setIcon(R.drawable.alert_dialog_icon)
+					.setTitle(R.string.confirm_delete)
+					.setPositiveButton(R.string.alert_dialog_ok, new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int whichButton) {
+							// User clicked OK so do some stuff
+							if (deleteAllFind()) {
+								finish();
+							}
+						}
+					}).setNegativeButton(R.string.alert_dialog_cancel, new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int whichButton) {
+							// User clicked cancel so do nothing
+						}
+					}).create();
+		case CONFIRM_PHONE:
+			String smsPref = PreferenceManager.getDefaultSharedPreferences(this).getString(this.getString(R.string.smsPhoneKey), "");
+			String title = "Phone: " + smsPref;
+			return new AlertDialog.Builder(this).setTitle(title)
+					.setPositiveButton(R.string.alert_dialog_ok, new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int whichButton) {
+							sendSelected(findViewById(R.layout.commodity_list_row));
+						}
+					}).setNegativeButton(R.string.alert_dialog_cancel, new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int whichButton) {
+						
+						}
+					}).create();
+		default:
+			return null;
+		}
+	}
+	
+	
 
 	/**
 	 * Creates the menus for this activity.
@@ -224,11 +272,11 @@ public class CommodityListFindsActivity extends ListFindsActivity /*implements O
 		Log.i(TAG, "onMenuOpend : "+menuFlag.toString());
 		if (menuFlag == true){
 			//menu.getItem(3).setTitle("Select None");
-			menu.getItem(3).setTitle(R.string.select_none);
+			menu.getItem(4).setTitle(R.string.select_none);
 		}
 		else{
 			//menu.getItem(3).setTitle("Select All");
-			menu.getItem(3).setTitle(R.string.select_all);
+			menu.getItem(4).setTitle(R.string.select_all);
 		}
 		return true;
 	}

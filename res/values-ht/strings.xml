@@ -159,6 +159,7 @@
     <string name="no_messages">pa gen mesag. Itilize meni an pou kree mesag</string>
     <string name="delete_messages">Efase mesag ki afiche yo</string>
     <string name="confirm_delete_messages">ou vle efase yo tout bon?</string>
+    <string name="confirm_phone">Voye Sms nimewo telef√≤n lan sa yo: </string>
     <string name="unsent">Pas voye yo</string>
     <string name="sent">Ki voye yo</string>
     <string name="pending">An pending yo</string>
@@ -434,5 +435,6 @@
     <string name="delete_finds">Efase Tout Jwenn</string>
     <string name="select_all">chwazi tout</string>
 	<string name="select_none">chwazi pa</string>
+	<string name="viewFinds">Veure registre</string>
 </resources>
 
