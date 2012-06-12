@@ -272,11 +272,11 @@ public class CommodityListFindsActivity extends ListFindsActivity /*implements O
 		Log.i(TAG, "onMenuOpend : "+menuFlag.toString());
 		if (menuFlag == true){
 			//menu.getItem(3).setTitle("Select None");
-			menu.getItem(4).setTitle(R.string.select_none);
+			menu.getItem(3).setTitle(R.string.select_none);
 		}
 		else{
 			//menu.getItem(3).setTitle("Select All");
-			menu.getItem(4).setTitle(R.string.select_all);
+			menu.getItem(3).setTitle(R.string.select_all);
 		}
 		return true;
 	}

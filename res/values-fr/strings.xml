@@ -351,7 +351,7 @@
     <string name="cLCorn">Local Corn</string>
     
     <string name="cNextItem">article suivant</string>
-    <string name="cVendorComplete">enregistrez</string>
+    <string name="cVendorComplete">sauver</string>
     <string name="defaultSpinner">choisissez</string>
         
     <string name="cLat">Latitude: </string>
