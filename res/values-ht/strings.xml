@@ -160,6 +160,8 @@
     <string name="delete_messages">Efase mesag ki afiche yo</string>
     <string name="confirm_delete_messages">ou vle efase yo tout bon?</string>
     <string name="confirm_phone">Voye Sms nimewo telef√≤n lan sa yo: </string>
+    <string name="cSIM">Pas de carte SIM deteced.</string>
+    <string name="cNETWORK">Rezo mobil sa a pa disponib.</string>
     <string name="unsent">Pas voye yo</string>
     <string name="sent">Ki voye yo</string>
     <string name="pending">An pending yo</string>

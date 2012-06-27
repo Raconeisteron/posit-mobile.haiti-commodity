@@ -63,6 +63,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -223,8 +224,9 @@ public class PositMain extends OrmLiteBaseActivity<DbManager> implements android
 
 			if (addFindButton != null) {
 				LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-						100, 100);
-				layoutParams.setMargins(10, 80, 10, 0);
+						120,
+		                120);
+				layoutParams.setMargins(0, 80, 10, 0);
 				addFindButton.setLayoutParams(layoutParams);
 				addFindButton.setTag(resid);
 				addFindButton.setText(resid);
@@ -251,8 +253,9 @@ public class PositMain extends OrmLiteBaseActivity<DbManager> implements android
 					getPackageName());
 			if (listFindButton != null) {
 				LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-						100, 100);
-				layoutParams.setMargins(10, 80, 10, 0);
+						120,
+		                120);
+				layoutParams.setMargins(10, 80, 0, 0);
 				listFindButton.setLayoutParams(layoutParams);
 				listFindButton.setTag(resid);
 				listFindButton.setText(resid);

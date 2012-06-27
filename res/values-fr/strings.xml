@@ -160,6 +160,8 @@
     <string name="no_messages">pas de message a envoyer. Utiliser le menu pour create les messages.</string>
     <string name="delete_messages">Supprimer les messages listés</string>
     <string name="confirm_delete_messages">Etes vous sure de vouloir supprimer ces message?</string>
+    <string name="cSIM">Pa gen kat SIM deteced.</string>    
+    <string name="cNETWORK">Réseau mobile n\'est pas disponible</string>    
     <string name="unsent">Pas unvoyes</string>
     <string name="sent">Envoyes</string>
     <string name="pending">En pending</string>
