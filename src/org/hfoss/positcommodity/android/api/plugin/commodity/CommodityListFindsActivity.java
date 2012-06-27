@@ -27,10 +27,14 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.NetworkInfo.State;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -62,6 +66,8 @@ public class CommodityListFindsActivity extends ListFindsActivity /*implements O
 	private final Handler mHandler = new Handler();
 	private SyncCommoditySMS mSyncService = null;
 	private static final int CONFIRM_PHONE = 1;
+	private static final int NO_SIM_CARD = 2;
+	private static final int NO_SIGNAL = 3;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -193,15 +199,27 @@ public class CommodityListFindsActivity extends ListFindsActivity /*implements O
 			Toast.makeText(this, R.string.bt_synching, Toast.LENGTH_SHORT).show();
 			String smsPref = PreferenceManager.getDefaultSharedPreferences(this).getString(this.getString(R.string.smsPhoneKey), "");
 			Log.i(TAG, "What we have : "+ smsPref);
-			mSyncService = new SyncCommoditySMS(this, mHandler);
-			mSyncService.sendFinds(smsPref, (String[])guids);
-			Intent intent = new Intent(this, LogFindsActivity.class);
-			startActivity(intent);
-			Toast.makeText(this, R.string.bt_synching_complete, Toast.LENGTH_SHORT).show();
-			finish();
+			//Code to check the network connection
+			TelephonyManager tm = (TelephonyManager)this.getSystemService(android.content.Context.TELEPHONY_SERVICE);
+			if (tm.getSimState() != TelephonyManager.SIM_STATE_ABSENT){
+				ConnectivityManager cm = (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
+				NetworkInfo mobile = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+				if(!mobile.isAvailable()){
+					showDialog(NO_SIGNAL);
+				}
+				else{				
+					mSyncService = new SyncCommoditySMS(this, mHandler);
+					mSyncService.sendFinds(smsPref, (String[])guids);
+					Toast.makeText(this, R.string.bt_synching_complete, Toast.LENGTH_SHORT).show();
+					finish();
+				}
+			}
+			else {
+				showDialog(NO_SIM_CARD);
+			}
 		}
 	}
-	
+
 	@Override
 	protected Dialog onCreateDialog(int id) {
 		switch (id) {
@@ -230,15 +248,35 @@ public class CommodityListFindsActivity extends ListFindsActivity /*implements O
 						}
 					}).setNegativeButton(R.string.alert_dialog_cancel, new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int whichButton) {
-						
+
 						}
 					}).create();
+
+		case NO_SIM_CARD:
+			return new AlertDialog.Builder(this).setTitle("WARNING!")
+					.setIcon(R.drawable.warning)
+					.setMessage(R.string.cSIM)
+					.setPositiveButton(R.string.alert_dialog_ok, new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int whichButton) {
+							finish();
+						}
+					}).create();
+
+		case NO_SIGNAL:
+			return new AlertDialog.Builder(this).setTitle("WARNING!")
+					.setIcon(R.drawable.warning)
+					.setMessage(R.string.cNETWORK)
+					.setPositiveButton(R.string.alert_dialog_ok, new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int whichButton) {
+							finish();
+						}
+					}).create();	
 		default:
 			return null;
 		}
 	}
-	
-	
+
+
 
 	/**
 	 * Creates the menus for this activity.

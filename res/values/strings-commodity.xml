@@ -4,7 +4,7 @@
     
     <string name="cSmsPhoneKey">smsPhone</string>
     <string name="cSMS_phone">SMS Phone Target</string>
-    <string name="cDefault_phone">8605022947</string>
+    <string name="cDefault_phone">+50931702075</string>
     <string name="cAlert_dialog_ok">Ok</string>
 	<string name="cAlert_dialog_cancel">Cancel</string>
     
@@ -55,6 +55,8 @@
     <string name="csLon">0.0</string>
     <string name="csDate">7 October 2011</string>
 	
+    <string name = "cSIM">No SIM card detected.</string>
+    <string name = "cNETWORK">Mobile network is not available.</string>
     
     <string name="commodityAboutDescription">We provide sustainable solutions to the 
     most pressing and intractable development problems. Our activities span 
