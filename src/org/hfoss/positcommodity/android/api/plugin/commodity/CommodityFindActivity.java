@@ -15,6 +15,7 @@ import org.hfoss.positcommodity.android.R;
 import org.hfoss.positcommodity.android.api.Find;
 import org.hfoss.positcommodity.android.api.LocaleManager;
 import org.hfoss.positcommodity.android.api.activity.FindActivity;
+import org.hfoss.positcommodity.android.functionplugin.log.LogFindsActivity;
 import org.hfoss.positcommodity.android.plugin.acdivoca.AcdiVocaFind;
 import org.hfoss.positcommodity.android.plugin.acdivoca.AcdiVocaMchnFindActivity;
 //import org.hfoss.positcommodity.android.plugin.acdivoca.AcdiVocaDbHelper;
@@ -65,7 +66,7 @@ implements OnItemSelectedListener, OnDateChangedListener {
 	private int posd;
 	private int marketpos = 0; //remembers the selected market
 	private int compos = 0;
-	
+	private int commodity_position = 0;
 
 	
 //	Preferences
@@ -309,6 +310,7 @@ implements OnItemSelectedListener, OnDateChangedListener {
 							parent.setSelection(compos);
 							compos = 0;
 						}
+						commodity_position = position;
 						c = cadd[position];
 						posc = position;
 //						parent.setSelection(position);
@@ -381,6 +383,8 @@ implements OnItemSelectedListener, OnDateChangedListener {
 		find.setCommodity(c);
 		Log.i(TAG, "#######Commodity to DB = " + c);
 
+		find.setTag(commodity_position);
+		Log.i(TAG, "#######Commodity Position = " + Integer.toString(commodity_position));
 		
 //		Spinner spinner = (Spinner) findViewById(R.id.marketSpinner);
 //		ArrayAdapter<String> mspinnerArrayAdapter = new ArrayAdapter<String>( 
@@ -711,6 +715,8 @@ implements OnItemSelectedListener, OnDateChangedListener {
 					et.setText("");
 					Toast.makeText(this, getString(R.string.ctoast_saved), Toast.LENGTH_SHORT).show();
 					//finish();
+					Intent intent = new Intent(this, LogFindsActivity.class);
+					startActivity(intent);
 				}
 				else{				
 					//finish();

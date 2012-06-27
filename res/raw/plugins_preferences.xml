@@ -249,7 +249,7 @@
 			main_add_button_label="@string/cNewItem"
 			main_extra_button_label=""
 			main_extra_button_label2=""
-			main_icon="acdivoca_logo" />
+			main_icon="acdivoca_logo_lg" />
 		
 				<!-- Bluetooth plugin syncs finds via bluetooth -->
 <!--         <Plugin  -->
