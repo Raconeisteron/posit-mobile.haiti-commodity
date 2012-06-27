@@ -33,6 +33,7 @@ import java.util.List;
 
 import org.hfoss.positcommodity.android.api.Find;
 import org.hfoss.positcommodity.android.api.database.DbManager;
+import org.hfoss.positcommodity.android.api.plugin.commodity.CommodityFind;
 
 import android.os.Bundle;
 import android.os.Environment;
@@ -66,10 +67,10 @@ public class LogFindsActivity extends OrmLiteBaseActivity<DbManager> {
 		count = logFinds(finds);
 		if (count  >= 0) {
 			finish();
-			Toast.makeText(
-					this, count + 
-					" Finds saved to SD Card: " + DEFAULT_LOG_DIRECTORY + "/"
-							+ DEFAULT_LOG_FILE, Toast.LENGTH_LONG).show();
+//			Toast.makeText(
+//					this, count + 
+//					" Finds saved to SD Card: " + DEFAULT_LOG_DIRECTORY + "/"
+//							+ DEFAULT_LOG_FILE, Toast.LENGTH_LONG).show();
 		} else {
 			finish();
 			Toast.makeText(
@@ -127,7 +128,7 @@ public class LogFindsActivity extends OrmLiteBaseActivity<DbManager> {
 
 					
 					getHelper().update(find);
-					writer.println(new Date() + ": " + find);
+					writer.println(((CommodityFind)find).toLog());
 					Log.i(TAG, "Wrote to file: " + find);
 					++count;
 				}

@@ -66,6 +66,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
@@ -221,6 +222,10 @@ public class PositMain extends OrmLiteBaseActivity<DbManager> implements android
 					.getIdentifier(FindPluginManager.mFindPlugin.mAddButtonLabel, "string", getPackageName());
 
 			if (addFindButton != null) {
+				LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+						100, 100);
+				layoutParams.setMargins(10, 80, 10, 0);
+				addFindButton.setLayoutParams(layoutParams);
 				addFindButton.setTag(resid);
 				addFindButton.setText(resid);
 				addFindButton.setOnClickListener(this);
@@ -245,6 +250,10 @@ public class PositMain extends OrmLiteBaseActivity<DbManager> implements android
 			int resid = this.getResources().getIdentifier(FindPluginManager.mFindPlugin.mListButtonLabel, "string",
 					getPackageName());
 			if (listFindButton != null) {
+				LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+						100, 100);
+				layoutParams.setMargins(10, 80, 10, 0);
+				listFindButton.setLayoutParams(layoutParams);
 				listFindButton.setTag(resid);
 				listFindButton.setText(resid);
 				listFindButton.setOnClickListener(this);

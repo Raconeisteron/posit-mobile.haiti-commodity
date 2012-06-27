@@ -2,6 +2,7 @@ package org.hfoss.positcommodity.android.api.plugin.commodity;
 
 import java.sql.Date;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -61,6 +62,7 @@ public class CommodityFind extends Find {
 
 	
 	//This code adds the database fields
+	public static final String C_TAG = "tag";
 	public static final String C_COMMODITY = "commodity";
 	public static final String C_PRICE_1 = "price1";
 	public static final String C_PRICE_2 = "price2";
@@ -70,6 +72,8 @@ public class CommodityFind extends Find {
 	public static final String C_SMSSTATUS = "smsstatus";
 	public static final String C_Notes = "notes";
 	
+	@DatabaseField(columnName = C_TAG)
+	protected int tag;
 	@DatabaseField(columnName = C_COMMODITY)
 	protected String commodity;
 	@DatabaseField(columnName = C_PRICE_1)   
@@ -123,7 +127,9 @@ public class CommodityFind extends Find {
 
 	
 	//Commodity Tracker database setters and getters
-	
+	public int getTag(){
+		return tag;
+	}
 	public String getMarket() {
 		return market;
 	}
@@ -164,6 +170,9 @@ public class CommodityFind extends Find {
 		this.price3 = price3;
 	}
 
+	public void setTag(int newTag){
+		this.tag = newTag;
+	}
 //	public void setUnits(String units) {
 //		this.units = units;
 //	}
@@ -296,23 +305,21 @@ public class CommodityFind extends Find {
 		return count;
 	}
 	
-//	protected String commodity;
-//	@DatabaseField(columnName = C_PRICE_1)   
-//	protected float price1;
-//	@DatabaseField(columnName = C_PRICE_2)   
-//	protected float price2;
-//	@DatabaseField(columnName = C_PRICE_3)   
-//	protected float price3;
-////	@DatabaseField(columnName = C_UNITS)   //Unit of measurement
-//	protected String units;
-//	@DatabaseField(columnName = C_DATE) 
-//	protected String date;
-//	@DatabaseField(columnName = C_MARKET)
-//	protected String market;
-//	@DatabaseField(columnName = C_SMSSTATUS)
-//	protected int smsStatus;
-//	@DatabaseField(columnName = C_Notes)
-//	protected String note;
+	public String toLog(){
+		float average = (float) ((price1+price2+price3)/3.0);		
+		DecimalFormat dec = new DecimalFormat("########.##");
+		StringBuilder sb = new StringBuilder();
+		sb.append(tag).append(";");
+		sb.append(date).append(";");
+		sb.append(market).append(";");
+		sb.append(commodity).append(";");
+		sb.append(price1).append(";");
+		sb.append(price2).append(";");
+		sb.append(price3).append(";");
+		sb.append(dec.format(average)).append(";");
+		sb.append(note);
+		return sb.toString();
+	}
 	
 	@Override
 	public String toString() {
