@@ -34,6 +34,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
+import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -202,17 +203,10 @@ public class CommodityListFindsActivity extends ListFindsActivity /*implements O
 			//Code to check the network connection
 			TelephonyManager tm = (TelephonyManager)this.getSystemService(android.content.Context.TELEPHONY_SERVICE);
 			if (tm.getSimState() != TelephonyManager.SIM_STATE_ABSENT){
-				ConnectivityManager cm = (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
-				NetworkInfo mobile = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-				if(!mobile.isAvailable()){
-					showDialog(NO_SIGNAL);
-				}
-				else{				
-					mSyncService = new SyncCommoditySMS(this, mHandler);
-					mSyncService.sendFinds(smsPref, (String[])guids);
-					Toast.makeText(this, R.string.bt_synching_complete, Toast.LENGTH_SHORT).show();
-					finish();
-				}
+				mSyncService = new SyncCommoditySMS(this, mHandler);
+				mSyncService.sendFinds(smsPref, (String[])guids);
+				Toast.makeText(this, R.string.bt_synching_complete, Toast.LENGTH_SHORT).show();
+				finish();
 			}
 			else {
 				showDialog(NO_SIM_CARD);
