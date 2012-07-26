@@ -158,6 +158,17 @@ public class CommodityListFindsActivity extends ListFindsActivity /*implements O
 				flag = true;
 				adapter.notifyDataSetChanged();
 				menuFlag = !menuFlag;
+				List<RowModel> rmod1 = ((CheckAdapter)getListAdapter()).items;
+				for (int i=0; i< rmod1.size(); i++){
+					((CheckAdapter)getListAdapter()).items.get(i).isChecked=true;
+				}
+				List<RowModel> rmod2 = ((CheckAdapter)getListAdapter()).items;
+				int x = 0;
+				for (int j=0; j<rmod2.size(); j++){
+					if(rmod2.get(j).isChecked == true)
+						x++;
+				}
+				Log.i(TAG,"ALL SELECTED : "+x);
 				break;
 			}	
 			else{	
@@ -166,7 +177,19 @@ public class CommodityListFindsActivity extends ListFindsActivity /*implements O
 				flag = false;
 				adapter.notifyDataSetChanged();
 				menuFlag = !menuFlag;
+				List<RowModel> rmod1 = ((CheckAdapter)getListAdapter()).items;
+				for (int i=0; i< rmod1.size(); i++){
+					((CheckAdapter)getListAdapter()).items.get(i).isChecked=false;
+				}
+				List<RowModel> rmod2 = ((CheckAdapter)getListAdapter()).items;
+				int x = 0;
+				for (int j=0; j<rmod2.size(); j++){
+					if(rmod2.get(j).isChecked == false)
+						x++;
+				}
+				Log.i(TAG,"NONE SELECTED : "+x);
 				break;
+				
 			}
 		case R.id.send_selected:	
 			//sendSelected(findViewById(R.layout.commodity_list_row));
@@ -181,9 +204,10 @@ public class CommodityListFindsActivity extends ListFindsActivity /*implements O
 	 * Send out the selected items
 	 * @param view
 	 */
-	protected void sendSelected(View view) {
+	protected void sendSelected(View view) {		
 		List<RowModel> rmod = ((CheckAdapter)getListAdapter()).items;
 		List<String> rgid = new ArrayList<String>();
+		
 		int x = 0;
 		for (int i=0; i< rmod.size(); i++){
 			if (rmod.get(i).isChecked == true){
@@ -255,16 +279,6 @@ public class CommodityListFindsActivity extends ListFindsActivity /*implements O
 							finish();
 						}
 					}).create();
-
-		case NO_SIGNAL:
-			return new AlertDialog.Builder(this).setTitle("WARNING!")
-					.setIcon(R.drawable.warning)
-					.setMessage(R.string.cNETWORK)
-					.setPositiveButton(R.string.alert_dialog_ok, new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int whichButton) {
-							finish();
-						}
-					}).create();	
 		default:
 			return null;
 		}
